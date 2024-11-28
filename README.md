@@ -84,44 +84,46 @@ MAIL_FROM_ADDRESS=test@example.com
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 
-5.  PHPコンテナを出る
-```bash
-exit
-```
-6. ドッカーを落とす
-```bash
-docker-compose down
-```
-6. 再ビルド
-```bash
-docker-compose up -d --build
-```
-1. コンテナに入る
+
+5. コンテナに入る
 ```bash
 docker-compose exec php bash
 ```
-7. アプリケーションキーの作成
+6. アプリケーションキーの作成
 ``` bash
 php artisan key:generate
 ```
 
-8. マイグレーションの実行
+7. マイグレーションの実行
 ``` bash
 php artisan migrate
 ```
 
-9. シーディングの実行
+8. シーディングの実行
 ``` bash
 php artisan db:seed
 ```
-10. シンボリックリンクの作成
+9. シンボリックリンクの作成
 ```bash
 php artisan storage:link
 ```
-11. 画像の貼り付け
+10. 画像の貼り付け
 ```text
 reservation-2/src/storage/app/public/images/shops
 ```
+11.  PHPコンテナを出る
+```bash
+exit
+```
+12. ドッカーを落とす
+```bash
+docker-compose down
+```
+13. 再ビルド
+```bash
+docker-compose up -d --build
+```
+
 ## テーブル設計
 ![テーブル設計](src/table.png)
 
