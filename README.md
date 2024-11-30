@@ -32,7 +32,7 @@ git clone git@github.com:eto0831/reservation-2.git
 ```
 2. リポジトリの設定
 ```bash
-git remote set-url origin reservation-x.git
+git remote set-url origin git@github.com:eto0831/reservation-x.git
 ```
 3. サブモジュールの更新
 ```bash
@@ -122,6 +122,13 @@ docker-compose down
 13. 再ビルド
 ```bash
 docker-compose up -d --build
+```
+14. 権限
+```bash
+sudo chmod -R 775 /var/www/storage
+```
+```bash
+sudo chmod -R 775 bootstrap/cache
 ```
 
 ## テーブル設計
