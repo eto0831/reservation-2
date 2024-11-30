@@ -230,3 +230,14 @@
 2024-11-29 20:51:57,309 INFO exited: queue_00 (exit status 0; expected)
 2024-11-29 20:51:58,313 INFO spawned: 'queue_00' with pid 19
 2024-11-29 20:51:59,314 INFO success: queue_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-11-30 17:32:56,875 WARN received SIGQUIT indicating exit request
+2024-11-30 17:32:56,883 INFO waiting for queue_00, php-fpm to die
+2024-11-30 17:32:56,919 INFO stopped: php-fpm (exit status 0)
+2024-11-30 17:32:56,922 INFO stopped: queue_00 (terminated by SIGTERM)
+2024-11-30 17:33:05,012 INFO exited: queue_00 (exit status 0; expected)
+2024-11-30 17:33:06,021 INFO spawned: 'queue_00' with pid 26
+2024-11-30 17:33:07,022 INFO success: queue_00 entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-11-30 17:33:07,213 WARN received SIGQUIT indicating exit request
+2024-11-30 17:33:07,213 INFO waiting for queue_00, php-fpm to die
+2024-11-30 17:33:07,227 INFO stopped: php-fpm (exit status 0)
+2024-11-30 17:33:07,228 INFO stopped: queue_00 (terminated by SIGTERM)
