@@ -241,3 +241,9 @@
 2024-11-30 17:33:07,213 INFO waiting for queue_00, php-fpm to die
 2024-11-30 17:33:07,227 INFO stopped: php-fpm (exit status 0)
 2024-11-30 17:33:07,228 INFO stopped: queue_00 (terminated by SIGTERM)
+2024-12-02 18:10:33,042 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-12-02 18:10:33,045 INFO supervisord started with pid 1
+2024-12-02 18:10:34,047 INFO spawned: 'queue' with pid 9
+2024-12-02 18:10:34,048 INFO spawned: 'scheduler' with pid 10
+2024-12-02 18:10:35,050 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-12-02 18:10:35,050 INFO success: scheduler entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

@@ -17,7 +17,11 @@ services:
         user: "1000:1000"
         volumes:
             - ./src:/var/www/
-
+        depends_on:
+            - mysql
+        environment:
+            - QUEUE_CONNECTION=database # キューの接続方法を指定
+        command: php-fpm
 
     mysql:
         image: mysql:8.0.26
@@ -49,16 +53,11 @@ services:
             - "8025:8025"
         volumes:
             - "./bin/mhsendmail:/usr/local/bin/mhsendmail"
-    scheduler:
-        build: ./docker/php
+
+    supervisor:
+        build: ./docker/supervisor
         volumes:
             - ./src:/var/www/
         depends_on:
             - php
-        command: ["sh", "-c", "/usr/local/bin/scheduler.sh"]
-    queue:
-        build: ./docker/php
-        volumes:
-            - ./src:/var/www/
-        depends_on:
-            - php
+        command: ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]

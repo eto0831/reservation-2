@@ -13,24 +13,15 @@ RUN curl -sS https://getcomposer.org/installer | php \
 
 RUN useradd -m eto0831
 
-# タイムゾーンの設定を追加
-RUN apt-get update && apt-get install -y tzdata
+# タイムゾーン設定
 ENV TZ=Asia/Tokyo
 
 # cronをインストール
 RUN apt-get update && apt-get install -y cron
 
-# スケジュール用のエントリーポイントスクリプトを追加
-COPY scheduler.sh /usr/local/bin/scheduler.sh
-RUN chmod +x /usr/local/bin/scheduler.sh
-
-# スーパーバイザーをインストール
-RUN apt-get update && apt-get install -y supervisor
-
-# スーパーバイザーの設定ファイルをコピー
-COPY supervisor.conf /etc/supervisor/conf.d/supervisord.conf
-
-# スーパーバイザーを起動
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
-
+# 作業ディレクトリ
 WORKDIR /var/www
+
+# SupervisorやScheduler関連の設定は削除
+
+
