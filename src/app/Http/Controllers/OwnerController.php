@@ -48,6 +48,13 @@ class OwnerController extends Controller
     public function edit($id)
     {
         $shop = Shop::find($id);
+
+        // nullチェック
+        if (!$shop) {
+            abort(404, 'ショップが見つかりません');
+        }
+        // 認可チェック
+        $this->authorize('update', $shop);
         $areas = Area::all();
         $genres = Genre::all();
 
@@ -59,6 +66,11 @@ class OwnerController extends Controller
         $request->validate([
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 画像のバリデーションルールを追加
         ]);
+
+        $shop = Shop::find($request->input('shop_id'));
+
+        // 認可チェック
+        $this->authorize('update', $shop);
 
         $shopData = [
             'shop_name' => $request->shop_name,
@@ -85,5 +97,13 @@ class OwnerController extends Controller
         } catch (\Exception $e) {
             return redirect('/owner/dashboard')->with('error', '店舗情報の削除に失敗しました: ' . $e->getMessage());
         }
+    }
+
+    public function index()
+    {
+        $reservations = shop()->reservations()->with('user')->get();
+        $areas = Area::all();
+        $genres = Genre::all();
+        return view('owner.index', compact('reservations', 'areas', 'genres'));
     }
 }

@@ -84,11 +84,6 @@ MAIL_FROM_ADDRESS=test@example.com
 MAIL_FROM_NAME="${APP_NAME}"
 ```
 
-
-5. コンテナに入る
-```bash
-docker-compose exec php bash
-```
 6. アプリケーションキーの作成
 ``` bash
 php artisan key:generate

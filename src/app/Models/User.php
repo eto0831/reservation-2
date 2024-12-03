@@ -60,12 +60,18 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->hasMany(Review::class);
     }
 
+    public function shops()
+    {
+        return $this->belongsToMany(Shop::class, 'owners', 'user_id', 'shop_id');
+    }
+
+
     public function isVisited($shopId)
     {
         $reservation = $this->reservations()
-                            ->where('shop_id', $shopId)
-                            ->where('is_visited', true)
-                            ->first(); // 該当する予約を取得
+            ->where('shop_id', $shopId)
+            ->where('is_visited', true)
+            ->first(); // 該当する予約を取得
 
         if ($reservation) {
             return $reservation->id; // reservation_id を返す

@@ -37,6 +37,11 @@ class Shop extends Model
         return $this->hasMany(Review::class);
     }
 
+    public function owners()
+    {
+        return $this->belongsToMany(User::class, 'owners', 'shop_id', 'user_id');
+    }
+
     public function scopeGenreSearch($query, $genre_id)
     {
         if (!empty($genre_id)) {
@@ -72,5 +77,4 @@ class Shop extends Model
     {
         return $this->reviews()->where('user_id', $userId)->exists();
     }
-
 }

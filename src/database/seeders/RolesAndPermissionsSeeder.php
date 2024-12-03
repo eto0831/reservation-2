@@ -5,56 +5,68 @@ namespace Database\Seeders;
 use Illuminate\Database\Seeder;
 use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
-use Illuminate\Support\Carbon;
+use App\Models\Shop;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
-    /**
-     * Run the database seeds.
-     *
-     * @return void
-     */
     public function run()
     {
         // Roles
-        $admin = Role::create(['name' => 'admin']);
-        $owner = Role::create(['name' => 'owner']);
-        $user = Role::create(['name' => 'user']);
+        $admin = Role::firstOrCreate(['name' => 'admin']);
+        $owner = Role::firstOrCreate(['name' => 'owner']);
+        $user = Role::firstOrCreate(['name' => 'user']);
 
         // Permissions
-        Permission::create(['name' => 'manage owners']); // システム管理、admin
-        Permission::create(['name' => 'manage shops']); // 店舗情報管理、owner
-        Permission::create(['name' => 'manage reservations']); // 予約情報管理、owner
+        Permission::firstOrCreate(['name' => 'manage owners']);
+        Permission::firstOrCreate(['name' => 'manage shops']);
+        Permission::firstOrCreate(['name' => 'manage reservations']);
 
         // Giving permissions to roles
-        $admin->givePermissionTo(['manage owners']);
-        $owner->givePermissionTo(['manage shops', 'manage reservations']);
+        $admin->syncPermissions(['manage owners']);
+        $owner->syncPermissions(['manage shops', 'manage reservations']);
 
         // ユーザーの作成
-        $adminUser = User::create([
-            'name' => 'popo1',
-            'email' => 'popo1@example.com',
-            'password' => Hash::make('popo1212'),
-            'email_verified_at' => now(),
-        ]);
+        $adminUser = User::firstOrCreate(
+            ['email' => 'popo1@example.com'],
+            [
+                'name' => 'popo1',
+                'password' => Hash::make('popo1212'),
+                'email_verified_at' => now(),
+            ]
+        );
         $adminUser->assignRole('admin');
 
-        $ownerUser = User::create([
-            'name' => 'popo2',
-            'email' => 'popo2@example.com',
-            'password' => Hash::make('popo1212'),
-            'email_verified_at' => now(),
-        ]);
+        $ownerUser = User::firstOrCreate(
+            ['email' => 'popo2@example.com'],
+            [
+                'name' => 'popo2',
+                'password' => Hash::make('popo1212'),
+                'email_verified_at' => now(),
+            ]
+        );
         $ownerUser->assignRole('owner');
 
-        $generalUser = User::create([
-            'name' => 'popo3',
-            'email' => 'popo3@example.com',
-            'password' => Hash::make('popo1212'),
-            'email_verified_at' => now(),
-        ]);
+        $generalUser = User::firstOrCreate(
+            ['email' => 'popo3@example.com'],
+            [
+                'name' => 'popo3',
+                'password' => Hash::make('popo1212'),
+                'email_verified_at' => now(),
+            ]
+        );
         $generalUser->assignRole('user');
+
+        // Ownerテーブルに店舗関連付けを作成
+        $shopId = 21;
+
+        if (Shop::find($shopId)) { // 店舗が存在する場合のみ挿入
+            DB::table('owners')->updateOrInsert(
+                ['user_id' => $ownerUser->id, 'shop_id' => $shopId],
+                ['created_at' => now(), 'updated_at' => now()]
+            );
+        }
     }
 }

@@ -62,11 +62,13 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::post('/admin/create-owners', [AdminController::class, 'createOwner']);
 });
 
-Route::group(['middleware' => ['auth', 'verified', 'role:owner', 'can:manage shops','can:manage reservation']], function () {
+Route::group(['middleware' => ['auth', 'verified', 'role:owner', 'can:manage shops','can:manage reservations']], function () {
     Route::get('/owner/dashboard', [OwnerController::class, 'dashboard']);
     Route::get('/shop/create', [OwnerController::class, 'create'])->name('shop.create');
     Route::post('/shop/create', [OwnerController::class, 'store'])->name('shop.store');
     Route::get('/shop/edit/{id}', [OwnerController::class, 'edit'])->name('shop.edit');
     Route::patch('/shop/update/{id}', [OwnerController::class, 'update'])->name('shop.update');
     Route::delete('/shop/delete/{id}', [OwnerController::class, 'destroy'])->name('shop.destroy');
+
+    Route::get('/shop/reservation', [OwnerController::class, 'show'])->name('show');
 });

@@ -194,6 +194,24 @@ class ShopsTableSeeder extends Seeder
         ];
         DB::table('shops')->insert($param);
 
+        $param = [
+            'shop_name' => 'test',
+            'genre_id' => 1,
+            'area_id' => 1,
+            'description' => 'test',
+            'image_url' => '/storage/images/shops/sushi.jpg', // 画像パス
+        ];
+        DB::table('shops')->insert($param);
+
+        $param = [
+            'shop_name' => 'test2',
+            'genre_id' => 2,
+            'area_id' => 2,
+            'description' => 'test',
+            'image_url' => '/storage/images/shops/yakiniku.jpg', // 画像パス
+        ];
+        DB::table('shops')->insert($param);
+
     }
 
 }
