@@ -7,6 +7,7 @@ use Spatie\Permission\Models\Role;
 use Spatie\Permission\Models\Permission;
 use Illuminate\Support\Facades\Hash;
 use App\Models\User;
+use Illuminate\Support\Carbon;
 
 class RolesAndPermissionsSeeder extends Seeder
 {
@@ -23,9 +24,9 @@ class RolesAndPermissionsSeeder extends Seeder
         $user = Role::create(['name' => 'user']);
 
         // Permissions
-        Permission::create(['name' => 'manage owners']); // 管理
-        Permission::create(['name' => 'manage shops']); // 店舗情報管理
-        Permission::create(['name' => 'manage reservations']); // 予約情報管理
+        Permission::create(['name' => 'manage owners']); // システム管理、admin
+        Permission::create(['name' => 'manage shops']); // 店舗情報管理、owner
+        Permission::create(['name' => 'manage reservations']); // 予約情報管理、owner
 
         // Giving permissions to roles
         $admin->givePermissionTo(['manage owners']);
@@ -36,6 +37,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'name' => 'popo1',
             'email' => 'popo1@example.com',
             'password' => Hash::make('popo1212'),
+            'email_verified_at' => now(),
         ]);
         $adminUser->assignRole('admin');
 
@@ -43,6 +45,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'name' => 'popo2',
             'email' => 'popo2@example.com',
             'password' => Hash::make('popo1212'),
+            'email_verified_at' => now(),
         ]);
         $ownerUser->assignRole('owner');
 
@@ -50,6 +53,7 @@ class RolesAndPermissionsSeeder extends Seeder
             'name' => 'popo3',
             'email' => 'popo3@example.com',
             'password' => Hash::make('popo1212'),
+            'email_verified_at' => now(),
         ]);
         $generalUser->assignRole('user');
     }
