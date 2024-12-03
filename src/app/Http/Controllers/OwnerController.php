@@ -7,6 +7,8 @@ use App\Models\Shop;
 use App\Models\Reservation;
 use App\Models\Area;
 use App\Models\Genre;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class OwnerController extends Controller
 {
@@ -40,9 +42,17 @@ class OwnerController extends Controller
             $shopData['image_url'] = str_replace('public/', 'storage/', $imagePath); // パスを公開用に変換
         }
 
-        Shop::create($shopData);
+        $shop = Shop::create($shopData);
 
-        return redirect('/owner/dashboard');
+        // オーナー情報をownersテーブルに保存
+        DB::table('owners')->insert([
+            'user_id' => Auth::id(), // 現在ログインしているユーザーのID
+            'shop_id' => $shop->id, // 作成された店舗のID
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        return redirect('/owner/dashboard')->with('status', '店舗情報を作成しました');
     }
 
     public function edit($id)
@@ -93,9 +103,9 @@ class OwnerController extends Controller
     {
         try {
             Shop::where('id', $request->shop_id)->delete();
-            return redirect('/owner/dashboard')->with('success', '店舗情報を削除しました');
+            return redirect('/owner/dashboard')->with('status', '店舗情報を削除しました');
         } catch (\Exception $e) {
-            return redirect('/owner/dashboard')->with('error', '店舗情報の削除に失敗しました: ' . $e->getMessage());
+            return redirect('/owner/dashboard')->with('status', '店舗情報の削除に失敗しました');
         }
     }
 
