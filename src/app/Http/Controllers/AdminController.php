@@ -26,26 +26,33 @@ class AdminController extends Controller
         $Areas = Area::all();
         $owners = Owner::all();
         $users = User::all();
-        return view('admin.create_owner', compact('shops', 'owners','Genres','Areas','users'));
+        return view('admin.create_owner', compact('shops', 'owners', 'Genres', 'Areas', 'users'));
     }
 
     public function storeOwners(Request $request)
-{
-    $owner = User::create([
-        'name' => $request->name,
-        'email' => $request->email,
-        'password' => bcrypt($request->password),
-    ]);
-    $owner->assignRole('owner');
+    {
+        // バリデーション
+        $request->validate([
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email',
+            'password' => 'required|string|min:8|confirmed',
+            'shop_id'  => 'nullable|exists:shops,id',
+        ]);
 
-    // 中間テーブルにレコードを追加
-    $owner->shops()->attach($request->shop_id, [
-        'created_at' => now(),
-        'updated_at' => now(),
-    ]);
+        // ユーザーの作成
+        $user = User::create([
+            'name'     => $request->name,
+            'email'    => $request->email,
+            'password' => bcrypt($request->password),
+        ]);
+        $user->assignRole('owner');
 
-    return redirect('/admin/dashboard')->with('status', '店舗代表者が作成されました。');
-}
+        // Ownersテーブルにレコードを直接追加
+        Owner::create([
+            'user_id' => $user->id,
+            'shop_id' => $request->shop_id, // nullの場合もそのまま保存
+        ]);
 
-
+        return redirect('/admin/dashboard')->with('status', '店舗代表者が作成されました。');
+    }
 }

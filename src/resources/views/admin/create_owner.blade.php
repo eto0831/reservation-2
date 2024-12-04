@@ -78,7 +78,7 @@
             <div class="form__group-content">
                 <div class="select__item-wrapper">
                     <select class="select__item-select" name="shop_id">
-                        <option value="" disabled>Shop</option>
+                        <option value="" selected>指定なし</option>
                         @foreach($shops as $shop)
                         <option value="{{ $shop->id }}">{{ $shop->id . " : " . $shop->shop_name . " : " . $shop->area->area_name . " : " . $shop->genre->genre_name  }}</option>
                         @endforeach
