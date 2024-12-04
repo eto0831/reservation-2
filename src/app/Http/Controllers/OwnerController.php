@@ -63,7 +63,7 @@ class OwnerController extends Controller
         if (!$shop) {
             abort(404, 'ショップが見つかりません');
         }
-        // 認可チェック
+        // 認可チェックsrc/app/Providers/AuthServiceProvider.phpに登録済みのポリシー
         $this->authorize('update', $shop);
         $areas = Area::all();
         $genres = Genre::all();
@@ -79,7 +79,7 @@ class OwnerController extends Controller
 
         $shop = Shop::find($request->input('shop_id'));
 
-        // 認可チェック
+        // 認可チェックsrc/app/Providers/AuthServiceProvider.phpに登録済みのポリシー
         $this->authorize('update', $shop);
 
         $shopData = [
