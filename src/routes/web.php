@@ -59,6 +59,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
+    Route::get('/admin/user/index', [AdminController::class, 'userIndex']);
     Route::get('/admin/create/owner', [AdminController::class, 'createOwners']);
     Route::post('/admin/create/owner', [AdminController::class, 'storeOwners']);
 });

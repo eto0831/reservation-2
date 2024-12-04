@@ -19,6 +19,20 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
+    public function userIndex()
+    {
+        $shops = Shop::all();
+        $Genres = Genre::all();
+        $Areas = Area::all();
+        $users = User::all();
+
+        // オーナーロールを持つユーザーを取得
+        $owners = User::whereHas('roles', function ($query) {
+            $query->where('name', 'owner'); // ロール名が "owner" のユーザー
+        })->get();
+        return view('admin.user_index', compact('shops', 'owners', 'Genres', 'Areas', 'users'));
+    }
+
     public function createOwners()
     {
         $shops = Shop::all();

@@ -9,6 +9,8 @@
     {{ session('status') }}
 </div>
 <h1>Admin</h1>
+<a href="/admin/create/owner"></a>
+<a href="/admin/create/user/index"></a>
 
 
 @endsection
