@@ -19,22 +19,33 @@ class AdminController extends Controller
         return view('admin.dashboard');
     }
 
-    public function create()
+    public function createOwners()
     {
         $shops = Shop::all();
+        $Genres = Genre::all();
+        $Areas = Area::all();
         $owners = Owner::all();
-        return view('admin.create_owner', compact('areas', 'genres'));
+        $users = User::all();
+        return view('admin.create_owner', compact('shops', 'owners','Genres','Areas','users'));
     }
-    
-    public function storeOwners(Request $request)
-    {
-        $owner = User::create([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
-        $owner->assignRole('owner');
 
-        return redirect()->back()->with('success', '店舗代表者が作成されました。');
-    }
+    public function storeOwners(Request $request)
+{
+    $owner = User::create([
+        'name' => $request->name,
+        'email' => $request->email,
+        'password' => bcrypt($request->password),
+    ]);
+    $owner->assignRole('owner');
+
+    // 中間テーブルにレコードを追加
+    $owner->shops()->attach($request->shop_id, [
+        'created_at' => now(),
+        'updated_at' => now(),
+    ]);
+
+    return redirect('/admin/dashboard')->with('status', '店舗代表者が作成されました。');
+}
+
+
 }

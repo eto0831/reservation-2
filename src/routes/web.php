@@ -59,7 +59,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
-    Route::post('/admin/create-owners', [AdminController::class, 'createOwner']);
+    Route::get('/admin/create/owner', [AdminController::class, 'createOwners']);
+    Route::post('/admin/create/owner', [AdminController::class, 'storeOwners']);
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'role:owner', 'can:manage shops','can:manage reservations']], function () {
