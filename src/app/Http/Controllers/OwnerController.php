@@ -27,33 +27,50 @@ class OwnerController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 画像のバリデーションルールを追加
+            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
         $shopData = [
-            'shop_name' => $request->shop_name,
-            'area_id' => $request->area_id,
-            'genre_id' => $request->genre_id,
+            'shop_name'   => $request->shop_name,
+            'area_id'     => $request->area_id,
+            'genre_id'    => $request->genre_id,
             'description' => $request->description,
         ];
 
         if ($request->hasFile('image')) {
             $imagePath = $request->file('image')->store('public/images/shops');
-            $shopData['image_url'] = str_replace('public/', 'storage/', $imagePath); // パスを公開用に変換
+            $shopData['image_url'] = str_replace('public/', 'storage/', $imagePath);
         }
 
         $shop = Shop::create($shopData);
 
-        // オーナー情報をownersテーブルに保存
-        DB::table('owners')->insert([
-            'user_id' => Auth::id(), // 現在ログインしているユーザーのID
-            'shop_id' => $shop->id, // 作成された店舗のID
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
+        // Ownersテーブルを確認し、null の行があれば更新する
+        $existingOwner = DB::table('owners')
+            ->where('user_id', Auth::id())
+            ->whereNull('shop_id')
+            ->first();
+
+        if ($existingOwner) {
+            // null の行を更新
+            DB::table('owners')
+                ->where('id', $existingOwner->id)
+                ->update([
+                    'shop_id'    => $shop->id,
+                    'updated_at' => now(),
+                ]);
+        } else {
+            // 新しい行を作成
+            DB::table('owners')->insert([
+                'user_id'    => Auth::id(),
+                'shop_id'    => $shop->id,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+        }
 
         return redirect('/owner/dashboard')->with('status', '店舗情報を作成しました');
     }
+
 
     public function edit($id)
     {

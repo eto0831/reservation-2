@@ -30,7 +30,12 @@ class AdminController extends Controller
         $owners = User::whereHas('roles', function ($query) {
             $query->where('name', 'owner'); // ロール名が "owner" のユーザー
         })->get();
-        return view('admin.user_index', compact('shops', 'owners', 'Genres', 'Areas', 'users'));
+
+        // ユーザーロールを持つユーザーを取得
+        $generalUsers = User::whereHas('roles', function ($query) {
+            $query->where('name', 'user'); // ロール名が "user" のユーザー
+        })->get();
+        return view('admin.user_index', compact('shops', 'owners', 'Genres', 'Areas', 'users', 'generalUsers'));
     }
 
     public function createOwners()
