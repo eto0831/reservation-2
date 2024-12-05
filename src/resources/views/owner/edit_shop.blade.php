@@ -7,7 +7,7 @@
 @section('content')
 
 <div class="shop-info__content">
-    <form action="{{ route('shop.update', ['id' => $shop->id]) }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('shop.update') }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         <input type="hidden" name="shop_id" value="{{ $shop->id }}">

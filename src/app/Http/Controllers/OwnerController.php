@@ -85,10 +85,15 @@ class OwnerController extends Controller
     }
 
 
-    public function edit($id)
+    public function edit(Request $request)
     {
-        $shop = Shop::find($id);
+        // バリデーション: shop_id が送信されていることを確認
+        $request->validate([
+            'shop_id' => 'required|exists:shops,id',
+        ]);
 
+        // 該当予約を取得
+        $shop = Shop::findOrFail($request->shop_id);
         // nullチェック
         if (!$shop) {
             abort(404, 'ショップが見つかりません');

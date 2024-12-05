@@ -7,9 +7,7 @@
 @section('content')
 <div class="container">
     <h1>担当店舗一覧</h1>
-    @forelse ($shops as $shop)
     <div class="shop-section">
-        <h2>{{ $shop->shop_name }}</h2>
         <table>
             <thead>
                 <tr>
@@ -22,6 +20,7 @@
                 </tr>
             </thead>
             <tbody>
+                @forelse ($shops as $shop)
                 <tr>
                     <td>{{ $loop->iteration }}</td>
                     <td>{{ $shop->id }}</td>
@@ -30,23 +29,27 @@
                     <td>{{ $shop->genre->genre_name }}</td>
                     <td>
                         <!-- 更新フォーム -->
-                        <form action="{{ route('shop.edit', $shop->id) }}" method="get" style="display:inline;">
+                        <form action="{{ route('shop.edit') }}" method="post" style="display:inline;">
                             @csrf
+                            <input type="hidden" name="shop_id" value="{{ $shop->id }}">
                             <button type="submit">編集</button>
                         </form>
                         <!-- 削除フォーム -->
-                        <form action="{{ route('shop.destroy', $shop->id) }}" method="post" style="display:inline;">
+                        <form action="{{ route('shop.destroy') }}" method="post" style="display:inline;">
                             @csrf
                             @method('DELETE')
+                            <input type="hidden" name="shop_id" value="{{ $shop->id }}">
                             <button type="submit">削除</button>
                         </form>
                     </td>
                 </tr>
+                @empty
+                <tr>
+                    <td colspan="6">担当店舗はありません。</td>
+                </tr>
+                @endforelse
             </tbody>
         </table>
     </div>
-    @empty
-    <p>担当店舗はありません。</p>
-    @endforelse
 </div>
 @endsection
