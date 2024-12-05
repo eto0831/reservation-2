@@ -28,7 +28,8 @@
                             </div>
                             <button popovertarget="Modal{{ $reservation->id }}" popovertargetaction="hidden">閉じる</button>
                         </div>
-                        <form action="/reservation/edit/{{ $reservation->id }}" class="reservation__edit" method="get">
+                        <form action="/reservation/edit" class="reservation__edit" method="post">
+                            @csrf
                             <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
                             <button type="submit">目</button>
                         </form>

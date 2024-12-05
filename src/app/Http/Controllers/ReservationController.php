@@ -57,9 +57,16 @@ class ReservationController extends Controller
 
 
 
-    public function edit($id)
+    public function edit(Request $request)
     {
-        $reservation = Reservation::find($id);
+        // バリデーション: reservation_id が送信されていることを確認
+        $request->validate([
+            'reservation_id' => 'required|exists:reservations,id',
+        ]);
+
+        // 該当予約を取得
+        $reservation = Reservation::findOrFail($request->reservation_id);
+
         $shop = $reservation->shop;
 
         return view('mypage.edit', compact('reservation', 'shop'));

@@ -36,7 +36,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/favorite', [FavoriteController::class, 'destroy']);
     Route::get('/mypage', [AuthController::class, 'index']);
     // 予約編集のルート
-    Route::get('/reservation/edit/{id}', [ReservationController::class, 'edit'])->name('reservation.edit');
+    Route::post('/reservation/edit', [ReservationController::class, 'edit'])->name('reservation.edit');
     // 予約更新のルート
     Route::patch('/reservation/update', [ReservationController::class, 'update'])->name('reservation.update');
 
@@ -74,6 +74,8 @@ Route::group(['middleware' => ['auth', 'verified', 'role:owner', 'can:manage sho
 
     Route::get('/owner/reservations', [OwnerController::class, 'reservations'])->name('owner.reservations');
     Route::delete('/owner/reservation', [ReservationController::class, 'destroy'])->name('reservation.destroy');
+    Route::get('/owner/reservation/edit', [ReservationController::class, 'edit'])->name('reservation.edit');
+    Route::patch('/owner/reservation/edit', [ReservationController::class, 'destroy'])->name('reservation.update');
 
 
 });
