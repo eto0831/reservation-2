@@ -17,6 +17,19 @@ class OwnerController extends Controller
         return view('owner.dashboard');
     }
 
+    public function shops()
+{
+    // 現在のオーナーが担当するすべての店舗を取得
+    $shops = Auth::user()->shops()->with(['area', 'genre'])->get();
+
+    // 店舗が存在しない場合のチェック
+    if ($shops->isEmpty()) {
+        abort(404, '担当しているショップが見つかりません');
+    }
+
+    return view('owner.shops', compact('shops'));
+}
+
     public function create()
     {
         $areas = Area::all();
