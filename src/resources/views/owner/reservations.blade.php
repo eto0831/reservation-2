@@ -37,9 +37,10 @@
                             <button type="submit">更新</button>
                         </form>
                         <!-- 削除フォーム -->
-                        <form action="{{ route('reservation.destroy', $reservation->id) }}" method="post" style="display:inline;">
+                        <form action="{{ route('reservation.destroy') }}" method="post" style="display:inline;">
                             @csrf
                             @method('DELETE')
+                            <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
                             <button type="submit">削除</button>
                         </form>
                     </td>

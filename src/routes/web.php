@@ -73,6 +73,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:owner', 'can:manage sho
     Route::delete('/shop/delete/{id}', [OwnerController::class, 'destroy'])->name('shop.destroy');
 
     Route::get('/owner/reservations', [OwnerController::class, 'reservations'])->name('owner.reservations');
-    Route::delete('/owner/reservation/{id}', [ReservationController::class, 'destroy'])->name('reservation.destroy');
+    Route::delete('/owner/reservation', [ReservationController::class, 'destroy'])->name('reservation.destroy');
+
 
 });

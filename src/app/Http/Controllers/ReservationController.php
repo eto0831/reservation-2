@@ -9,6 +9,7 @@ use App\Models\Genre;
 use App\Models\Area;
 use App\Models\User;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
+use Illuminate\Support\Facades\Auth;
 
 class ReservationController extends Controller
 {
@@ -28,10 +29,33 @@ class ReservationController extends Controller
 
     public function destroy(Request $request)
     {
-        auth()->user()->reservations()->where('id', $request->reservation_id)->delete();
+        // バリデーション: reservation_id が送信されていることを確認
+        $request->validate([
+            'reservation_id' => 'required|exists:reservations,id',
+        ]);
 
-        return back()->with('error', '予約の削除に失敗しました');
+        // 該当予約を取得
+        $reservation = Reservation::findOrFail($request->reservation_id);
+
+        // オーナーの場合: 担当店舗の予約のみ削除可能
+        if (Auth::user()->hasRole('owner')) {
+            if (!Auth::user()->shops->contains($reservation->shop_id)) {
+                abort(403, 'この予約を削除する権限がありません');
+            }
+        }
+        // 一般ユーザーの場合: 自分の予約のみ削除可能
+        elseif (Auth::id() !== $reservation->user_id) {
+            abort(403, 'この予約を削除する権限がありません');
+        }
+
+        // 予約を削除
+        $reservation->delete();
+
+        return redirect()->back()->with('status', '予約を削除しました');
     }
+
+
+
 
     public function edit($id)
     {
@@ -50,24 +74,24 @@ class ReservationController extends Controller
     }
 
     public function scan()
-{
-    return view('stores.scan');
-}
-
-public function verify($id = null)
-{
-    if (!$id || !is_numeric($id)) {
-        return redirect()->route('reservation.scan')->with('error', '無効なQRコードが読み取られました。');
+    {
+        return view('stores.scan');
     }
 
-    $reservation = Reservation::find($id);
+    public function verify($id = null)
+    {
+        if (!$id || !is_numeric($id)) {
+            return redirect()->route('reservation.scan')->with('error', '無効なQRコードが読み取られました。');
+        }
 
-    if ($reservation) {
-        return view('stores.verify', compact('reservation'));
-    } else {
-        return redirect()->route('reservation.scan')->with('error', '予約が見つかりませんでした。');
+        $reservation = Reservation::find($id);
+
+        if ($reservation) {
+            return view('stores.verify', compact('reservation'));
+        } else {
+            return redirect()->route('reservation.scan')->with('error', '予約が見つかりませんでした。');
+        }
     }
-}
 
     public function updateIsVisited(Request $request, $id)
     {
