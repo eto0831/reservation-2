@@ -11,7 +11,9 @@
 <div class="dashboard__content">
     <h1>owner</h1>
 
-    <a href="http://localhost/shop/create"></a>
+    <a href="http://localhost/shop/create">店舗情報作成</a>
+    <a href="">店舗情報管理</a>
+    <a href="">予約情報管理</a>
 
 </div>
 

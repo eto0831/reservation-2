@@ -126,11 +126,11 @@ class OwnerController extends Controller
         }
     }
 
-    public function index()
+    public function reservations()
     {
-        $reservations = shop()->reservations()->with('user')->get();
-        $areas = Area::all();
-        $genres = Genre::all();
-        return view('owner.index', compact('reservations', 'areas', 'genres'));
+        // 現在のオーナーが担当するすべての店舗の予約情報を取得
+        $shops = Auth::user()->shops()->with('reservations.user')->get();
+
+        return view('owner.reservations', compact('shops'));
     }
 }
