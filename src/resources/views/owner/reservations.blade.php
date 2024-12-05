@@ -31,10 +31,10 @@
                     <td>{{ $reservation->guest_count }}人</td>
                     <td>
                         <!-- 更新フォーム -->
-                        <form action="{{ route('reservation.update', $reservation->id) }}" method="post" style="display:inline;">
+                        <form action="{{ route('owner.reservation.edit') }}" method="post" style="display:inline;">
                             @csrf
-                            @method('PATCH')
-                            <button type="submit">更新</button>
+                            <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
+                            <button type="submit">編集</button>
                         </form>
                         <!-- 削除フォーム -->
                         <form action="{{ route('reservation.destroy') }}" method="post" style="display:inline;">

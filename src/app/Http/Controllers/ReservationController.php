@@ -67,18 +67,56 @@ class ReservationController extends Controller
         // 該当予約を取得
         $reservation = Reservation::findOrFail($request->reservation_id);
 
+        // オーナーの場合: 担当店舗の予約のみ編集可能
+        if (Auth::user()->hasRole('owner')) {
+            if (!Auth::user()->shops->contains($reservation->shop_id)) {
+                abort(403, 'この予約を編集する権限がありません');
+            }
+        }
+        // 一般ユーザーの場合: 自分の予約のみ編集可能
+        elseif (Auth::id() !== $reservation->user_id) {
+            abort(403, 'この予約を編集する権限がありません');
+        }
+
         $shop = $reservation->shop;
 
-        return view('mypage.edit', compact('reservation', 'shop'));
+        return view(Auth::user()->hasRole('owner') ? 'owner.edit_reservation' : 'mypage.edit', compact('reservation', 'shop'));
     }
 
     public function update(Request $request)
     {
-        $reservation =  $request->all();
-        Reservation::find($request->input('reservation_id'))->update($reservation);
+        // バリデーション
+        $request->validate([
+            'reservation_id' => 'required|exists:reservations,id',
+            'reserve_date' => 'required|date',
+            'reserve_time' => 'required',
+            'guest_count' => 'required|integer|min:1|max:10',
+        ]);
 
-        return redirect('/mypage')->with('status', '予約を変更しました');
+        // 該当予約を取得
+        $reservation = Reservation::findOrFail($request->reservation_id);
+
+        // オーナーの場合: 担当店舗の予約のみ更新可能
+        if (Auth::user()->hasRole('owner')) {
+            if (!Auth::user()->shops->contains($reservation->shop_id)) {
+                abort(403, 'この予約を更新する権限がありません');
+            }
+        }
+        // 一般ユーザーの場合: 自分の予約のみ更新可能
+        elseif (Auth::id() !== $reservation->user_id) {
+            abort(403, 'この予約を更新する権限がありません');
+        }
+
+        // 予約情報を更新
+        $reservation->update([
+            'reserve_date' => $request->reserve_date,
+            'reserve_time' => $request->reserve_time,
+            'guest_count' => $request->guest_count,
+        ]);
+
+        return redirect(Auth::user()->hasRole('owner') ? '/owner/reservations' : '/mypage')->with('status', '予約を変更しました');
     }
+
 
     public function scan()
     {
