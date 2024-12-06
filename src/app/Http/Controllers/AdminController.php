@@ -88,13 +88,50 @@ class AdminController extends Controller
         return redirect('/admin/dashboard')->with('status', '店舗代表者が作成されました。');
     }
 
-    public function editOwner()
+    public function editOwner(Request $request)
     {
+        // バリデーション
+        $request->validate([
+            'owner_id' => 'required|exists:users,id', // owner_id が存在することを確認
+        ]);
+
+        // オーナー情報を取得
+        $owner = User::with('shops')->findOrFail($request->owner_id);
+
+        // すべての店舗を取得
+        $shops = Shop::all();
+
+        return view('admin.edit_owner', compact('shops', 'owner'));
+    }
+    public function updateOwner(Request $request)
+    {
+        // バリデーション
+        $request->validate([
+            'owner_id' => 'required|exists:users,id',
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $request->owner_id,
+            'password' => 'nullable|string|min:8|confirmed',
+            'shop_ids' => 'nullable|array', // 複数店舗の選択を許可
+            'shop_ids.*' => 'exists:shops,id', // 店舗IDが有効であることを確認
+        ]);
+
+        $owner = User::findOrFail($request->owner_id);
+        $owner->update([
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $request->password ? bcrypt($request->password) : $owner->password,
+        ]);
+
+        // 担当店舗の更新
+        $owner->shops()->sync($request->shop_ids);
+
+
+
         $shops = Shop::all();
         $Genres = Genre::all();
         $Areas = Area::all();
-        $owners = Owner::all();
+
         $users = User::all();
-        return view('admin.edit_owner', compact('shops', 'owners', 'Genres', 'Areas', 'users'));
+        return redirect()->route('admin.user.index')->with('status', 'オーナー情報を更新しました。');
     }
 }

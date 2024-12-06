@@ -60,8 +60,9 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/user/index', [AdminController::class, 'userIndex'])->name('admin.user.index');
     Route::get('/admin/owner/create', [AdminController::class, 'createOwner'])->name('admin.owner.create');
-    Route::post('/admin/owner/edit', [AdminController::class, 'editOwner'])->name('admin.owner.edit');
     Route::post('/admin/owner/store', [AdminController::class, 'storeOwner'])->name('admin.owner.store');
+    Route::post('/admin/owner/edit', [AdminController::class, 'editOwner'])->name('admin.owner.edit');
+    Route::patch('/admin/owner/update', [AdminController::class, 'updateOwner'])->name('admin.owner.update');
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'role:owner', 'can:manage shops', 'can:manage reservations']], function () {
