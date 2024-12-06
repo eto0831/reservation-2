@@ -73,7 +73,7 @@
                     <td>{{ $owner->created_at->format('Y-m-d') }}</td>
                     <td colspan="2">担当店舗なし</td>
                     <td>
-                        <form action="/owner/edit/{{ $owner->id }}" class="owner__edit" method="get">
+                        <form action="{{ route('admin.owner.edit') }}" class="owner__edit" method="get">
                             <button type="submit">編集</button>
                         </form>
                         <form action="/owner" method="post">
