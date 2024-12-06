@@ -47,7 +47,9 @@
                     <td>{{ $shop->shop_name }}</td>
                     @if ($loop->first)
                         <td rowspan="{{ $rowCount }}">
-                            <form action="/owner/edit/{{ $owner->id }}" class="owner__edit" method="get">
+                            <form action="{{ route('admin.owner.edit') }}" class="owner__edit" method="post">
+                                @csrf
+                                <input type="hidden" name="owner_id" value="owner_id">
                                 <button type="submit">編集</button>
                             </form>
                             <form action="/owner" method="post">
