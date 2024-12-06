@@ -95,6 +95,6 @@ class AdminController extends Controller
         $Areas = Area::all();
         $owners = Owner::all();
         $users = User::all();
-        return view('admin.create_owner', compact('shops', 'owners', 'Genres', 'Areas', 'users'));
+        return view('admin.edit_owner', compact('shops', 'owners', 'Genres', 'Areas', 'users'));
     }
 }
