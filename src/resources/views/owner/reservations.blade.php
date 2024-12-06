@@ -37,7 +37,7 @@
                             <button type="submit">編集</button>
                         </form>
                         <!-- 削除フォーム -->
-                        <form action="{{ route('reservation.destroy') }}" method="post" style="display:inline;">
+                        <form action="{{ route('owner.reservation.destroy') }}" method="post" style="display:inline;">
                             @csrf
                             @method('DELETE')
                             <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">

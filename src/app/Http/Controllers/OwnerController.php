@@ -18,17 +18,17 @@ class OwnerController extends Controller
     }
 
     public function shops()
-{
-    // 現在のオーナーが担当するすべての店舗を取得
-    $shops = Auth::user()->shops()->with(['area', 'genre'])->get();
+    {
+        // 現在のオーナーが担当するすべての店舗を取得
+        $shops = Auth::user()->shops()->with(['area', 'genre'])->get();
 
-    // 店舗が存在しない場合のチェック
-    if ($shops->isEmpty()) {
-        abort(404, '担当しているショップが見つかりません');
+        // 店舗が存在しない場合のチェック
+        if ($shops->isEmpty()) {
+            abort(404, '担当しているショップが見つかりません');
+        }
+
+        return view('owner.shops', compact('shops'));
     }
-
-    return view('owner.shops', compact('shops'));
-}
 
     public function create()
     {
@@ -150,5 +150,67 @@ class OwnerController extends Controller
         $shops = Auth::user()->shops()->with('reservations.user')->get();
 
         return view('owner.reservations', compact('shops'));
+    }
+
+    // OwnerController
+    public function destroyReservation(Request $request)
+    {
+        $request->validate([
+            'reservation_id' => 'required|exists:reservations,id',
+        ]);
+
+        $reservation = Reservation::findOrFail($request->reservation_id);
+
+        // 担当店舗の予約のみ削除可能
+        if (!Auth::user()->shops->contains($reservation->shop_id)) {
+            abort(403, 'この予約を削除する権限がありません');
+        }
+
+        $reservation->delete();
+
+        return redirect('/owner/reservations')->with('status', '予約を削除しました');
+    }
+
+    public function editReservation(Request $request)
+    {
+        $request->validate([
+            'reservation_id' => 'required|exists:reservations,id',
+        ]);
+
+        $reservation = Reservation::findOrFail($request->reservation_id);
+
+        // 担当店舗の予約のみ編集可能
+        if (!Auth::user()->shops->contains($reservation->shop_id)) {
+            abort(403, 'この予約を編集する権限がありません');
+        }
+
+        $shop = $reservation->shop;
+
+        return view('owner.edit_reservation', compact('reservation', 'shop'));
+    }
+
+    public function updateReservation(Request $request)
+    {
+        $request->validate([
+            'reservation_id' => 'required|exists:reservations,id',
+            'reserve_date' => 'required|date',
+            'reserve_time' => 'required',
+            'guest_count' => 'required|integer|min:1|max:10',
+        ]);
+
+        $reservation = Reservation::findOrFail($request->reservation_id);
+
+        // 担当店舗の予約のみ更新可能
+        if (!Auth::user()->shops->contains($reservation->shop_id)) {
+            abort(403, 'この予約を更新する権限がありません');
+        }
+
+        $reservation->update([
+            'reserve_date' => $request->reserve_date,
+            'reserve_time' => $request->reserve_time,
+            'guest_count' => $request->guest_count,
+        ]);
+
+        return redirect('/owner/reservations')->with('status', '予約を変更しました');
     }
 }

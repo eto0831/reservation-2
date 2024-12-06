@@ -73,7 +73,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:owner', 'can:manage sho
     Route::delete('/shop/delete', [OwnerController::class, 'destroy'])->name('shop.destroy');
 
     Route::get('/owner/reservations', [OwnerController::class, 'reservations'])->name('owner.reservations');
-    Route::delete('/owner/reservation', [ReservationController::class, 'destroy'])->name('reservation.destroy');
-    Route::post('/owner/reservation/edit', [ReservationController::class, 'edit'])->name('owner.reservation.edit');
-    Route::patch('/owner/reservation/update', [ReservationController::class, 'update'])->name('owner.reservation.update');
+    Route::post('/owner/reservation/edit', [OwnerController::class, 'editReservation'])->name('owner.reservation.edit');
+    Route::patch('/owner/reservation/update', [OwnerController::class, 'updateReservation'])->name('owner.reservation.update');
+    Route::delete('/owner/reservation', [OwnerController::class, 'destroyReservation'])->name('owner.reservation.destroy');
 });
