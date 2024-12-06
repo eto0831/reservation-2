@@ -22,5 +22,9 @@
         </form>
         @endif
     </div>
-    <a href="/shop/edit/{{ $shop->id }}">編集</a>
+    <form action="{{ route('shop.edit') }}" method="post" style="display:inline;">
+        @csrf
+        <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+        <button type="submit">編集</button>
+    </form>
 </div>

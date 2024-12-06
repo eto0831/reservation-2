@@ -11,7 +11,7 @@
 <h2>Owners Index</h2>
 <h2>オーナー一覧</h2>
 <div class="owners__wrap">
-    <table class="owners__table">
+    <table class="owners__table" border="1">
         <thead>
             <tr>
                 <th>#</th>
@@ -50,7 +50,7 @@
                                 @csrf
                                 @method('DELETE')
                                 <input type="hidden" name="owner_id" value="{{ $owner->id }}">
-                                <button type="submit">削除</button>
+                                <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
                             </form>
                         </td>
                     @endif

@@ -39,7 +39,7 @@
                             @csrf
                             @method('DELETE')
                             <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                            <button type="submit">削除</button>
+                            <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
                         </form>
                     </td>
                 </tr>

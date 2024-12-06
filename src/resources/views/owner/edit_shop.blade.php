@@ -131,14 +131,13 @@
             <button class="form__button-submit" type="submit">変更</button>
         </div>
     </form>
-    <form action="/shop/delete/{{ $shop->id }}" method="post">
+    <!-- 削除フォーム -->
+    <form action="{{ route('shop.destroy') }}" method="post" style="display:inline;">
         @csrf
         @method('DELETE')
-        <input type="hidden" value="{{ $shop->id }}" name="shop_id">
-        <button type="submit" class="form__button-delete" onclick="return confirm('本当に削除しますか？')">削除</button>
-
+        <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+        <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
     </form>
-
 </div>
 
 <script>
