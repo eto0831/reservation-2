@@ -56,14 +56,25 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/reservation/process', [ReservationController::class, 'process'])->name('reservation.process');
 });
 
+// web.php
+
 Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/user/index', [AdminController::class, 'userIndex'])->name('admin.user.index');
     Route::get('/admin/owner/create', [AdminController::class, 'createOwner'])->name('admin.owner.create');
     Route::post('/admin/owner/store', [AdminController::class, 'storeOwner'])->name('admin.owner.store');
-    Route::post('/admin/owner/edit', [AdminController::class, 'editOwner'])->name('admin.owner.edit');
+
+    // オーナー編集画面の表示（GETメソッド、owner_idをURLパラメータとして渡す）
+    Route::get('/admin/owner/edit/{owner_id}', [AdminController::class, 'editOwner'])->name('admin.owner.edit');
+
+    // オーナー情報の更新（PATCHメソッド）
     Route::patch('/admin/owner/update', [AdminController::class, 'updateOwner'])->name('admin.owner.update');
+
+    // 担当店舗の追加と解除のルートを追加
+    Route::post('/admin/owner/attach-shop', [AdminController::class, 'attachShop'])->name('admin.owner.attachShop');
+    Route::post('/admin/owner/detach-shop', [AdminController::class, 'detachShop'])->name('admin.owner.detachShop');
 });
+
 
 Route::group(['middleware' => ['auth', 'verified', 'role:owner', 'can:manage shops', 'can:manage reservations']], function () {
     Route::get('/owner/dashboard', [OwnerController::class, 'dashboard']);

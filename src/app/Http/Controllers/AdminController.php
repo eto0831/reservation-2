@@ -83,17 +83,12 @@ class AdminController extends Controller
         return redirect('/admin/dashboard')->with('status', '店舗代表者が作成されました。');
     }
 
-    public function editOwner(Request $request)
+    public function editOwner($owner_id)
     {
-        // バリデーション
-        $request->validate([
-            'owner_id' => 'required|exists:users,id', // owner_id が存在することを確認
-        ]);
-
         // オーナー情報を取得
         $owner = User::whereHas('roles', function ($query) {
             $query->where('name', 'owner'); // ロール名が "owner" のユーザー
-        })->with('shops')->findOrFail($request->owner_id);
+        })->with('shops')->findOrFail($owner_id);
 
         // すべての店舗を取得
         $shops = Shop::all();
@@ -101,32 +96,70 @@ class AdminController extends Controller
         return view('admin.edit_owner', compact('shops', 'owner'));
     }
 
+
     public function updateOwner(Request $request)
     {
-        // バリデーション
         $request->validate([
             'owner_id' => 'required|exists:users,id',
-            'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $request->owner_id,
+            'name'     => 'required|string|max:255',
+            'email'    => 'required|email|unique:users,email,' . $request->owner_id,
             'password' => 'nullable|string|min:8|confirmed',
-            'shop_ids' => 'nullable|array', // 複数店舗の選択を許可
-            'shop_ids.*' => 'exists:shops,id', // 店舗IDが有効であることを確認
         ]);
 
         $owner = User::whereHas('roles', function ($query) {
-            $query->where('name', 'owner'); // ロール名が "owner" のユーザー
+            $query->where('name', 'owner');
         })->findOrFail($request->owner_id);
 
         // ユーザー情報の更新
-        $owner->update([
-            'name' => $request->name,
-            'email' => $request->email,
-            'password' => $request->password ? bcrypt($request->password) : $owner->password,
-        ]);
-
-        // 担当店舗の更新
-        $owner->shops()->sync($request->shop_ids);
+        $owner->name = $request->name;
+        $owner->email = $request->email;
+        if ($request->password) {
+            $owner->password = bcrypt($request->password);
+        }
+        $owner->save();
 
         return redirect()->route('admin.user.index')->with('status', 'オーナー情報を更新しました。');
+    }
+
+
+    public function attachShop(Request $request)
+    {
+        $request->validate([
+            'owner_id' => 'required|exists:users,id',
+            'shop_id'  => 'required|exists:shops,id',
+        ]);
+
+        $owner = User::findOrFail($request->owner_id);
+
+        if (!$owner->hasRole('owner')) {
+            return redirect()->route('admin.owner.edit', ['owner_id' => $owner->id])->withErrors(['owner_id' => '指定されたユーザーはオーナーではありません。']);
+        }
+
+        // 既に担当していないか確認
+        if (!$owner->shops->contains($request->shop_id)) {
+            $owner->shops()->attach($request->shop_id);
+            return redirect()->route('admin.owner.edit', ['owner_id' => $owner->id])->with('status', '店舗を追加しました。');
+        } else {
+            return redirect()->route('admin.owner.edit', ['owner_id' => $owner->id])->withErrors(['shop_id' => 'この店舗は既に担当しています。']);
+        }
+    }
+
+    public function detachShop(Request $request)
+    {
+        $request->validate([
+            'owner_id' => 'required|exists:users,id',
+            'shop_id'  => 'required|exists:shops,id',
+        ]);
+
+        $owner = User::findOrFail($request->owner_id);
+
+        if (!$owner->hasRole('owner')) {
+            return redirect()->route('admin.owner.edit', ['owner_id' => $owner->id])->withErrors(['owner_id' => '指定されたユーザーはオーナーではありません。']);
+        }
+
+        // 担当店舗の解除
+        $owner->shops()->detach($request->shop_id);
+
+        return redirect()->route('admin.owner.edit', ['owner_id' => $owner->id])->with('status', '担当店舗を解除しました。');
     }
 }

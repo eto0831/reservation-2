@@ -47,11 +47,7 @@
                     <td>{{ $shop->shop_name }}</td>
                     @if ($loop->first)
                         <td rowspan="{{ $rowCount }}">
-                            <form action="{{ route('admin.owner.edit') }}" class="owner__edit" method="post">
-                                @csrf
-                                <input type="hidden" name="owner_id" value="{{ $owner->id }}">
-                                <button type="submit">編集</button>
-                            </form>
+                            <a href="{{ route('admin.owner.edit', ['owner_id' => $owner->id]) }}">編集</a>
                             <form action="/owner" method="post">
                                 @csrf
                                 @method('DELETE')
@@ -73,11 +69,7 @@
                     <td>{{ $owner->created_at->format('Y-m-d') }}</td>
                     <td colspan="2">担当店舗なし</td>
                     <td>
-                        <form action="{{ route('admin.owner.edit') }}" class="owner__edit" method="post">
-                            @csrf
-                            <input type="hidden" name="owner_id" value="{{ $owner->id }}">
-                            <button type="submit">編集</button>
-                        </form>
+                        <a href="{{ route('admin.owner.edit', ['owner_id' => $owner->id]) }}">編集</a>
                         <form action="/owner" method="post">
                             @csrf
                             @method('DELETE')
