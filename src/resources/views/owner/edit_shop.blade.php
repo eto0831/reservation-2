@@ -5,9 +5,11 @@
 @endsection
 
 @section('content')
-
+<div class="attendance__alert">
+    {{ session('status') }}
+</div>
 <div class="shop-info__content">
-    <form action="{{ route('shop.update') }}" method="post" enctype="multipart/form-data">
+    <form action="{{ route('owner.shop.update') }}" method="post" enctype="multipart/form-data">
         @csrf
         @method('PATCH')
         <input type="hidden" name="shop_id" value="{{ $shop->id }}">
@@ -132,7 +134,7 @@
         </div>
     </form>
     <!-- 削除フォーム -->
-    <form action="{{ route('shop.destroy') }}" method="post" style="display:inline;">
+    <form action="{{ route('owner.shop.destroy') }}" method="post" style="display:inline;">
         @csrf
         @method('DELETE')
         <input type="hidden" name="shop_id" value="{{ $shop->id }}">

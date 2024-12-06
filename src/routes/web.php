@@ -65,15 +65,15 @@ Route::group(['middleware' => ['role:admin']], function () {
 
 Route::group(['middleware' => ['auth', 'verified', 'role:owner', 'can:manage shops', 'can:manage reservations']], function () {
     Route::get('/owner/dashboard', [OwnerController::class, 'dashboard']);
-    Route::get('/shop/create', [OwnerController::class, 'create'])->name('shop.create');
     Route::get('/owner/shops', [OwnerController::class, 'shops'])->name('owner.shops');
-    Route::post('/shop/create', [OwnerController::class, 'store'])->name('shop.store');
-    Route::post('/shop/edit', [OwnerController::class, 'edit'])->name('shop.edit');
-    Route::patch('/shop/update', [OwnerController::class, 'update'])->name('shop.update');
-    Route::delete('/shop/delete', [OwnerController::class, 'destroy'])->name('shop.destroy');
+    Route::get('/owner/shop/create', [OwnerController::class, 'createShop'])->name('owner.shop.create');
+    Route::post('/owner/shop/store', [OwnerController::class, 'storeShop'])->name('owner.shop.store');
+    Route::post('/owner/shop/edit', [OwnerController::class, 'editShop'])->name('owner.shop.edit');
+    Route::patch('/owner/shop/update', [OwnerController::class, 'updateShop'])->name('owner.shop.update');
+    Route::delete('/owner/shop/delete', [OwnerController::class, 'destroyShop'])->name('owner.shop.destroy');
 
     Route::get('/owner/reservations', [OwnerController::class, 'reservations'])->name('owner.reservations');
     Route::post('/owner/reservation/edit', [OwnerController::class, 'editReservation'])->name('owner.reservation.edit');
     Route::patch('/owner/reservation/update', [OwnerController::class, 'updateReservation'])->name('owner.reservation.update');
-    Route::delete('/owner/reservation', [OwnerController::class, 'destroyReservation'])->name('owner.reservation.destroy');
+    Route::delete('/owner/reservation/destroy', [OwnerController::class, 'destroyReservation'])->name('owner.reservation.destroy');
 });

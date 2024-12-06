@@ -30,14 +30,14 @@ class OwnerController extends Controller
         return view('owner.shops', compact('shops'));
     }
 
-    public function create()
+    public function createShop()
     {
         $areas = Area::all();
         $genres = Genre::all();
         return view('owner.create_shop', compact('areas', 'genres'));
     }
 
-    public function store(Request $request)
+    public function storeShop(Request $request)
     {
         $request->validate([
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
@@ -81,11 +81,11 @@ class OwnerController extends Controller
             ]);
         }
 
-        return redirect('/owner/dashboard')->with('status', '店舗情報を作成しました');
+        return redirect('/owner/shops')->with('status', '店舗情報を作成しました');
     }
 
 
-    public function edit(Request $request)
+    public function editShop(Request $request)
     {
         // バリデーション: shop_id が送信されていることを確認
         $request->validate([
@@ -106,7 +106,7 @@ class OwnerController extends Controller
         return view('owner.edit_shop', compact('shop', 'areas', 'genres'));
     }
 
-    public function update(Request $request)
+    public function updateShop(Request $request)
     {
         $request->validate([
             'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 画像のバリデーションルールを追加
@@ -131,16 +131,16 @@ class OwnerController extends Controller
 
         Shop::find($request->input('shop_id'))->update($shopData);
 
-        return redirect('/owner/dashboard')->with('status', '店舗情報を変更しました');
+        return redirect('/owner/shops')->with('status', '店舗情報を変更しました');
     }
 
-    public function destroy(Request $request)
+    public function destroyShop(Request $request)
     {
         try {
             Shop::where('id', $request->shop_id)->delete();
-            return redirect('/owner/dashboard')->with('status', '店舗情報を削除しました');
+            return redirect('/owner/shops')->with('status', '店舗情報を削除しました');
         } catch (\Exception $e) {
-            return redirect('/owner/dashboard')->with('status', '店舗情報の削除に失敗しました');
+            return redirect('/owner/shops')->with('status', '店舗情報の削除に失敗しました');
         }
     }
 

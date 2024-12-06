@@ -1,9 +1,11 @@
 @extends('layouts.app')
 
 @section('content')
-
+<div class="attendance__alert">
+    {{ session('status') }}
+</div>
 <div class="shop-info__content">
-    <form action="/shop/create" method="post" enctype="multipart/form-data">
+    <form action="{{ route('owner.shop.store')}}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form__group">
             <div class="form__group-title">

@@ -22,7 +22,7 @@
         </form>
         @endif
     </div>
-    <form action="{{ route('shop.edit') }}" method="post" style="display:inline;">
+    <form action="{{ route('owner.shop.edit') }}" method="post" style="display:inline;">
         @csrf
         <input type="hidden" name="shop_id" value="{{ $shop->id }}">
         <button type="submit">編集</button>

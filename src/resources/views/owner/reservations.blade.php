@@ -5,6 +5,9 @@
 @endsection
 
 @section('content')
+<div class="attendance__alert">
+    {{ session('status') }}
+</div>
 <div class="container">
     <h1>店舗別 予約一覧</h1>
     @foreach ($shops as $shop)
