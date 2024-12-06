@@ -6,11 +6,9 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use Spatie\Permission\Models\Role;
 use App\Models\Shop;
-use App\Models\Owner;
 use App\Models\Area;
 use App\Models\Genre;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\DB;
 
 class AdminController extends Controller
 {
@@ -49,16 +47,13 @@ class AdminController extends Controller
         return view('admin.user_index', compact('shops', 'ownersWithShops', 'ownersWithoutShops', 'Genres', 'Areas', 'users', 'generalUsers'));
     }
 
-
-
     public function createOwner()
     {
         $shops = Shop::all();
         $Genres = Genre::all();
         $Areas = Area::all();
-        $owners = Owner::all();
         $users = User::all();
-        return view('admin.create_owner', compact('shops', 'owners', 'Genres', 'Areas', 'users'));
+        return view('admin.create_owner', compact('shops', 'Genres', 'Areas', 'users'));
     }
 
     public function storeOwner(Request $request)
@@ -68,7 +63,8 @@ class AdminController extends Controller
             'name'     => 'required|string|max:255',
             'email'    => 'required|email|unique:users,email',
             'password' => 'required|string|min:8|confirmed',
-            'shop_id'  => 'nullable|exists:shops,id',
+            'shop_ids' => 'nullable|array', // 複数店舗の選択を許可
+            'shop_ids.*' => 'exists:shops,id', // 店舗IDが有効であることを確認
         ]);
 
         // ユーザーの作成
@@ -79,11 +75,10 @@ class AdminController extends Controller
         ]);
         $user->assignRole('owner');
 
-        // Ownersテーブルにレコードを直接追加
-        Owner::create([
-            'user_id' => $user->id,
-            'shop_id' => $request->shop_id, // nullの場合もそのまま保存
-        ]);
+        // 担当店舗を登録
+        if (!empty($request->shop_ids)) {
+            $user->shops()->attach($request->shop_ids);
+        }
 
         return redirect('/admin/dashboard')->with('status', '店舗代表者が作成されました。');
     }
@@ -96,13 +91,16 @@ class AdminController extends Controller
         ]);
 
         // オーナー情報を取得
-        $owner = User::with('shops')->findOrFail($request->owner_id);
+        $owner = User::whereHas('roles', function ($query) {
+            $query->where('name', 'owner'); // ロール名が "owner" のユーザー
+        })->with('shops')->findOrFail($request->owner_id);
 
         // すべての店舗を取得
         $shops = Shop::all();
 
         return view('admin.edit_owner', compact('shops', 'owner'));
     }
+
     public function updateOwner(Request $request)
     {
         // バリデーション
@@ -115,7 +113,11 @@ class AdminController extends Controller
             'shop_ids.*' => 'exists:shops,id', // 店舗IDが有効であることを確認
         ]);
 
-        $owner = User::findOrFail($request->owner_id);
+        $owner = User::whereHas('roles', function ($query) {
+            $query->where('name', 'owner'); // ロール名が "owner" のユーザー
+        })->findOrFail($request->owner_id);
+
+        // ユーザー情報の更新
         $owner->update([
             'name' => $request->name,
             'email' => $request->email,
@@ -125,13 +127,6 @@ class AdminController extends Controller
         // 担当店舗の更新
         $owner->shops()->sync($request->shop_ids);
 
-
-
-        $shops = Shop::all();
-        $Genres = Genre::all();
-        $Areas = Area::all();
-
-        $users = User::all();
         return redirect()->route('admin.user.index')->with('status', 'オーナー情報を更新しました。');
     }
 }
