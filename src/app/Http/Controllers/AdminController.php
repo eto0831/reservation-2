@@ -26,17 +26,30 @@ class AdminController extends Controller
         $Areas = Area::all();
         $users = User::all();
 
-        // オーナーロールを持つユーザーを取得
-        $owners = User::whereHas('roles', function ($query) {
+        // オーナーロールを持ち、担当店舗があるユーザーを取得
+        $ownersWithShops = User::whereHas('roles', function ($query) {
             $query->where('name', 'owner'); // ロール名が "owner" のユーザー
-        })->get();
+        })
+            ->has('shops') // shopsリレーションが存在するユーザーを取得
+            ->with('shops') // shopsリレーションを事前読み込み
+            ->get();
+
+        // オーナーロールを持ち、担当店舗がないユーザーを取得
+        $ownersWithoutShops = User::whereHas('roles', function ($query) {
+            $query->where('name', 'owner'); // ロール名が "owner" のユーザー
+        })
+            ->doesntHave('shops') // shopsリレーションが存在しないユーザーを取得
+            ->get();
 
         // ユーザーロールを持つユーザーを取得
         $generalUsers = User::whereHas('roles', function ($query) {
             $query->where('name', 'user'); // ロール名が "user" のユーザー
         })->get();
-        return view('admin.user_index', compact('shops', 'owners', 'Genres', 'Areas', 'users', 'generalUsers'));
+
+        return view('admin.user_index', compact('shops', 'ownersWithShops', 'ownersWithoutShops', 'Genres', 'Areas', 'users', 'generalUsers'));
     }
+
+
 
     public function createOwner()
     {

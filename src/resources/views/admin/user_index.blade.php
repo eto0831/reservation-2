@@ -24,17 +24,21 @@
             </tr>
         </thead>
         <tbody>
-            @foreach ($owners as $owner)
+            {{-- 担当店舗があるオーナーの表示 --}}
+            @foreach ($ownersWithShops as $owner)
                 @php
+                    $shopCount = $owner->shops->count();
+                    $rowCount = $shopCount > 0 ? $shopCount : 1; // rowspanの値を設定
                     $firstRow = true; // 最初の行かどうかを判定するフラグ
                 @endphp
+
                 @foreach ($owner->shops as $shop)
                 <tr>
                     @if ($firstRow)
-                        <td rowspan="{{ $owner->shops->count() }}">{{ $loop->parent->iteration }}</td>
-                        <td rowspan="{{ $owner->shops->count() }}">{{ $owner->name }}</td>
-                        <td rowspan="{{ $owner->shops->count() }}">{{ $owner->email }}</td>
-                        <td rowspan="{{ $owner->shops->count() }}">{{ $owner->created_at->format('Y-m-d') }}</td>
+                        <td rowspan="{{ $rowCount }}">{{ $loop->parent->iteration }}</td>
+                        <td rowspan="{{ $rowCount }}">{{ $owner->name }}</td>
+                        <td rowspan="{{ $rowCount }}">{{ $owner->email }}</td>
+                        <td rowspan="{{ $rowCount }}">{{ $owner->created_at->format('Y-m-d') }}</td>
                         @php
                             $firstRow = false;
                         @endphp
@@ -42,7 +46,7 @@
                     <td>{{ $shop->id }}</td>
                     <td>{{ $shop->shop_name }}</td>
                     @if ($loop->first)
-                        <td rowspan="{{ $owner->shops->count() }}">
+                        <td rowspan="{{ $rowCount }}">
                             <form action="/owner/edit/{{ $owner->id }}" class="owner__edit" method="get">
                                 <button type="submit">編集</button>
                             </form>
@@ -56,6 +60,28 @@
                     @endif
                 </tr>
                 @endforeach
+            @endforeach
+
+            {{-- 担当店舗がないオーナーの表示 --}}
+            @foreach ($ownersWithoutShops as $owner)
+                <tr>
+                    <td>{{ $loop->iteration + $ownersWithShops->count() }}</td>
+                    <td>{{ $owner->name }}</td>
+                    <td>{{ $owner->email }}</td>
+                    <td>{{ $owner->created_at->format('Y-m-d') }}</td>
+                    <td colspan="2">担当店舗なし</td>
+                    <td>
+                        <form action="/owner/edit/{{ $owner->id }}" class="owner__edit" method="get">
+                            <button type="submit">編集</button>
+                        </form>
+                        <form action="/owner" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <input type="hidden" name="owner_id" value="{{ $owner->id }}">
+                            <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
+                        </form>
+                    </td>
+                </tr>
             @endforeach
         </tbody>
     </table>
