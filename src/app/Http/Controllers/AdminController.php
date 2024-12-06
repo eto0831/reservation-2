@@ -38,7 +38,7 @@ class AdminController extends Controller
         return view('admin.user_index', compact('shops', 'owners', 'Genres', 'Areas', 'users', 'generalUsers'));
     }
 
-    public function createOwners()
+    public function createOwner()
     {
         $shops = Shop::all();
         $Genres = Genre::all();
@@ -48,7 +48,7 @@ class AdminController extends Controller
         return view('admin.create_owner', compact('shops', 'owners', 'Genres', 'Areas', 'users'));
     }
 
-    public function storeOwners(Request $request)
+    public function storeOwner(Request $request)
     {
         // バリデーション
         $request->validate([
@@ -73,5 +73,15 @@ class AdminController extends Controller
         ]);
 
         return redirect('/admin/dashboard')->with('status', '店舗代表者が作成されました。');
+    }
+
+    public function editOwner()
+    {
+        $shops = Shop::all();
+        $Genres = Genre::all();
+        $Areas = Area::all();
+        $owners = Owner::all();
+        $users = User::all();
+        return view('admin.create_owner', compact('shops', 'owners', 'Genres', 'Areas', 'users'));
     }
 }

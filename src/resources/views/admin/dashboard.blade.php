@@ -9,8 +9,8 @@
     {{ session('status') }}
 </div>
 <h1>Admin</h1>
-<a href="/admin/create/owner"></a>
-<a href="/admin/create/user/index"></a>
+<a href="/admin/owner/create">店舗代表者作成</a>
+<a href="/admin/user/index">ユーザーインデックス</a>
 
 
 @endsection

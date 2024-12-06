@@ -8,6 +8,7 @@
 <div class="attendance__alert">
     {{ session('status') }}
 </div>
+test
 
 
 @endsection

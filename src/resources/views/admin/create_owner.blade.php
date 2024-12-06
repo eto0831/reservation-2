@@ -13,7 +13,7 @@
     <div class="register-form__heading">
         <h2>店舗代表者登録</h2>
     </div>
-    <form class="form" action="/admin/create/owner" method="post">
+    <form class="form" action="{{ route('admin.owner.store') }}" method="post">
         @csrf
         <div class="form__group">
             <div class="form__group-title">

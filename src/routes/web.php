@@ -46,7 +46,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
     Route::post('/review', [ReviewController::class, 'store']);
     Route::delete('/review/delete', [ReviewController::class, 'destroy']);
-    Route::get('/review/{review}/edit', [ReviewController::class, 'edit'])->name('review.edit');
+    Route::get('/review/edit/{review}', [ReviewController::class, 'edit'])->name('review.edit');
     Route::put('/review/update/{review}', [ReviewController::class, 'update'])->name('review.update');
 
     Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
@@ -57,10 +57,11 @@ Route::middleware(['auth', 'verified'])->group(function () {
 });
 
 Route::group(['middleware' => ['role:admin']], function () {
-    Route::get('/admin/dashboard', [AdminController::class, 'dashboard']);
-    Route::get('/admin/user/index', [AdminController::class, 'userIndex']);
-    Route::get('/admin/create/owner', [AdminController::class, 'createOwners']);
-    Route::post('/admin/create/owner', [AdminController::class, 'storeOwners']);
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
+    Route::get('/admin/user/index', [AdminController::class, 'userIndex'])->name('admin.user.index');
+    Route::get('/admin/owner/create', [AdminController::class, 'createOwner'])->name('admin.owner.create');
+    Route::post('/admin/owner/edit', [AdminController::class, 'editOwner'])->name('admin.owner.edit');
+    Route::post('/admin/owner/store', [AdminController::class, 'storeOwner'])->name('admin.owner.store');
 });
 
 Route::group(['middleware' => ['auth', 'verified', 'role:owner', 'can:manage shops', 'can:manage reservations']], function () {

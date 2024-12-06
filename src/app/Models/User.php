@@ -65,6 +65,11 @@ class User extends Authenticatable implements MustVerifyEmail
         return $this->belongsToMany(Shop::class, 'owners', 'user_id', 'shop_id');
     }
 
+    public function owners()
+    {
+        return $this->belongsToMany(Owner::class, 'owner_user', 'user_id', 'owner_id');
+    }
+
 
     public function isVisited($shopId)
     {
