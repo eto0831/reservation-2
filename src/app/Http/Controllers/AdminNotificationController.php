@@ -18,10 +18,12 @@ class AdminNotificationController extends Controller
     {
         $request->validate([
             'target' => 'required',
+            'subject' => 'required',
             'message' => 'required',
         ]);
 
         $target = $request->input('target');
+        $subject = $request->input('subject');
         $messageContent = $request->input('message');
 
         // 宛先の絞り込み
@@ -33,7 +35,7 @@ class AdminNotificationController extends Controller
         $users = $query->get();
 
         foreach ($users as $user) {
-            Mail::to($user->email)->queue(new AdminNotificationMail($messageContent));
+            Mail::to($user->email)->queue(new AdminNotificationMail($subject, $messageContent));
         }
 
         return redirect()->back()->with('success', 'メール送信が完了しました');

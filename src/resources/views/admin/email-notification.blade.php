@@ -15,6 +15,10 @@
             </select>
         </div>
         <div class="form-group">
+            <label for="subject">件名</label>
+            <input type="text" name="subject" id="subject" class="form-control" required>
+        </div>
+        <div class="form-group">
             <label for="message">本文</label>
             <textarea name="message" id="message" class="form-control" rows="5"></textarea>
         </div>
