@@ -11,6 +11,7 @@
 <h1>Admin</h1>
 <a href="/admin/owner/create">店舗代表者作成</a>
 <a href="/admin/user/index">ユーザーインデックス</a>
+<a href=" {{route('admin.emailNotification')}} ">お知らせメール機能</a>
 
 
 @endsection

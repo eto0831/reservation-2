@@ -9,6 +9,7 @@ use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\OwnerController;
+use App\Http\Controllers\AdminNotificationController;
 
 
 
@@ -73,6 +74,8 @@ Route::group(['middleware' => ['role:admin']], function () {
     // 担当店舗の追加と解除のルートを追加
     Route::post('/admin/owner/attach-shop', [AdminController::class, 'attachShop'])->name('admin.owner.attachShop');
     Route::post('/admin/owner/detach-shop', [AdminController::class, 'detachShop'])->name('admin.owner.detachShop');
+    Route::get('/email-notification', [AdminNotificationController::class, 'showForm'])->name('admin.emailNotification');
+    Route::post('/email-notification', [AdminNotificationController::class, 'sendNotification'])->name('admin.sendNotification');
 });
 
 
