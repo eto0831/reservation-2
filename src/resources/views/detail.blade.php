@@ -52,7 +52,7 @@
                         @endfor
                 </select>
                 <input type="text" name="comment" value="">
-                <button type="submit">投稿</button>
+                <button type="submit" onclick="return confirm('この内容でレビューを投稿しますか？')">投稿</button>
             </form>
             @endif
 
@@ -70,7 +70,7 @@
                     @csrf
                     @method('DELETE')
                     <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                    <button type="submit">削除</button>
+                    <button type="submit" onclick="return confirm('レビューを削除しますか？')">削除</button>
                 </form>
             </div>
             @endif

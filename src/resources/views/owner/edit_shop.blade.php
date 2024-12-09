@@ -130,7 +130,7 @@
             </div>
         </div>
         <div class="form__button">
-            <button class="form__button-submit" type="submit">変更</button>
+            <button class="form__button-submit" type="submit" onclick="return confirm('変更を確定しますか？')">変更</button>
         </div>
     </form>
     <!-- 削除フォーム -->

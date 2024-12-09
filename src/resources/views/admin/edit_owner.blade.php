@@ -63,7 +63,7 @@
                 </div>
             </div>
             <div class="form__button">
-                <button class="form__button-submit" type="submit">ユーザー情報を更新</button>
+                <button class="form__button-submit" type="submit" onclick="return confirm('この内容で確定しますか？')">ユーザー情報を更新</button>
             </div>
         </form>
 
@@ -124,7 +124,7 @@
                         @endif
                         @endforeach
                     </select>
-                    <button type="submit">追加</button>
+                    <button type="submit" onclick="return confirm('担当店舗を追加しますか？')">追加</button>
                 </form>
                 <div class="form__error">
                     @error('shop_id')

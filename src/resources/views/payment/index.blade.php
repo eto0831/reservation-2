@@ -37,7 +37,7 @@
                         <div id="card-element" class="form-control"></div>
                     </div>
                     <div id="card-errors" class="text-danger"></div>
-                    <button id="submit-button" class="mt-3 btn btn-primary" type="submit">
+                    <button id="submit-button" class="mt-3 btn btn-primary" type="submit" onclick="return confirm('この内容で決済しますか？')">
                         支払い
                     </button>
                     <input type="hidden" name="payment_method" id="payment_method">

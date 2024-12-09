@@ -83,7 +83,7 @@
                     </tr>
                 </table>
             </div>
-            <button type="submit">変更を確定する</button>
+            <button type="submit" onclick="return confirm('この内容で確定しますか？')">変更を確定する</button>
         </form>
     </div>
 </div>

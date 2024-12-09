@@ -22,7 +22,7 @@
             <label for="message">本文</label>
             <textarea name="message" id="message" class="form-control" rows="5"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary">メール送信</button>
+        <button type="submit" class="btn btn-primary" onclick="return confirm('この内容で送信しますか？')">メール送信</button>
     </form>
 </div>
 @endsection

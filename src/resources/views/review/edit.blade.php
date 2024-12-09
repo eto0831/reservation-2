@@ -17,6 +17,6 @@
             <label for="comment">コメント:</label>
             <textarea name="comment" id="comment">{{ $review->comment }}</textarea>
         </div>
-        <button type="submit">更新</button>
+        <button type="submit" onclick="return confirm('内容この内容で更新しますか？')">更新</button>
     </form>
 @endsection

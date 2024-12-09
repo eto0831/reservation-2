@@ -37,7 +37,7 @@
                             @csrf
                             @method('DELETE')
                             <input type="hidden" name="reservation_id" value="{{ $reservation->id}}">
-                            <button type="submit">×</button>
+                            <button type="submit" onclick="return confirm('予約を削除しますか？')">×</button>
                         </form>
                     </div>
                 </div>

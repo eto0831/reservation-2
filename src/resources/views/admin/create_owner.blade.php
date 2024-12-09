@@ -92,7 +92,7 @@
             </div>
         </div>
         <div class="form__button">
-            <button class="form__button-submit" type="submit">登録</button>
+            <button class="form__button-submit" type="submit" onclick="return confirm('この内容で登録しますか？')">登録</button>
         </div>
     </form>
 </div>
