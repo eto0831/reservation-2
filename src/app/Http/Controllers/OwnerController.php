@@ -9,6 +9,7 @@ use App\Models\Area;
 use App\Models\Genre;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
 
 class OwnerController extends Controller
 {
@@ -51,8 +52,15 @@ class OwnerController extends Controller
         ];
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('public/images/shops');
-            $shopData['image_url'] = str_replace('public/', 'storage/', $imagePath);
+            if (config('app.env') === 'production') {
+                // S3にアップロード
+                $path = Storage::disk('s3')->put('images/shops', $request->file('image'));
+                $shopData['image_url'] = Storage::disk('s3')->url($path);
+            } else {
+                // ローカルに保存
+                $imagePath = $request->file('image')->store('public/images/shops');
+                $shopData['image_url'] = str_replace('public/', 'storage/', $imagePath);
+            }
         }
 
         $shop = Shop::create($shopData);
@@ -125,9 +133,17 @@ class OwnerController extends Controller
         ];
 
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('public/images/shops'); // ディレクトリを変更
-            $shopData['image_url'] = str_replace('public/', 'storage/', $imagePath); // パスを公開用に変換
+            if (config('app.env') === 'production') {
+                // S3にアップロード
+                $path = Storage::disk('s3')->put('images/shops', $request->file('image'));
+                $shopData['image_url'] = Storage::disk('s3')->url($path);
+            } else {
+                // ローカルに保存
+                $imagePath = $request->file('image')->store('public/images/shops');
+                $shopData['image_url'] = str_replace('public/', 'storage/', $imagePath);
+            }
         }
+
 
         Shop::find($request->input('shop_id'))->update($shopData);
 
