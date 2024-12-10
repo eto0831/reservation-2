@@ -34,8 +34,7 @@
                     <td>{{ $reservation->guest_count }}人</td>
                     <td>
                         <!-- 更新フォーム -->
-                        <form action="{{ route('owner.reservation.edit') }}" method="post" style="display:inline;">
-                            @csrf
+                        <form action="{{ route('owner.reservation.edit', $reservation) }}" method="get" style="display:inline;">
                             <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
                             <button type="submit">編集</button>
                         </form>

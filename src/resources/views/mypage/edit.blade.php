@@ -38,6 +38,15 @@
     </div>
     <div class="reservation__form">
         <h1>予約</h1>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <form action="{{ route('reservation.update') }}" method="post">
             @csrf
             @method('PATCH')

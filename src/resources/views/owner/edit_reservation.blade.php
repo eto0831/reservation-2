@@ -10,13 +10,22 @@
 </div>
 <div class="reservation__form">
     <h1>予約</h1>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
     <form action="{{ route('owner.reservation.update') }}" method="post">
         @csrf
         @method('PATCH')
         <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
         <input type="hidden" name="shop_id" value="{{ $shop->id }}">
         <input type="date" name="reserve_date" id="reserve_date" value="{{ $reservation->reserve_date }}">
-        <select name="reserve_time" id="reserve_time" required>
+        <select name="reserve_time" id="reserve_time">
             <option value="" disabled>時間を選択してください</option>
             @for ($hour = 9; $hour<= 22; $hour++) @foreach (['00', '15' , '30' , '45' ] as $minute) <option
                 value="{{ sprintf('%02d:%02d', $hour, $minute) }}" @if (\Carbon\Carbon::createFromFormat('H:i:s',

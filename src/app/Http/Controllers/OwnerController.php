@@ -10,6 +10,7 @@ use App\Models\Genre;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
+use App\Http\Requests\ReservationRequest;
 
 class OwnerController extends Controller
 {
@@ -187,13 +188,9 @@ class OwnerController extends Controller
         return redirect('/owner/reservations')->with('status', '予約を削除しました');
     }
 
-    public function editReservation(Request $request)
+    public function editReservation($reservation_id)
     {
-        $request->validate([
-            'reservation_id' => 'required|exists:reservations,id',
-        ]);
-
-        $reservation = Reservation::findOrFail($request->reservation_id);
+        $reservation = Reservation::findOrFail($reservation_id);
 
         // 担当店舗の予約のみ編集可能
         if (!Auth::user()->shops->contains($reservation->shop_id)) {
@@ -205,15 +202,8 @@ class OwnerController extends Controller
         return view('owner.edit_reservation', compact('reservation', 'shop'));
     }
 
-    public function updateReservation(Request $request)
+    public function updateReservation(ReservationRequest $request)
     {
-        $request->validate([
-            'reservation_id' => 'required|exists:reservations,id',
-            'reserve_date' => 'required|date',
-            'reserve_time' => 'required',
-            'guest_count' => 'required|integer|min:1|max:10',
-        ]);
-
         $reservation = Reservation::findOrFail($request->reservation_id);
 
         // 担当店舗の予約のみ更新可能

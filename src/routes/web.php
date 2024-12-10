@@ -30,14 +30,13 @@ Route::get('/welcome', function () {
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/', [ShopController::class, 'index']);
     Route::get('/detail/{shop_id}', [ShopController::class, 'detail'])->name('detail');;
-    Route::post('/reservation', [ReservationController::class, 'store']);
     Route::delete('/reservation', [ReservationController::class, 'destroy']);
     Route::match(['get', 'post'], '/search', [ShopController::class, 'search']);
     Route::post('/favorite', [FavoriteController::class, 'store']);
     Route::delete('/favorite', [FavoriteController::class, 'destroy']);
     Route::get('/mypage', [AuthController::class, 'index']);
     // 予約編集のルート
-    Route::post('/reservation/edit', [ReservationController::class, 'edit'])->name('reservation.edit');
+    Route::get('/reservation/edit/{id}', [ReservationController::class, 'edit'])->name('reservation.edit');
     // 予約更新のルート
     Route::patch('/reservation/update', [ReservationController::class, 'update'])->name('reservation.update');
 
@@ -59,6 +58,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
 
 // web.php
 
+// admin
 Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])->name('admin.dashboard');
     Route::get('/admin/user/index', [AdminController::class, 'userIndex'])->name('admin.user.index');
@@ -78,7 +78,7 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::post('/email-notification', [AdminNotificationController::class, 'sendNotification'])->name('admin.sendNotification');
 });
 
-
+// オーナー
 Route::group(['middleware' => ['auth', 'verified', 'role:owner', 'can:manage shops', 'can:manage reservations']], function () {
     Route::get('/owner/dashboard', [OwnerController::class, 'dashboard']);
     Route::get('/owner/shops', [OwnerController::class, 'shops'])->name('owner.shops');
@@ -89,7 +89,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:owner', 'can:manage sho
     Route::delete('/owner/shop/delete', [OwnerController::class, 'destroyShop'])->name('owner.shop.destroy');
 
     Route::get('/owner/reservations', [OwnerController::class, 'reservations'])->name('owner.reservations');
-    Route::post('/owner/reservation/edit', [OwnerController::class, 'editReservation'])->name('owner.reservation.edit');
+    Route::get('/owner/reservation/edit/{id}', [OwnerController::class, 'editReservation'])->name('owner.reservation.edit');
     Route::patch('/owner/reservation/update', [OwnerController::class, 'updateReservation'])->name('owner.reservation.update');
     Route::delete('/owner/reservation/destroy', [OwnerController::class, 'destroyReservation'])->name('owner.reservation.destroy');
 });

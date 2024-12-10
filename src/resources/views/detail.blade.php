@@ -79,11 +79,21 @@
     </div>
     <div class="reservation__form">
         <h1>予約</h1>
+        @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
+
         <form action="{{ route('reservation.process') }}" method="post">
             @csrf
             <input type="hidden" name="shop_id" value="{{ $shop->id }}">
             <input type="date" name="reserve_date" id="reserve_date">
-            <select name="reserve_time" id="reserve_time" required>
+            <select name="reserve_time" id="reserve_time">
                 <option value="" disabled selected>時間を選択してください</option>
                 @for ($hour = 9; $hour<= 22; $hour++) @foreach (['00', '15' , '30' , '45' ] as $minute) <option
                     value="{{ sprintf('%02d:%02d', $hour, $minute) }}">
@@ -117,7 +127,7 @@
                     </tr>
                 </table>
             </div>
-            <button type="submit">予約する</button>
+            <button type="submit" onclick="return confirm('この内容で予約しますか？')">予約する</button>
         </form>
     </div>
 </div>

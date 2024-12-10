@@ -10,21 +10,21 @@ use App\Models\Area;
 use App\Models\User;
 use SimpleSoftwareIO\QrCode\Facades\QrCode;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\ReservationRequest;
 
 class ReservationController extends Controller
 {
-    public function store(Request $request)
-    {
-        $reservation = [
-            'user_id' => auth()->user()->id, // ログイン中のユーザーID
-            'shop_id' => $request->shop_id, // リクエストから取得した店舗ID
-            'reserve_date' => $request->reserve_date, // リクエストから取得した予約日
-            'reserve_time' => $request->reserve_time, // リクエストから取得した予約時間
-            'guest_count' => $request->guest_count, // リクエストから取得した来店人数
-        ];
-        Reservation::create($reservation);
 
-        return redirect('/');
+    // 予約情報作成の予備段階メソッド（PaymentControllerにセッションを送る）
+    public function process(ReservationRequest $request)
+    {
+
+        // 予約情報をセッションに保存
+        $reservationData = $request->only(['shop_id', 'reserve_date', 'reserve_time', 'guest_count']);
+        session(['reservation_data' => $reservationData]);
+
+        // 決済画面にリダイレクト
+        return redirect()->route('payment.index');
     }
 
     public function destroy(Request $request)
@@ -47,15 +47,10 @@ class ReservationController extends Controller
         return redirect('/mypage')->with('status', '予約を削除しました');
     }
 
-    public function edit(Request $request)
+    public function edit($reservation_id)
     {
-        // バリデーション: reservation_id が送信されていることを確認
-        $request->validate([
-            'reservation_id' => 'required|exists:reservations,id',
-        ]);
-
         // 該当予約を取得
-        $reservation = Reservation::findOrFail($request->reservation_id);
+        $reservation = Reservation::findOrFail($reservation_id);
 
         if (Auth::id() !== $reservation->user_id) {
             abort(403, 'この予約を編集する権限がありません');
@@ -66,14 +61,11 @@ class ReservationController extends Controller
         return view('mypage.edit', compact('reservation', 'shop'));
     }
 
-    public function update(Request $request)
+    public function update(ReservationRequest $request)
     {
-        // バリデーション
+        // IDの有無を確認
         $request->validate([
             'reservation_id' => 'required|exists:reservations,id',
-            'reserve_date' => 'required|date',
-            'reserve_time' => 'required',
-            'guest_count' => 'required|integer|min:1|max:10',
         ]);
 
         // 該当予約を取得
@@ -82,13 +74,6 @@ class ReservationController extends Controller
         if (Auth::id() !== $reservation->user_id) {
             abort(403, 'この予約を更新する権限がありません');
         }
-
-        // 予約情報を更新
-        $reservation->update([
-            'reserve_date' => $request->reserve_date,
-            'reserve_time' => $request->reserve_time,
-            'guest_count' => $request->guest_count,
-        ]);
 
         return redirect('/mypage')->with('status', '予約を変更しました');
     }
@@ -126,21 +111,4 @@ class ReservationController extends Controller
         }
     }
 
-    public function process(Request $request)
-    {
-        // 入力値のバリデーション
-        $request->validate([
-            'shop_id' => 'required|exists:shops,id',
-            'reserve_date' => 'required|date',
-            'reserve_time' => 'required',
-            'guest_count' => 'required|integer|min:1|max:10',
-        ]);
-
-        // 予約情報をセッションに保存
-        $reservationData = $request->only(['shop_id', 'reserve_date', 'reserve_time', 'guest_count']);
-        session(['reservation_data' => $reservationData]);
-
-        // 決済画面にリダイレクト
-        return redirect()->route('payment.index');
-    }
 }
