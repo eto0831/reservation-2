@@ -3,9 +3,11 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use App\Actions\Fortify\PasswordValidationRules;
 
 class RegisterRequest extends FormRequest
 {
+    use PasswordValidationRules; // トレイトを使用
     /**
      * Determine if the user is authorized to make this request.
      *
@@ -13,7 +15,7 @@ class RegisterRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +26,9 @@ class RegisterRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => ['required', 'string', 'max:191'],
+            'email' => ['required', 'string', 'email', 'max:191', 'unique:users'],
+            'password' => $this->passwordRules(),
         ];
     }
 }
