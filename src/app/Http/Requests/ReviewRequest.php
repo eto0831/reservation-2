@@ -33,8 +33,7 @@ class ReviewRequest extends FormRequest
     public function messages()
     {
         return [
-            'rating.required' => '店舗が選択されていません。',
-            'shop_id.exists' => '選択された店舗が存在しません。',
+            'rating.required' => '評価を選択してください。',
             'comment.required' => 'コメントを入力してください。',
             'comment.string'=>'コメントは文字で入力してください。',
             'comment.max' => 'コメントは191文字以内で入力してください。',
