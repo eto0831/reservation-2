@@ -51,8 +51,12 @@ services:
         image: mailhog/mailhog
         ports:
             - "8025:8025"
+        environment:
+            MH_STORAGE: maildir
+            MH_MAILDIR_PATH: /tmp
         volumes:
             - "./bin/mhsendmail:/usr/local/bin/mhsendmail"
+            - maildir:/tmp
 
     supervisor:
         build: ./docker/supervisor
@@ -61,3 +65,6 @@ services:
         depends_on:
             - php
         command: ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+
+volumes:
+    maildir:
