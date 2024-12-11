@@ -9,7 +9,8 @@ use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Genre;
 use Illuminate\Support\Facades\Auth;
-use App\Http\Requests\OwnerRequest;
+use App\Http\Requests\CreateOwnerRequest;
+use App\Http\Requests\UpdateOwnerRequest;
 
 class AdminController extends Controller
 {
@@ -57,17 +58,8 @@ class AdminController extends Controller
         return view('admin.create_owner', compact('shops', 'Genres', 'Areas', 'users'));
     }
 
-    public function storeOwner(OwnerRequest $request)
+    public function storeOwner(CreateOwnerRequest $request)
     {
-        // バリデーション
-        $request->validate([
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email',
-            'password' => 'required|string|min:8|confirmed',
-            'shop_ids' => 'nullable|array', // 複数店舗の選択を許可
-            'shop_ids.*' => 'exists:shops,id', // 店舗IDが有効であることを確認
-        ]);
-
         // ユーザーの作成
         $user = User::create([
             'name'     => $request->name,
@@ -98,15 +90,8 @@ class AdminController extends Controller
     }
 
 
-    public function updateOwner(OwnerRequest $request)
+    public function updateOwner(UpdateOwnerRequest $request)
     {
-        $request->validate([
-            'owner_id' => 'required|exists:users,id',
-            'name'     => 'required|string|max:255',
-            'email'    => 'required|email|unique:users,email,' . $request->owner_id,
-            'password' => 'nullable|string|min:8|confirmed',
-        ]);
-
         $owner = User::whereHas('roles', function ($query) {
             $query->where('name', 'owner');
         })->findOrFail($request->owner_id);

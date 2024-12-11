@@ -4,7 +4,7 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\RegisterRequest;
 
-class OwnerRequest extends RegisterRequest
+class CreateOwnerRequest extends RegisterRequest
 {
     public function rules()
     {
