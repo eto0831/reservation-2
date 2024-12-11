@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Review;
+use App\Http\Requests\ReviewRequest;
 
 
 class ReviewController extends Controller
@@ -13,7 +14,7 @@ class ReviewController extends Controller
         return view('review');
     }
 
-    public function store(Request $request)
+    public function store(ReviewRequest $request)
     {
         $review = Review::where('shop_id', $request->input('shop_id'))
             ->where('user_id', auth()->user()->id)
@@ -34,7 +35,7 @@ class ReviewController extends Controller
         }
     }
 
-    public function destroy(Request $request)
+    public function destroy(ReviewRequest $request)
     {
         $deleted = auth()->user()->reviews()->where('shop_id', $request->shop_id)->delete();
 
@@ -44,8 +45,6 @@ class ReviewController extends Controller
             return back()->with('error', '投稿の削除に失敗しました');
         }
     }
-
-    // ReviewController.php
 
     public function edit(Review $review)
     {
@@ -58,22 +57,14 @@ class ReviewController extends Controller
 
     public function update(Request $request, Review $review)
     {
-
         // ログインユーザーがレビューの作者かどうかを確認
         if ($review->user_id !== auth()->id()) {
             abort(403); // 権限がない場合はアクセスを拒否
         }
-
-        $request->validate([
-            'rating' => 'required|integer|between:1,5',
-            'comment' => 'required|string',
-        ]);
-
         $review->update([
             'rating' => $request->rating,
             'comment' => $request->comment,
         ]);
-
         return redirect()->route('detail', ['shop_id' => $review->shop_id])
             ->with('status', 'レビューを更新しました');
     }

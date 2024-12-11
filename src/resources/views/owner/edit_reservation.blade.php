@@ -10,10 +10,11 @@
 </div>
 <div class="reservation__form">
     <h1>予約</h1>
-    @if ($errors->any())
+    {{-- 予約フォームのエラー表示 --}}
+    @if ($errors->hasBag('reservation'))
     <div class="alert alert-danger">
         <ul>
-            @foreach ($errors->all() as $error)
+            @foreach ($errors->reservation->all() as $error)
             <li>{{ $error }}</li>
             @endforeach
         </ul>

@@ -12,6 +12,16 @@
 <div class="detail__content">
     <div class="detail__wrap">
         <h1>店舗詳細</h1>
+        {{-- レビューフォームのエラー表示 --}}
+        @if ($errors->hasBag('review'))
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->review->all() as $error)
+                <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+        @endif
         <ul>
             <li>
                 <h2>{{ $shop->shop_name }}</h2>
@@ -39,25 +49,25 @@
 
         @if (Auth::check() && $reservationId = Auth::user()->isVisited($shop->id))
         <p>この店舗は訪問済みです。</p>
-        
-            {{-- レビュー済みかどうかをチェック --}}
-            @if (!$shop->hasReviewed(Auth::user()->id))
-            <form action="/review" method="post">
-                @csrf
-                <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                <input type="hidden" name="user_id">
-                <input type="hidden" name="reservation_id" value="{{ $reservationId }}">
-                <select name="rating" id="rating">
-                    @for ($i = 1; $i <=5; $i++) <option value="{{ $i }}">{{ $i }}</option>
-                        @endfor
-                </select>
-                <input type="text" name="comment" value="">
-                <button type="submit" onclick="return confirm('この内容でレビューを投稿しますか？')">投稿</button>
-            </form>
-            @endif
+
+        {{-- レビュー済みかどうかをチェック --}}
+        @if (!$shop->hasReviewed(Auth::user()->id))
+        <form action="/review" method="post">
+            @csrf
+            <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+            <input type="hidden" name="user_id">
+            <input type="hidden" name="reservation_id" value="{{ $reservationId }}">
+            <select name="rating" id="rating">
+                @for ($i = 1; $i <=5; $i++) <option value="{{ $i }}">{{ $i }}</option>
+                    @endfor
+            </select>
+            <input type="text" name="comment" value="" placeholder="レビューは191文字以内の上、必ずご入力ください。">
+            <button type="submit" onclick="return confirm('この内容でレビューを投稿しますか？')">投稿</button>
+        </form>
+        @endif
 
         @else
-            <p>この店舗はまだ訪問していません。</p>
+        <p>この店舗はまだ訪問していません。</p>
         @endif
         <h4>レビュー一覧</h4>
         @foreach($reviews as $review)
@@ -79,11 +89,12 @@
     </div>
     <div class="reservation__form">
         <h1>予約</h1>
-        @if ($errors->any())
+        {{-- 予約フォームのエラー表示 --}}
+        @if ($errors->hasBag('reservation'))
         <div class="alert alert-danger">
             <ul>
-                @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
+                @foreach ($errors->reservation->all() as $error)
+                <li>{{ $error }}</li>
                 @endforeach
             </ul>
         </div>

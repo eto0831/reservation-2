@@ -8,6 +8,8 @@ use Carbon\Carbon;
 
 class ReservationRequest extends FormRequest
 {
+    protected $errorBag = 'reservation';
+
     public function authorize()
     {
         return true;
