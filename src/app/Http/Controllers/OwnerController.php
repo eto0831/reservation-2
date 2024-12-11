@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 use App\Http\Requests\ReservationRequest;
+use App\Http\Requests\ShopRequest;
 
 class OwnerController extends Controller
 {
@@ -39,11 +40,8 @@ class OwnerController extends Controller
         return view('owner.create_shop', compact('areas', 'genres'));
     }
 
-    public function storeShop(Request $request)
+    public function storeShop(ShopRequest $request)
     {
-        $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-        ]);
 
         $shopData = [
             'shop_name'   => $request->shop_name,
@@ -115,12 +113,8 @@ class OwnerController extends Controller
         return view('owner.edit_shop', compact('shop', 'areas', 'genres'));
     }
 
-    public function updateShop(Request $request)
+    public function updateShop(ShopRequest $request)
     {
-        $request->validate([
-            'image' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 画像のバリデーションルールを追加
-        ]);
-
         $shop = Shop::find($request->input('shop_id'));
 
         // 認可チェックsrc/app/Providers/AuthServiceProvider.phpに登録済みのポリシー
