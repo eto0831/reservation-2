@@ -3,6 +3,16 @@
 @section('content')
 <div class="container">
     <h1>Email Notification</h1>
+    @if ($errors->any())
+    <div class="alert alert-danger">
+        <ul>
+            @foreach ($errors->all() as $error)
+            <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+
     <form method="POST" action="{{ route('admin.sendNotification') }}">
         @csrf
         <div class="form-group">
@@ -16,7 +26,7 @@
         </div>
         <div class="form-group">
             <label for="subject">件名</label>
-            <input type="text" name="subject" id="subject" class="form-control" required>
+            <input type="text" name="subject" id="subject" class="form-control">
         </div>
         <div class="form-group">
             <label for="message">本文</label>

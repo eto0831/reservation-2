@@ -6,6 +6,7 @@ use App\Mail\AdminNotificationMail;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
+use App\Http\Requests\AdminNotificationRequest;
 
 class AdminNotificationController extends Controller
 {
@@ -14,14 +15,8 @@ class AdminNotificationController extends Controller
         return view('admin.email-notification');
     }
 
-    public function sendNotification(Request $request)
+    public function sendNotification(AdminNotificationRequest $request)
     {
-        $request->validate([
-            'target' => 'required',
-            'subject' => 'required',
-            'message' => 'required',
-        ]);
-
         $target = $request->input('target');
         $subject = $request->input('subject');
         $messageContent = $request->input('message');
