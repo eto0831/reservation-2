@@ -9,6 +9,7 @@ use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Genre;
 use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\OwnerRequest;
 
 class AdminController extends Controller
 {
@@ -56,7 +57,7 @@ class AdminController extends Controller
         return view('admin.create_owner', compact('shops', 'Genres', 'Areas', 'users'));
     }
 
-    public function storeOwner(Request $request)
+    public function storeOwner(OwnerRequest $request)
     {
         // バリデーション
         $request->validate([
@@ -97,7 +98,7 @@ class AdminController extends Controller
     }
 
 
-    public function updateOwner(Request $request)
+    public function updateOwner(OwnerRequest $request)
     {
         $request->validate([
             'owner_id' => 'required|exists:users,id',
