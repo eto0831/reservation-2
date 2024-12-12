@@ -55,10 +55,10 @@
                         </nav>
                     </div>
                 </div>
+                <a class="header__logo" href="/">
+                    Rese
+                </a>
             </div>
-            <a class="header__logo" href="/">
-                Rese
-            </a>
         </div>
         </div>
     </header>
