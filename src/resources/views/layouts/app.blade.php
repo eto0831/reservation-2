@@ -15,30 +15,50 @@
     <header class="header">
         <div class="header__inner">
             <div class="header-utilities">
-                <button class="hamburger-menu">
+                <button class="hamburger-menu" popovertarget="Modal" popovertargetaction="show">
                     <span class="line"></span>
                     <span class="line"></span>
                     <span class="line"></span>
-                  </button>
-                <a class="header__logo" href="/">
-                    Rese
-                </a>
-                <nav>
-                    <ul class="header-nav">
-                        @if (Auth::check())
-                        <li class="header-nav__item">
-                            <a class="header-nav__link" href="/mypage">マイページ</a>
-                        </li>
-                        <li class="header-nav__item">
-                            <form class="form" action="/logout" method="post">
-                                @csrf
-                                <button class="header-nav__button">ログアウト</button>
-                            </form>
-                        </li>
-                        @endif
-                    </ul>
-                </nav>
+                </button>
+                <div id="Modal" popover="auto">
+                    <div class="inner-modal">
+                        <p class="text">モーダルが表示されました</p>
+                        <nav>
+                            <ul class="header-nav">
+                                <li class="header-nav__item">
+                                    <a class="header-nav__link" href="/">Home</a>
+                                </li>
+                                @if (Auth::check())
+                                <li class="header-nav__item">
+                                    <a class="header-nav__link" href="/mypage">Mypage</a>
+                                </li>
+                                <li class="header-nav__item">
+                                    <form class="form" action="/logout" method="post">
+                                        @csrf
+                                        <button class="header-nav__button">Logout</button>
+                                    </form>
+                                </li>
+                                @else
+                                <li class="header-nav__item">
+                                    <a class="header-nav__link" href="/register">Registration</a>
+                                </li>
+                                <li class="header-nav__item">
+                                    <form class="form" action="/login" method="post">
+                                        @csrf
+                                        <button class="header-nav__button">Login</button>
+                                    </form>
+                                </li>
+                                @endif
+                            </ul>
+                        </nav>
+                        <button class="Close" popovertarget="Modal" popovertargetaction="hidden">モーダルを閉じる</button>
+                    </div>
+                </div>
             </div>
+            <a class="header__logo" href="/">
+                Rese
+            </a>
+        </div>
         </div>
     </header>
 

@@ -45,7 +45,7 @@
 
 .line {
     display: block;
-    
+
     height: 1px; /* 線の高さ */
     background-color: white; /* 線の色 */
     margin: 6px 0; /* 線の間隔 */
@@ -75,7 +75,7 @@
 }
 
 .header-nav__link {
-    color: #fff;
+    color: #1976d2;
     text-decoration: none;
 }
 
@@ -85,6 +85,38 @@
     color: #fff;
     font-size: 16px;
     cursor: pointer;
+}
+
+/* モーダル */
+button:hover,
+button:active {
+    opacity: 0.7;
+}
+
+.Open {
+    background-color: #62929e;
+}
+
+.Close {
+    background-color: #b9314f;
+}
+
+#Modal {
+    border: none;
+    border-radius: 9px;
+    box-shadow: 0 10px 20px -5px #000;
+}
+
+.inner-modal {
+    align-content: center;
+    display: grid;
+    justify-items: center;
+    padding: 32px;
+}
+
+.text {
+    font-weight: 600;
+    margin: 0 0 16px;
 }
 
 /* ページネーション */
