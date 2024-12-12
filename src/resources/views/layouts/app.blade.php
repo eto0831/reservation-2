@@ -22,13 +22,15 @@
                 </button>
                 <div id="Modal" popover="auto">
                     <div class="inner-modal">
-                        <p class="text">モーダルが表示されました</p>
+                        <div class="button__wrapper">
+                            <button class="Close" popovertarget="Modal" popovertargetaction="hidden">×</button>
+                        </div>
                         <nav>
                             <ul class="header-nav">
+                                @if (Auth::check())
                                 <li class="header-nav__item">
                                     <a class="header-nav__link" href="/">Home</a>
                                 </li>
-                                @if (Auth::check())
                                 <li class="header-nav__item">
                                     <a class="header-nav__link" href="/mypage">Mypage</a>
                                 </li>
@@ -40,18 +42,17 @@
                                 </li>
                                 @else
                                 <li class="header-nav__item">
+                                    <a class="header-nav__link" href="/">Home</a>
+                                </li>
+                                <li class="header-nav__item">
                                     <a class="header-nav__link" href="/register">Registration</a>
                                 </li>
                                 <li class="header-nav__item">
-                                    <form class="form" action="/login" method="post">
-                                        @csrf
-                                        <button class="header-nav__button">Login</button>
-                                    </form>
+                                    <a class="header-nav__link" href="/login">Login</a>
                                 </li>
                                 @endif
                             </ul>
                         </nav>
-                        <button class="Close" popovertarget="Modal" popovertargetaction="hidden">モーダルを閉じる</button>
                     </div>
                 </div>
             </div>
