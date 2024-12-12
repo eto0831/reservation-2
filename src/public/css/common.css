@@ -1,5 +1,9 @@
+.body {
+    background: #d3d3e2;
+}
+
 .header {
-    background: #000;
+    background: transparent;
 }
 
 .header__inner {
@@ -15,10 +19,49 @@
 }
 
 .header__logo {
-    color: #fff;
+    color: #0764ff;
     text-decoration: none;
     font-weight: bold;
     font-size: 24px;
+}
+
+.hamburger-menu {
+    width: 40px; /* ボタンの幅 */
+    height: 40px; /* ボタンの高さ */
+    background-color: #0764ff; /* ボタンの背景色 */
+    border: none; /* 枠線を消す */
+    border-radius: 5px; /* 角丸にする */
+    cursor: pointer; /* カーソルをポインターにする */
+    padding: 2px 9px; /* パディング */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* 影をつける */
+    transition: all 0.3s ease; /* ホバー時のトランジション */
+    align-items: center;
+}
+
+.hamburger-menu:hover {
+    background-color: #1976d2; /* ホバー時の背景色 */
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.3); /* ホバー時の影 */
+}
+
+.line {
+    display: block;
+    
+    height: 1px; /* 線の高さ */
+    background-color: white; /* 線の色 */
+    margin: 6px 0; /* 線の間隔 */
+    transition: all 0.3s ease; /* アニメーションのためのトランジション */
+}
+
+.line:nth-child(1) {
+    width: 50%; /* 上の線の幅 */
+}
+
+.line:nth-child(2) {
+    width: 100%; /* 真ん中の線の幅 */
+}
+
+.line:nth-child(3) {
+    width: 25%; /* 下の線の幅 */
 }
 
 .header-utilities nav {
@@ -43,7 +86,6 @@
     font-size: 16px;
     cursor: pointer;
 }
-
 
 /* ページネーション */
 .pagination {

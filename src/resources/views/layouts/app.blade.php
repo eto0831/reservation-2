@@ -15,6 +15,11 @@
     <header class="header">
         <div class="header__inner">
             <div class="header-utilities">
+                <button class="hamburger-menu">
+                    <span class="line"></span>
+                    <span class="line"></span>
+                    <span class="line"></span>
+                  </button>
                 <a class="header__logo" href="/">
                     Rese
                 </a>
