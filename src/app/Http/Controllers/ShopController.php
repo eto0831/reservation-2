@@ -13,7 +13,7 @@ class ShopController extends Controller
 {
     public function index()
     {
-        $shops = Shop::with(['genre', 'area'])->paginate(4);
+        $shops = Shop::with(['genre', 'area'])->paginate(12);
         $areas = Area::all(); // エリア情報を取得
         $genres = Genre::all(); // ジャンル情報を取得
         $favorites = auth()->user()->favorites()->pluck('shop_id')->toArray();

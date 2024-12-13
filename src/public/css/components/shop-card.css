@@ -1,7 +1,7 @@
 .shop-card__container{
     width: 100%;
     background: white;
-    padding: 0 0 15px 0;
+    padding: 0 0 10px 0;
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 
@@ -9,10 +9,25 @@
 
 .shop__img {
     width: 100%;
-    max-height: 175px; /* 好きな最大高さを指定 */
+    max-height: 155px; /* 好きな最大高さを指定 */
     object-fit: cover;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
+}
+
+.shop-articles {
+    padding: 0 10px 0 10px ;
+}
+
+.shop__name {
+    margin: 10px 0 5px 0;
+}
+
+.shop__categories{
+    margin: 0 0 5px 0;
+    font-size: 14px;
+    font-weight: normal;
+
 }
 
 .shop__buttons {
@@ -21,14 +36,19 @@
 }
 
 .form__button{
-    display: block;
+    display: flex;
     font-weight: normal;
+    height: 35px;
+    font-size: 14px;
+    padding: 4px 15px;
+    align-items: center;
+
 }
 
 .heart-icon {
     display: inline-block;
-    width: 45px;
-    height: 45px;
+    width: 35px;
+    height: 35px;
     background: url('../img/heart.svg') no-repeat center;
     background-size: contain;
     cursor: pointer;
