@@ -42,7 +42,7 @@
             </div>
         </div>
         <div class="form__button">
-            <button class="form__button-submit" type="submit">ログイン</button>
+            <button class="form__button-submit blue-button" type="submit">ログイン</button>
         </div>
     </form>
     <div class="register__link">

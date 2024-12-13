@@ -6,7 +6,7 @@
         <span>#{{ $shop->genre->genre_name }}</span>
     </p>
     <div class="shop__buttons">
-        <a href="/detail/{{ $shop->id }}">詳しく見る</a>
+        <a href="/detail/{{ $shop->id }}" class="form__button blue-button">詳しく見る</a>
         @if ($shop->isFavorited)
         <form action="/favorite" method="post">
             @method('DELETE')

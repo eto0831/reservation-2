@@ -138,7 +138,7 @@
                     </tr>
                 </table>
             </div>
-            <button type="submit" onclick="return confirm('この内容で予約しますか？')">予約する</button>
+            <button type="submit" class="reserve__button" onclick="return confirm('この内容で予約しますか？')">予約する</button>
         </form>
     </div>
 </div>
