@@ -1,3 +1,19 @@
+.register__content {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 50px 0;
+}
+
+.register__wrapper {
+    width: 40%;
+    background-color: #fff;
+    padding: 0 0 30px 0;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
 .register-form__content {
     margin: 0 auto;
     padding: 30px 15px;
@@ -5,22 +21,25 @@
 }
 
 .register-form__heading {
+    height: 100%;
     margin-bottom: 20px;
-    text-align: center;
+    text-align: left;
+    padding: 0 0 0 15px;
+    background: #0764ff;
+    color: white;
+    border: solid 1px transparent;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .form {
     margin: 0 auto;
-    width: 25%;
+    width: 80%;
     text-align: center;
 }
 
 .form__group {
     margin-bottom: 5px;
-}
-
-.form__group-title {
-    text-align: left;
 }
 
 .form__error {
@@ -30,20 +49,60 @@
 }
 
 .form__input--text input {
-    padding: 10px;
+    padding: 5px 10px 0 0;
     width: 100%;
-    height: 40px;
-    border: 1px solid #ddd;
-    border-radius: 3px;
-
+    height: 30px;
+    border: none;
+    outline: none;
+    border-bottom: 2px solid #7e7e7e;
     appearance: none;
+}
+
+.form__input--text {
+    display: flex;
+    justify-content: start;
+    align-items: flex-end;
+}
+
+.mail::before {
+    content: "";
+    background: url(../img/mail.svg) no-repeat;
+    background-size: contain;
+    width: 32px;
+    height: 32px;
+    vertical-align: bottom;
+    margin-right: 8px;
+    transform: translateY(25%);
+}
+
+.password::before {
+    content: "";
+    background: url(../img/key.svg) no-repeat;
+    background-size: contain;
+    width: 32px;
+    height: 32px;
+    vertical-align: bottom;
+    margin-right: 8px;
+    transform: translateY(12%);
+}
+
+.name::before {
+    content: "";
+    background: url(../img/user.svg) no-repeat;
+    background-size: contain;
+    width: 32px;
+    height: 32px;
+    vertical-align: bottom;
+    margin-right: 8px;
+    transform: translateY(12%);
 }
 
 .form__button {
     margin-top: 20px;
+    text-align: right;
 }
 
-.login__link {
+.register__link {
     margin-top: 20px;
     text-align: center;
 }

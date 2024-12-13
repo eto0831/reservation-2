@@ -1,17 +1,17 @@
 .login__content{
-    width: 100%; /* 画面幅いっぱいに広げる */
+    width: 100%;
     display: flex;
-    flex-direction: column; /* 要素を縦に並べる */
-    align-items: center; /* 水平方向に中央寄せ */
+    flex-direction: column;
+    align-items: center;
     padding: 50px 0;
 }
 
 .login__wrapper{
-    width: 40%; /* フォームの幅を固定 */
-    background-color: #fff; /* 背景色を白に */
+    width: 40%;
+    background-color: #fff;
     padding: 0 0 30px 0;
-    border-radius: 5px; /* 角を丸くする */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* 影を追加 */
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 
 }
 
@@ -42,10 +42,6 @@
 
 .form__group {
     margin-bottom: 5px;
-}
-
-.form__group-title {
-    text-align: left;
 }
 
 .form__error {
@@ -90,12 +86,12 @@
     height: 32px;
     vertical-align: bottom;
     margin-right: 8px;
-    transform: translateY(15%);
+    transform: translateY(12%);
   }
 
 .form__button {
     margin-top: 20px;
-    text-align: right; 
+    text-align: right;
 }
 
 .register__link {
