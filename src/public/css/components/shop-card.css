@@ -1,7 +1,18 @@
+.shop-card__container{
+    width: 100%;
+    background: white;
+    padding: 0 0 15px 0;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+
+}
+
 .shop__img {
     width: 100%;
     max-height: 175px; /* 好きな最大高さを指定 */
-    object-fit: cover; 
+    object-fit: cover;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .shop__buttons {
@@ -11,4 +22,24 @@
 
 .form__button{
     display: block;
+    font-weight: normal;
+}
+
+.heart-icon {
+    display: inline-block;
+    width: 45px;
+    height: 45px;
+    background: url('../img/heart.svg') no-repeat center;
+    background-size: contain;
+    cursor: pointer;
+    transition: background 0.3s ease;
+    border: none; /* 枠線を消す */
+    outline: none; /* フォーカス時の枠線を消す */
+    background-color: transparent; /* 背景色を透明にする */
+    padding: 0; /* 不要な余白を消す */
+}
+
+.heart-icon.favorited {
+    background: url('../img/heart-filled.svg') no-repeat center;
+    background-size: contain;
 }

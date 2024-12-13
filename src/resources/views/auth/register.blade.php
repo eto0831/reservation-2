@@ -8,7 +8,7 @@
 <div class="register__content">
     <div class="register__wrapper">
         <div class="register-form__heading">
-            <h3>Register</h3>
+            <h3>Registration</h3>
         </div>
         <form class="form" action="/register" method="post">
             @csrf
