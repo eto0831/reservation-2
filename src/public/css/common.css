@@ -1,3 +1,22 @@
+textarea::placeholder,
+input::placeholder {
+    color: #909090;
+    opacity: 1;
+    font-family: Meiryo, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: bold;
+    font-size: 16px;
+}
+
+main{
+    font-family: Meiryo, sans-serif;
+    font-optical-sizing: auto;
+    font-weight: 600;
+    font-style: normal;
+
+}
+
 body {
     max-width: 1280px;
     background: #eee;
@@ -41,12 +60,14 @@ body {
     border: none; /* 枠線を消す */
     border-radius: 5px; /* 角丸にする */
     cursor: pointer; /* カーソルをポインターにする */
-    padding: 10px 20px; /* 上下10px、左右20pxのパディング */
+    padding: 6px 20px; /* 上下10px、左右20pxのパディング */
     min-width: 100px; /* 最小幅 */
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4); /* 影をつける */
     transition: all 0.3s ease; /* ホバー時のトランジション */
     text-align: center; /* 文字を中央揃え */
     text-decoration: none;
+    font-size: 16px;
+    font-family: inherit;
 }
 
 .hamburger-menu {

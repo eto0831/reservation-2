@@ -36,7 +36,7 @@
 
 .form {
     margin: 0 auto;
-    width: 40%;
+    width: 80%;
     text-align: center;
 }
 
@@ -79,11 +79,23 @@
     height: 32px;
     vertical-align: bottom;
     margin-right: 8px;
-    transform: translateY(6px)
+    transform: translateY(25%)
+  }
+
+  .password::before {
+    content: "";
+    background: url(../img/key.svg) no-repeat;
+    background-size: contain;
+    width: 32px;
+    height: 32px;
+    vertical-align: bottom;
+    margin-right: 8px;
+    transform: translateY(15%);
   }
 
 .form__button {
     margin-top: 20px;
+    text-align: right; 
 }
 
 .register__link {
