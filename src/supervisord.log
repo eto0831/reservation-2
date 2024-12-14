@@ -487,3 +487,13 @@
 2024-12-14 11:34:08,268 INFO spawned: 'scheduler' with pid 10
 2024-12-14 11:34:09,269 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2024-12-14 11:34:09,269 INFO success: scheduler entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-12-14 11:45:54,117 WARN received SIGQUIT indicating exit request
+2024-12-14 11:45:54,118 INFO waiting for queue, scheduler to die
+2024-12-14 11:45:55,120 WARN stopped: scheduler (terminated by SIGTERM)
+2024-12-14 11:45:55,123 WARN stopped: queue (terminated by SIGTERM)
+2024-12-14 11:47:15,979 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-12-14 11:47:15,981 INFO supervisord started with pid 1
+2024-12-14 11:47:16,983 INFO spawned: 'queue' with pid 9
+2024-12-14 11:47:16,985 INFO spawned: 'scheduler' with pid 10
+2024-12-14 11:47:17,986 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-12-14 11:47:17,987 INFO success: scheduler entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

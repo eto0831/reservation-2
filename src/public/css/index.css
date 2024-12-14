@@ -93,8 +93,13 @@
 .search-form {
     display: flex;
     justify-content: end;
-
+    pointer-events: none;
     transform: translateY(-80px);
+}
+
+.search-form input,
+.search-form select {
+    pointer-events: auto; /* 入力フィールドのクリックを有効化 */
 }
 .search-form__item-input {
     padding-left: 30px; /* テキストの開始位置を調整 */
