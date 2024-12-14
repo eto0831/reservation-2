@@ -22,7 +22,7 @@ class ShopController extends Controller
 
     public function search(Request $request)
     {
-        $shops = Shop::with(['genre', 'area'])->GenreSearch($request->genre_id)->AreaSearch($request->area_id)->KeywordSearch($request->keyword)->paginate(4);
+        $shops = Shop::with(['genre', 'area'])->GenreSearch($request->genre_id)->AreaSearch($request->area_id)->KeywordSearch($request->keyword)->paginate(12);
         $areas = Area::all();
         $genres = Genre::all();
         $favorites = auth()->user()->favorites()->pluck('shop_id')->toArray();

@@ -15,8 +15,8 @@
         <form class="search-form" action="/search" method="get">
             @csrf
             <div class="contact-search">
-                <select class="search-form__item-select area-select" name="area_id">
-                    <option value="">All area</option>
+                <select class="search-form__item-select area-select" name="area_id" onchange="this.form.submit()">
+                    <option value="" selected>All area</option>
                     @foreach ($areas as $area)
                     <option value="{{ $area->id }}" @if(request('area_id')==$area->id) selected @endif>
                         {{ $area->area_name }}</option>
@@ -24,8 +24,8 @@
                 </select>
             </div>
             <div class="contact-search">
-                <select class="search-form__item-select genre-select" name="genre_id">
-                    <option value="">All genre</option>
+                <select class="search-form__item-select genre-select" name="genre_id" onchange="this.form.submit()">
+                    <option value="" selected>All genre</option>
                     @foreach ($genres as $genre)
                     <option value="{{ $genre->id }}" @if(request('genre_id')==$genre->id) selected @endif>{{
                         $genre->genre_name }}</option>
