@@ -27,11 +27,14 @@ use App\Http\Controllers\AdminNotificationController;
 Route::get('/welcome', function () {
     return view('welcome');
 });
+
+Route::get('/', [ShopController::class, 'index']);
+Route::get('/detail/{shop_id}', [ShopController::class, 'detail'])->name('detail');
+Route::match(['get', 'post'], '/search', [ShopController::class, 'search']);
+
 Route::middleware(['auth', 'verified'])->group(function () {
-    Route::get('/', [ShopController::class, 'index']);
-    Route::get('/detail/{shop_id}', [ShopController::class, 'detail'])->name('detail');;
+
     Route::delete('/reservation', [ReservationController::class, 'destroy']);
-    Route::match(['get', 'post'], '/search', [ShopController::class, 'search']);
     Route::post('/favorite', [FavoriteController::class, 'store']);
     Route::delete('/favorite', [FavoriteController::class, 'destroy']);
     Route::get('/mypage', [AuthController::class, 'index']);

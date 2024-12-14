@@ -29,7 +29,7 @@ class ReviewController extends Controller
                 'comment' => $request->input('comment'),
             ]);
 
-            return redirect()->back()->with('status', 'Review Added Successfully');
+            return redirect()->back()->with('status', 'レビューの作成に成功しました');
         } else {
             return redirect()->back()->with('status', '既にレビュー済みです');
         }
