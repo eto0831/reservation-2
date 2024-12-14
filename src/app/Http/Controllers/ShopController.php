@@ -34,7 +34,6 @@ class ShopController extends Controller
         $shop = Shop::find($request->shop_id);
         $areas = Area::all();
         $genres = Genre::all();
-        $favorites = auth()->user()->favorites()->pluck('shop_id')->toArray();
         $reviews = Review::where('shop_id', $shop->id)
             ->with(['shop', 'user'])
             ->orderByRaw("CASE WHEN user_id = ? THEN 0 ELSE 1 END", [auth()->id()]) // ログインユーザーのレビューを先頭に
