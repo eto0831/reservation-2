@@ -11,6 +11,7 @@
                 <span>#{{ $shop->area->area_name }}</span>
                 <span>#{{ $shop->genre->genre_name }}</span>
             </p>
+            <p>平均評価: {{ number_format($shop->average_rating, 1) }} / 5</p>
             <div class="shop__buttons">
                 <a href="/detail/{{ $shop->id }}" class="form__button blue-button">詳しく見る</a>
                 <form action="/favorite" method="POST">

@@ -13,12 +13,15 @@ class ShopController extends Controller
 {
     public function index()
     {
-        $shops = Shop::with(['genre', 'area'])->paginate(12);
-        $areas = Area::all(); // エリア情報を取得
-        $genres = Genre::all(); // ジャンル情報を取得
+        $shops = Shop::with(['genre', 'area', 'reviews'])->paginate(12);
+        $areas = Area::all();
+        $genres = Genre::all();
         $favorites = auth()->check() ? auth()->user()->favorites()->pluck('shop_id')->toArray() : [];
+
         return view('index', compact('shops', 'areas', 'genres', 'favorites'));
     }
+
+
 
 
     public function search(Request $request)
@@ -41,13 +44,14 @@ class ShopController extends Controller
 
     public function detail(Request $request)
     {
-        $shop = Shop::find($request->shop_id);
+        $shop = Shop::with(['genre', 'area', 'reviews'])->find($request->shop_id);
         $areas = Area::all();
         $genres = Genre::all();
-        $reviews = Review::where('shop_id', $shop->id)
+        $reviews = $shop->reviews()
             ->with(['shop', 'user'])
-            ->orderByRaw("CASE WHEN user_id = ? THEN 0 ELSE 1 END", [auth()->id() ?? 0]) // ログインユーザーがいない場合は順序をそのまま
+            ->orderByRaw("CASE WHEN user_id = ? THEN 0 ELSE 1 END", [auth()->id() ?? 0])
             ->get();
+
         return view('detail', compact('shop', 'areas', 'genres', 'reviews'));
     }
 }

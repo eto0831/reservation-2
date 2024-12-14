@@ -28,6 +28,7 @@
                 <p>ジャンル: {{ $shop->genre->genre_name }}</p>
                 <p>エリア: {{ $shop->area->area_name }}</p>
                 <p>説明: {{ $shop->description }}</p>
+                <p>平均評価: {{ number_format($shop->average_rating, 1) }} / 5</p>
                 @if ($shop->image_url)
                 <img src="{{ asset($shop->image_url) }}" alt="{{ $shop->shop_name }}" class="shop__img">
                 @else
