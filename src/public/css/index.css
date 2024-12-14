@@ -90,11 +90,20 @@
     justify-content: space-between;
 }
 
-.search-form {
+.search-form__wrapper {
     display: flex;
     justify-content: end;
     pointer-events: none;
     transform: translateY(-80px);
+}
+
+.search-form {
+    display: flex;
+    justify-content: end;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    background: white;
+    padding: 6px;
 }
 
 .search-form input,
@@ -106,23 +115,31 @@
     background: url('img/loupe.svg') no-repeat 5px center;
     background-size: 20px 20px; /* アイコンのサイズ */
     height: 40px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    border: none;
     outline: none;
     box-sizing: border-box;
+    
 }
 
+
 .search-form__item-select {
-    appearance: none; /* デフォルトの矢印を削除 */
+    appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background: url('img/v.svg') no-repeat right 10px center; /* 矢印画像を右端に配置 */
-    background-size: 8px 8px; /* 矢印のサイズを調整 */
-    padding-right: 30px; /* 矢印とテキストの間に余白を確保 */
-    border: 1px solid #ccc;
-    border-radius: 5px;
+    background: url('img/v.svg') no-repeat right 10px center;
+    background-size: 8px 8px;
+    padding:0 30px 0 6px;
+    border: none;
     height: 40px;
 }
+
+.search-form__item-select.genre-select {
+    border-left: 1px solid #c7c7c7;
+    border-right: 1px solid #c7c7c7;
+}
+
+
+
 
 
 /* 画面幅が768px以下の場合: 3列表示 */
