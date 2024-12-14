@@ -34,6 +34,23 @@
     justify-content: space-between;
 }
 
+
+.reservation__header h3 {
+    display: inline-block; /* または block */
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.reservation__header h3::before  {
+    content: "";
+    display: inline-block;
+    background: url(../img/clock.svg) no-repeat;
+    background-size: contain;
+    width: 32px;
+    height: 32px;
+  }
+
 .reservation__container {
     width: 40%;
 }
@@ -76,6 +93,49 @@
 .reservation__heder form {
     width: 45%;
 }
+
+.icon-button {
+    width: 32px; /* ボタンサイズ */
+    height: 32px;
+    background-color: transparent; /* 背景色を透明に */
+    border: none; /* ボーダーを削除 */
+    cursor: pointer; /* クリック可能なマウスカーソル */
+    position: relative; /* 疑似要素用 */
+    display: inline-flex; /* 中央揃え用 */
+    align-items: center;
+    justify-content: center;
+}
+
+/* 疑似要素でSVGを追加 */
+.icon-button::before {
+    content: ""; /* 空に設定 */
+    display: block;
+    width: 100%; /* ボタン内でSVGをフルサイズに */
+    height: 100%;
+    background-size: contain; /* SVGをボタンサイズに調整 */
+    background-repeat: no-repeat; /* 繰り返さない */
+    background-position: center; /* 中央揃え */
+}
+
+/* QRボタン用のSVG */
+.qr-button::before {
+    background-image: url('../img/qr.svg');
+}
+
+/* 目ボタン用のSVG */
+.edit-button::before {
+    background-image: url('../img/memo.svg');
+}
+
+
+.{
+    display: inline-block;
+}
+/* 削除ボタン用のSVG */
+.delete-button::before {
+    background-image: url('../img/x.svg');
+}
+
 
 .favorites__container {
     width: 60%;

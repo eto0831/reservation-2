@@ -35,6 +35,22 @@
     justify-content: space-between;
 }
 
+.shop-rating__container {
+    display: inline-block; /* または block */
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.shop-rating__container::before {
+    content: "";
+    display: inline-block;
+    background: url(../img/star.svg) no-repeat;
+    background-size: contain;
+    width: 32px;
+    height: 32px;
+  }
+
 .form__button{
     display: flex;
     font-weight: normal;

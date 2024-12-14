@@ -21,7 +21,7 @@
                 <div class="reservation__header">
                     <h3>予約 {{ $loop->iteration }}</h3>
                     <div class="reservation__menus">
-                        <button popovertarget="Modal{{ $reservation->id }}" popovertargetaction="show">QR</button>
+                        <button class="icon-button qr-button" popovertarget="Modal{{ $reservation->id }}" popovertargetaction="show"></button>
                         <div popover id="Modal{{ $reservation->id }}">
                             <div class="qr-code">
                                 {!! QrCode::size(150)->generate(url('/reservation/verify/' . $reservation->id)) !!}
@@ -29,13 +29,13 @@
                             <button popovertarget="Modal{{ $reservation->id }}" popovertargetaction="hidden">閉じる</button>
                         </div>
                         <form action="/reservation/edit/{{$reservation->id}}" class="reservation__edit" method="get">
-                            <button type="submit">目</button>
+                            <button class="icon-button edit-button" type="submit"></button>
                         </form>
                         <form action="/reservation" method="post">
                             @csrf
                             @method('DELETE')
                             <input type="hidden" name="reservation_id" value="{{ $reservation->id}}">
-                            <button type="submit" onclick="return confirm('予約を削除しますか？')">×</button>
+                            <button class="icon-button delete-button" type="submit" onclick="return confirm('予約を削除しますか？')"></button>
                         </form>
                     </div>
                 </div>

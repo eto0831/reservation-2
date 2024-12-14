@@ -7,6 +7,31 @@
 
 }
 
+.shop__info {
+    list-style: none;
+}
+
+.detail__heading {
+    display: flex;
+    justify-self: start;
+    align-items: center;
+
+}
+
+.detail__heading a {
+    display: flex; /* Flexbox を有効化 */
+    justify-content: center; /* 水平方向中央揃え */
+    align-items: center; /* 垂直方向中央揃え */
+    height: 25px;
+    width: 25px;
+    text-decoration: none;
+    background: white;
+    border-radius: 5px;
+    color: gray;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+
+}
+
 .detail__wrap{
     width: 50%;
 }

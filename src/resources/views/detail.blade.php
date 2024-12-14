@@ -22,9 +22,12 @@
             </ul>
         </div>
         @endif
-        <ul>
+        <ul class="shop__info">
             <li>
-                <h2>{{ $shop->shop_name }}</h2>
+                <div class="detail__heading">
+                    <a href="{{ url()->previous() }}">&lt;</a>
+                    <h2>{{ $shop->shop_name }}</h2>
+                </div>
                 <p>ジャンル: {{ $shop->genre->genre_name }}</p>
                 <p>エリア: {{ $shop->area->area_name }}</p>
                 <p>説明: {{ $shop->description }}</p>
