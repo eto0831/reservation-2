@@ -28,7 +28,12 @@
                 <p>ジャンル: {{ $shop->genre->genre_name }}</p>
                 <p>エリア: {{ $shop->area->area_name }}</p>
                 <p>説明: {{ $shop->description }}</p>
+                @if ($shop->image_url)
                 <img src="{{ asset($shop->image_url) }}" alt="{{ $shop->shop_name }}" class="shop__img">
+                @else
+                <img src="{{ env('BASE_URL') . '/images/shops/noimage.png' }}" alt="デフォルト画像" class="shop__img">
+                @endif
+
             </li>
         </ul>
         {{-- detail.blade.php --}}

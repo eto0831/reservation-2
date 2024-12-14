@@ -60,7 +60,9 @@ cp .env.example .env
 ```
 4. .envに以下の環境変数を追加
 ``` text
-APP_NAME=Atte
+APP_NAME=Rese
+
+BASE_URL=http://localhost/storage
 
 DB_CONNECTION=mysql
 DB_HOST=mysql
@@ -68,11 +70,6 @@ DB_PORT=3306
 DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
-
-PMA_ARBITRARY=1
-PMA_HOST=mysql
-PMA_USER=laravel_user
-PMA_PASSWORD=laravel_pass
 
 MAIL_MAILER=smtp
 MAIL_HOST=mailhog

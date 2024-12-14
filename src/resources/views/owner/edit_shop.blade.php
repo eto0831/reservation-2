@@ -101,7 +101,11 @@
             </div>
             <div class="form__group-content">
                 @if ($shop->image_url)
-                    <img id="currentImage" src="{{ asset($shop->image_url) }}" alt="現在の画像" style="max-width: 200px; max-height: 200px;">
+                <img id="currentImage" src="{{ asset($shop->image_url) }}" alt="現在の画像"
+                    style="max-width: 200px; max-height: 200px;">
+                @else
+                <img id="currentImage" src="{{ env('BASE_URL') . '/images/shops/noimage.png' }}" alt="デフォルト画像"
+                    style="max-width: 200px; max-height: 200px;">
                 @endif
             </div>
         </div>
