@@ -12,6 +12,7 @@
 <div class="user__name">
     <h2>{{ auth()->user()->name }}さん</h2>
 </div>
+
 <div class="mypage__content">
     <div class="reservation__container">
         <h2>予約一覧</h2>
