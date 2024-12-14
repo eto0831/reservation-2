@@ -464,3 +464,26 @@
 2024-12-13 15:03:24,326 INFO spawned: 'scheduler' with pid 10
 2024-12-13 15:03:25,328 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2024-12-13 15:03:25,328 INFO success: scheduler entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-12-13 21:42:18,114 INFO exited: queue (exit status 0; expected)
+2024-12-13 21:42:19,157 INFO spawned: 'queue' with pid 3042
+2024-12-13 21:42:20,160 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-12-13 21:53:04,919 WARN received SIGQUIT indicating exit request
+2024-12-13 21:53:04,925 INFO waiting for queue, scheduler to die
+2024-12-13 21:53:05,930 WARN stopped: scheduler (terminated by SIGTERM)
+2024-12-13 21:53:05,932 WARN stopped: queue (terminated by SIGTERM)
+2024-12-13 21:53:51,304 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-12-13 21:53:51,306 INFO supervisord started with pid 1
+2024-12-13 21:53:52,309 INFO spawned: 'queue' with pid 9
+2024-12-13 21:53:52,312 INFO spawned: 'scheduler' with pid 10
+2024-12-13 21:53:53,315 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-12-13 21:53:53,315 INFO success: scheduler entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-12-14 11:12:18,257 WARN received SIGQUIT indicating exit request
+2024-12-14 11:12:18,261 INFO waiting for queue, scheduler to die
+2024-12-14 11:12:19,265 WARN stopped: scheduler (terminated by SIGTERM)
+2024-12-14 11:12:19,270 WARN stopped: queue (terminated by SIGTERM)
+2024-12-14 11:34:07,262 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2024-12-14 11:34:07,264 INFO supervisord started with pid 1
+2024-12-14 11:34:08,266 INFO spawned: 'queue' with pid 9
+2024-12-14 11:34:08,268 INFO spawned: 'scheduler' with pid 10
+2024-12-14 11:34:09,269 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2024-12-14 11:34:09,269 INFO success: scheduler entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

@@ -35,7 +35,7 @@ class ReviewController extends Controller
         }
     }
 
-    public function destroy(ReviewRequest $request)
+    public function destroy(Request $request)
     {
         $deleted = auth()->user()->reviews()->where('shop_id', $request->shop_id)->delete();
 
@@ -55,7 +55,7 @@ class ReviewController extends Controller
         return view('review.edit', compact('review'));
     }
 
-    public function update(Request $request, Review $review)
+    public function update(ReviewRequest $request, Review $review)
     {
         // ログインユーザーがレビューの作者かどうかを確認
         if ($review->user_id !== auth()->id()) {
