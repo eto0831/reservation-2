@@ -1,4 +1,4 @@
-.detail__content{
+.detail__content {
     display: flex;
     justify-content: space-between;
     align-items: flex-start;
@@ -41,18 +41,17 @@
 }
 
 .shop__categories {
-    
 }
 
 .shop__img-container {
     width: 100%;
 }
 
-.shop__img{
+.shop__img {
     width: 100%;
 }
 
-.reservation__form-conatainer {
+.reservation__form-container {
     display: flex;
     flex-direction: column; /* Stack the elements vertically */
     gap: 15px; /* Add spacing between the elements */
@@ -61,49 +60,97 @@
 }
 
 .reservation__form-heading {
-    margin-bottom: 20px;
-    padding: 10px;
+    padding: 15px 40px 15px 25px;
 }
 
 .reservation__form-content {
-    padding: 10px;
     display: flex;
     flex-direction: column;
-
 }
 
-.reservation__form-conatainer select,
-.reservation__form-conatainer input[type="date"] {
-    margin-bottom: 10px;
-
-    padding: 10px; /* Add padding for better visuals */
-    font-size: 16px; /* Ensure font size is consistent */
+.reservation__input-group {
+    padding: 0 40px 0 25px;
+    display: flex;
+    flex-direction: column;
+}
+.reservation__form-container select,
+.reservation__form-container input[type="date"] {
+    height: 30px;
+    margin-bottom: 15px;
+    padding: 6px; /* Add padding for better visuals */
+    font-size: 14px; /* Ensure font size is consistent */
     border: none; /* Add a light border */
     border-radius: 5px; /* Optional: Add rounded corners */
     box-sizing: border-box; /* Ensure padding doesn't affect the width */
 }
 
-.reservation__form-conatainer select {
+.reservation__form-container select {
     width: 80%;
+    appearance: none; /* ブラウザのデフォルト矢印を無効化 */
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background: #ffffff; /* セレクトボックスの背景を白に */
+    color: #333; /* テキストの色 */
+    border: none; /* 枠線を無効 */
+    border-radius: 5px; /* 角を丸くする */
+    padding: 0px 30px 0px 10px; /* 右側に余白を追加して矢印のスペースを確保 */
+    cursor: pointer; /* カーソルをポインターに */
+    box-sizing: border-box;
+    position: relative;
 }
 
-.reservation__form-conatainer input[type="date"]{
+/* カスタム矢印の背景SVGを指定 */
+.reservation__form-container select {
+    background-image: url('img/v.svg'); /* SVG画像のURLを指定 */
+    background-repeat: no-repeat;
+    background-position: right 10px center; /* 右側10px、中央揃え */
+    background-size: 10px 10px; /* 矢印のサイズを調整 */
+}
+
+
+.reservation__form-container input[type="date"] {
     width: 35%;
+    min-width: 130px;
 }
-
 
 .confirmation__table {
     margin-top: 20px;
+    padding: 10px;
     background: #4d97ff;
     border-radius: 5px;
 }
 
+.confirmation__table table {
+    width: 100%; /* テーブルを親要素の幅に合わせる */
+    border-collapse: collapse; /* セル間の余白を無くす */
+}
+
+.confirmation__table th,
+.confirmation__table td {
+    padding: 10px 10px; /* 上下10px、左右15pxの余白を追加 */
+    text-align: left; /* テキストを左揃えにする */
+    vertical-align: middle; /* 縦方向中央揃え */
+    color: #ffffff; /* テキスト色を白にする */
+}
+
+.confirmation__table th {
+    width: 100px;
+}
+
+.confirmation__table td {
+}
+
 .reserve__button {
+    display: flex;
+    justify-content: center; 
+    align-items: center; 
+    height: 60px;
     margin-top: 20px;
     width: 100%;
     padding: 10px;
     font-size: 16px;
-    background-color: #0020ef; /* Match your design theme */
+    background-color: #0020ef;
     color: #fff;
     border: none;
     border-bottom-right-radius: 5px;
@@ -115,4 +162,3 @@
 .reserve__button:hover {
     background-color: #0056b3; /* Darker blue on hover */
 }
-

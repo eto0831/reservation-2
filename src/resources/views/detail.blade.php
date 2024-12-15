@@ -100,44 +100,46 @@
             </ul>
         </div>
         @endif
-        <div class="reservation__form-conatainer">
+        <div class="reservation__form-container">
             <form class="reservation__form-content" action="{{ route('reservation.process') }}" method="post">
                 @csrf
-                <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                <input type="date" name="reserve_date" id="reserve_date">
-                <select name="reserve_time" id="reserve_time">
-                    <option value="" disabled selected>時間を選択してください</option>
-                    @for ($hour = 9; $hour<= 22; $hour++) @foreach (['00', '15' , '30' , '45' ] as $minute) <option
-                        value="{{ sprintf('%02d:%02d', $hour, $minute) }}">
-                        {{ sprintf('%02d:%02d', $hour, $minute) }}
-                        </option>
-                        @endforeach
-                        @endfor
-                </select>
-                <select name="guest_count" id="guest_count">
-                    <option value="" disabled selected>人数を選択してください</option>
-                    @for ($i = 1; $i <= 10; $i++) <option value="{{ $i }}">{{ $i }} 人</option>
-                        @endfor
-                </select>
-                <div class="confirmation__table">
-                    <table>
-                        <tr>
-                            <th>Shop</th>
-                            <td>{{ $shop->shop_name }}</td>
-                        </tr>
-                        <tr>
-                            <th>Date</th>
-                            <td id="display_date"></td>
-                        </tr>
-                        <tr>
-                            <th>Time</th>
-                            <td id="display_time"></td>
-                        </tr>
-                        <tr>
-                            <th>人数</th>
-                            <td id="display_guests"></td>
-                        </tr>
-                    </table>
+                <div class="reservation__input-group">
+                    <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+                    <input type="date" name="reserve_date" id="reserve_date">
+                    <select name="reserve_time" id="reserve_time">
+                        <option value="" disabled selected>時間を選択してください</option>
+                        @for ($hour = 9; $hour<= 22; $hour++) @foreach (['00', '15' , '30' , '45' ] as $minute) <option
+                            value="{{ sprintf('%02d:%02d', $hour, $minute) }}">
+                            {{ sprintf('%02d:%02d', $hour, $minute) }}
+                            </option>
+                            @endforeach
+                            @endfor
+                    </select>
+                    <select name="guest_count" id="guest_count">
+                        <option value="" disabled selected>人数を選択してください</option>
+                        @for ($i = 1; $i <= 10; $i++) <option value="{{ $i }}">{{ $i }} 人</option>
+                            @endfor
+                    </select>
+                    <div class="confirmation__table">
+                        <table>
+                            <tr>
+                                <th>Shop</th>
+                                <td>{{ $shop->shop_name }}</td>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                <td id="display_date"></td>
+                            </tr>
+                            <tr>
+                                <th>Time</th>
+                                <td id="display_time"></td>
+                            </tr>
+                            <tr>
+                                <th>人数</th>
+                                <td id="display_guests"></td>
+                            </tr>
+                        </table>
+                    </div>
                 </div>
                 <button type="submit" class="reserve__button" onclick="return confirm('この内容で予約しますか？')">予約する</button>
             </form>
@@ -155,7 +157,7 @@ document.getElementById('reserve_time').addEventListener('input', function() {
 });
 
 document.getElementById('guest_count').addEventListener('input', function() {
-    document.getElementById('display_guests').innerText = this.value;
+    document.getElementById('display_guests').innerText = this.value + " 人";
 });
 </script>
 @endsection
