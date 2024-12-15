@@ -23,21 +23,35 @@
 
 .shop__heading {
     display: flex;
-    justify-self: start;
     align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+    height: 35px;
 }
 
 .shop__heading a {
     display: flex; /* Flexbox を有効化 */
     justify-content: center; /* 水平方向中央揃え */
     align-items: center; /* 垂直方向中央揃え */
-    height: 25px;
-    width: 25px;
+    height: 35px;
+    width: 35px;
     text-decoration: none;
     background: white;
     border-radius: 5px;
     color: gray;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 35px;
+
+}
+
+.shop__heading h2 {
+    display: flex;
+    align-items: center;
+    height: 35px;
+    line-height: 35px;
+
 }
 
 .shop__categories {
@@ -102,12 +116,11 @@
 
 /* カスタム矢印の背景SVGを指定 */
 .reservation__form-container select {
-    background-image: url('img/v.svg'); /* SVG画像のURLを指定 */
+    background-image: url("img/v.svg"); /* SVG画像のURLを指定 */
     background-repeat: no-repeat;
     background-position: right 10px center; /* 右側10px、中央揃え */
     background-size: 10px 10px; /* 矢印のサイズを調整 */
 }
-
 
 .reservation__form-container input[type="date"] {
     width: 35%;
@@ -143,8 +156,8 @@
 
 .reserve__button {
     display: flex;
-    justify-content: center; 
-    align-items: center; 
+    justify-content: center;
+    align-items: center;
     height: 60px;
     margin-top: 20px;
     width: 100%;
@@ -161,4 +174,16 @@
 
 .reserve__button:hover {
     background-color: #0056b3; /* Darker blue on hover */
+}
+
+@media (max-width: 768px) {
+    .detail__content {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .detail__wrap,
+    .reservation__form {
+        width: 100%;
+    }
 }
