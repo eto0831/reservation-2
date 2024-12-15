@@ -6,7 +6,7 @@
 
 @section('content')
 <div class="attendance__alert">
-    // メッセージ機能
+    {{ session('status') }}
 </div>
 
 <div class="detail__content">

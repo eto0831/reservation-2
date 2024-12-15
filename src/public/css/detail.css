@@ -1,24 +1,33 @@
-.shop__img{
-    width: 300px;
-}
-
 .detail__content{
     display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 60px;
+}
 
+.detail__wrap {
+    width: 48%;
+}
+
+.reservation__form {
+    width: 48%;
+    background: #0764ff;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 .shop__info {
     list-style: none;
 }
 
-.detail__heading {
+.shop__heading {
     display: flex;
     justify-self: start;
     align-items: center;
-
 }
 
-.detail__heading a {
+.shop__heading a {
     display: flex; /* Flexbox を有効化 */
     justify-content: center; /* 水平方向中央揃え */
     align-items: center; /* 垂直方向中央揃え */
@@ -29,9 +38,60 @@
     border-radius: 5px;
     color: gray;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.shop__categories {
+    
+}
+
+.shop__img-container {
+    width: 100%;
+}
+
+.shop__img{
+    width: 100%;
+}
+
+.reservation__form-conatainer {
+    display: flex;
+    flex-direction: column; /* Stack the elements vertically */
+    gap: 15px; /* Add spacing between the elements */
+    width: 100%;
+    height: 100%;
 
 }
 
-.detail__wrap{
-    width: 50%;
+.reservation__form-conatainer select,
+.reservation__form-conatainer input[type="date"] {
+    width: 100%; /* Make the selects take the full width */
+    padding: 10px; /* Add padding for better visuals */
+    font-size: 16px; /* Ensure font size is consistent */
+    border: none; /* Add a light border */
+    border-radius: 5px; /* Optional: Add rounded corners */
+    box-sizing: border-box; /* Ensure padding doesn't affect the width */
 }
+
+.confirmation__table {
+    margin-top: 20px;
+    background: #4d97ff;
+    border-radius: 5px;
+}
+
+.reserve__button {
+    margin-top: 20px;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    background-color: #0020ef; /* Match your design theme */
+    color: #fff;
+    border: none;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reserve__button:hover {
+    background-color: #0056b3; /* Darker blue on hover */
+}
+
