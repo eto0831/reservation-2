@@ -180,15 +180,20 @@
 }
 
 .review__wrap li {
-    background-color: #f8f9fa; /* レビューの背景色を薄いグレーに */
-    border: 1px solid #ddd; /* 枠線 */
+    background-color: #f8f9fa;
+    border: 1px solid #ddd;
     border-radius: 5px;
     padding: 10px 15px;
-    margin-bottom: 15px; /* 下の余白 */
+    margin-bottom: 15px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 軽い影 */
+    align-items: flex-start; /* 上揃えにする */
+    gap: 10px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.review__wrap li div:first-child {
+    flex: 1; /* 内容が広がるように設定 */
 }
 
 .review__wrap li p {
@@ -196,9 +201,10 @@
     font-size: 14px;
 }
 
-.review__wrap li div {
+.review__wrap li div:last-child {
     display: flex;
-    gap: 10px; /* ボタン間の隙間 */
+    flex-direction: row;
+    gap: 5px; /* ボタン間の隙間 */
 }
 
 .review__wrap a,
@@ -212,12 +218,15 @@
     text-decoration: none;
     cursor: pointer;
     transition: background-color 0.2s;
+    display: inline-block;
+    text-align: center;
 }
 
 .review__wrap a:hover,
 .review__wrap form button:hover {
-    background-color: #0056b3; /* ホバー時の色 */
+    background-color: #0056b3;
 }
+
 .review__form {
     display: flex;
     flex-direction: column;
@@ -251,7 +260,6 @@
     background-color: #218838;
 }
 
-
 @media (max-width: 768px) {
     .detail__content {
         flex-direction: column;
@@ -261,5 +269,15 @@
     .detail__wrap,
     .reservation__form {
         width: 100%;
+    }
+
+    .review__wrap li {
+        flex-direction: column;
+        gap: 10px;
+    }
+
+    .review__wrap li div:last-child {
+        
+        justify-content: flex-start;
     }
 }
