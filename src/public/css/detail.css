@@ -15,6 +15,7 @@
     color: white;
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    transform: translateY(-75px);
 }
 
 .shop__info {
@@ -25,14 +26,14 @@
     display: flex;
     align-items: center;
     gap: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 20px;
     height: 35px;
 }
 
 .shop__heading a {
     display: flex; /* Flexbox を有効化 */
     justify-content: center; /* 水平方向中央揃え */
-    align-items: center; /* 垂直方向中央揃え */
+    align-items: center;
     height: 35px;
     width: 35px;
     text-decoration: none;
@@ -41,9 +42,6 @@
     color: gray;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
     font-size: 18px;
-    font-weight: bold;
-    line-height: 35px;
-
 }
 
 .shop__heading h2 {
@@ -51,7 +49,7 @@
     align-items: center;
     height: 35px;
     line-height: 35px;
-
+    transform: translateY(5%);
 }
 
 .shop__categories {
@@ -86,6 +84,7 @@
     padding: 0 40px 0 25px;
     display: flex;
     flex-direction: column;
+    margin-bottom: 100px;
 }
 .reservation__form-container select,
 .reservation__form-container input[type="date"] {
@@ -175,6 +174,83 @@
 .reserve__button:hover {
     background-color: #0056b3; /* Darker blue on hover */
 }
+.review__wrap ul {
+    list-style: none;
+    padding: 0;
+}
+
+.review__wrap li {
+    background-color: #f8f9fa; /* レビューの背景色を薄いグレーに */
+    border: 1px solid #ddd; /* 枠線 */
+    border-radius: 5px;
+    padding: 10px 15px;
+    margin-bottom: 15px; /* 下の余白 */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 軽い影 */
+}
+
+.review__wrap li p {
+    margin: 0;
+    font-size: 14px;
+}
+
+.review__wrap li div {
+    display: flex;
+    gap: 10px; /* ボタン間の隙間 */
+}
+
+.review__wrap a,
+.review__wrap form button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 12px;
+    border-radius: 3px;
+    text-decoration: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.review__wrap a:hover,
+.review__wrap form button:hover {
+    background-color: #0056b3; /* ホバー時の色 */
+}
+.review__form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: #f8f9fa;
+    padding: 15px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}
+
+.review__form select,
+.review__form input[type="text"],
+.review__form button {
+    padding: 8px 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+.review__form button {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.review__form button:hover {
+    background-color: #218838;
+}
+
 
 @media (max-width: 768px) {
     .detail__content {

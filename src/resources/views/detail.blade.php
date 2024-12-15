@@ -70,7 +70,9 @@
             <h3>レビュー一覧</h3>
             @foreach($reviews as $review)
             <li>
-                評価：{{ $review->rating }} コメント：{{ $review->comment }} by {{$review->user->name}}
+                <div>
+                    <p>評価：{{ $review->rating }} コメント：{{ $review->comment }} by {{ $review->user->name }}</p>
+                </div>
                 @if (Auth::check() && $review->user_id === Auth::user()->id)
                 <div>
                     <a href="{{ route('review.edit', $review->id) }}">編集</a>
