@@ -94,7 +94,7 @@
     display: flex;
     justify-content: end;
     pointer-events: none;
-    transform: translateY(-80px);
+    transform: translateY(-105px);
 }
 
 .search-form {
@@ -118,7 +118,6 @@
     border: none;
     outline: none;
     box-sizing: border-box;
-    
 }
 
 

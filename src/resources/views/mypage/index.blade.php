@@ -15,12 +15,12 @@
 
 <div class="mypage__content">
     <div class="reservation__container">
-        <h2>予約一覧</h2>
+        <h3>予約一覧</h3>
         <div class="reservations__wrap">
             @foreach ($reservations as $reservation)
             <div class="reservation__contents">
                 <div class="reservation__header">
-                    <h3>予約 {{ $loop->iteration }}</h3>
+                    <h4>予約 {{ $loop->iteration }}</h4>
                     <div class="reservation__menus">
                         <button class="icon-button qr-button" popovertarget="Modal{{ $reservation->id }}" popovertargetaction="show"></button>
                         <div popover id="Modal{{ $reservation->id }}">
@@ -54,7 +54,7 @@
         </div>
     </div>
     <div class="favorites__container">
-        <h2>お気に入り一覧</h2>
+        <h3>お気に入り一覧</h3>
         <div class="favorites__wrap">
             @foreach($favorites as $favorite)
             @include('components.shop-card', ['shop' => $favorite->shop])

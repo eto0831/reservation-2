@@ -12,7 +12,7 @@ input::placeholder {
     opacity: 1;
     font-family: sans-serif, Meiryo;
     font-optical-sizing: auto;
-    font-weight: 600;
+    font-weight: normal;
     font-style: bold;
     font-size: 16px;
 }
