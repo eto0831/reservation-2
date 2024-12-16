@@ -5,9 +5,10 @@
 @endsection
 
 @section('content')
-<div class="attendance__alert">
+<div class="reservation__alert">
     {{ session('status') }}
 </div>
+
 <div class="container">
     <h1>担当店舗一覧</h1>
     <div class="shop-section">
@@ -32,13 +33,13 @@
                     <td>{{ $shop->genre->genre_name }}</td>
                     <td>
                         <!-- 更新フォーム -->
-                        <form action="{{ route('owner.shop.edit') }}" method="post" style="display:inline;">
+                        <form action="{{ route('owner.shop.edit') }}" method="post">
                             @csrf
                             <input type="hidden" name="shop_id" value="{{ $shop->id }}">
                             <button type="submit">編集</button>
                         </form>
                         <!-- 削除フォーム -->
-                        <form action="{{ route('owner.shop.destroy') }}" method="post" style="display:inline;">
+                        <form action="{{ route('owner.shop.destroy') }}" method="post">
                             @csrf
                             @method('DELETE')
                             <input type="hidden" name="shop_id" value="{{ $shop->id }}">
@@ -54,5 +55,8 @@
             </tbody>
         </table>
     </div>
+</div>
+<div class="back__button">
+    <a href="/owner/dashboard">戻る</a>
 </div>
 @endsection

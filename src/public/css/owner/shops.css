@@ -1,0 +1,103 @@
+/* アラートメッセージ */
+.reservation__alert {
+    font-size: 14px;
+    text-align: center;
+    color: #155724;
+    padding: 10px;
+    margin-bottom: 20px;
+}
+
+/* コンテナ */
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.container h1 {
+    font-size: 24px;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* 店舗セクション */
+.shop-section {
+    margin-top: 10px;
+}
+
+.shop-section table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 10px;
+}
+
+.shop-section th, .shop-section td {
+    padding: 12px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.shop-section th {
+    background-color: #007bff;
+    color: #fff;
+    font-weight: bold;
+}
+
+.shop-section td {
+    background-color: #f9f9f9;
+}
+
+.shop-section tr:nth-child(even) td {
+    background-color: #f1f1f1;
+}
+
+/* アクションボタン */
+.shop-section form {
+    display: inline-block;
+    margin: 0 5px;
+}
+
+.shop-section button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 5px 10px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.shop-section button:hover {
+    background-color: #0056b3;
+}
+
+.shop-section button:focus {
+    outline: none;
+}
+
+/* 戻るボタン */
+.back__button {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.back__button a {
+    background-color: #ff00a2;
+    color: #fff;
+    padding: 8px 15px;
+    border-radius: 5px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.back__button a:hover {
+    background-color: #5a6268;
+}
