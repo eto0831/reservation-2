@@ -1,44 +1,45 @@
-.shop-card__container{
+/* ショップカードコンテナ */
+.shop-card__container {
     width: 100%;
     background: white;
-    padding: 0 0 10px 0;
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-
 }
 
 .shop__img {
     width: 100%;
-    max-height: 155px; /* 好きな最大高さを指定 */
+    max-height: 145px; /* 好きな最大高さを指定 */
     object-fit: cover;
     border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
 
 .shop-articles {
-    padding: 0 10px 0 10px ;
+    padding: 15px;
 }
 
 .shop__name {
-    margin: 10px 0 5px 0;
+    margin: 0;
 }
 
-.shop__categories{
-    margin: 0 0 5px 0;
-    font-size: 14px;
-    font-weight: normal;
-
-}
-
-.shop__buttons {
+/* カテゴリと評価 */
+.shop__categories-rating {
+    margin-top: 5px;
+    margin-bottom: 5px;
+    height: 20px;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-between; /* 左右に配置 */
+    align-items: center;
+}
+
+.shop__categories {
+    font-size: 12px;
+    font-weight: normal;
+    margin: 0;
 }
 
 .shop-rating__container {
-    display: inline-block; /* または block */
     display: flex;
-    justify-content: start;
     align-items: center;
 }
 
@@ -46,21 +47,42 @@
     margin-right: 5px;
     content: "";
     display: inline-block;
-    background: url(../img/star.svg) no-repeat;
+    background: url('../img/star.svg') no-repeat center;
     background-size: contain;
     width: 16px;
     height: 16px;
-  }
+}
 
-.form__button{
+.rating {
+    font-size: 14px;
+    font-weight: bold;
+    color: #333;
+}
+
+/* ボタン */
+.shop__buttons {
+    height: 35px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.form__button {
     display: flex;
     justify-content: center;
+    align-items: center;
     font-weight: normal;
     height: 35px;
     font-size: 14px;
     padding: 4px 15px;
-    align-items: center;
+    text-decoration: none;
+    color: #fff;
+    background-color: #007BFF;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
 
+.form__button:hover {
+    background-color: #0056b3;
 }
 
 .heart-icon {
@@ -71,13 +93,32 @@
     background-size: contain;
     cursor: pointer;
     transition: background 0.3s ease;
-    border: none; /* 枠線を消す */
-    outline: none; /* フォーカス時の枠線を消す */
-    background-color: transparent; /* 背景色を透明にする */
-    padding: 0; /* 不要な余白を消す */
+    border: none;
+    outline: none;
+    background-color: transparent;
+    padding: 0;
 }
 
 .heart-icon.favorited {
     background: url('../img/heart-filled.svg') no-repeat center;
     background-size: contain;
+}
+
+/* レスポンシブ対応 */
+@media (max-width: 768px) {
+    .shop__content {
+        width: calc(33.333% - 5px);
+    }
+}
+
+@media (max-width: 480px) {
+    .shop__content {
+        width: calc(50% - 5px);
+    }
+}
+
+@media (max-width: 320px) {
+    .shop__content {
+        width: 100%;
+    }
 }

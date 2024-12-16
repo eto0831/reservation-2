@@ -6,11 +6,11 @@
 @endsection
 
 @section('content')
-<div class="attendance__alert">
+<div class="reservation__alert">
     {{ session('status') }}
 </div>
 
-<div class="attendance__content">
+<div class="reservation__content">
     <div class="search-form__wrapper">
         <form class="search-form" action="/search" method="get">
             @csrf
