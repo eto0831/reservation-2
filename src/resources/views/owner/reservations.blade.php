@@ -5,14 +5,15 @@
 @endsection
 
 @section('content')
-<div class="attendance__alert">
+<div class="reservation__alert">
     {{ session('status') }}
 </div>
+
 <div class="container">
-    <h1>店舗別 予約一覧</h1>
+    <h2>店舗別 予約一覧</h2>
     @foreach ($shops as $shop)
     <div class="shop-section">
-        <h2>{{ $shop->shop_name }}</h2>
+        <h3>{{ $shop->shop_name }}</h3>
         <table>
             <thead>
                 <tr>
@@ -34,12 +35,12 @@
                     <td>{{ $reservation->guest_count }}人</td>
                     <td>
                         <!-- 更新フォーム -->
-                        <form action="{{ route('owner.reservation.edit', $reservation) }}" method="get" style="display:inline;">
+                        <form action="{{ route('owner.reservation.edit', $reservation) }}" method="get">
                             <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
                             <button type="submit">編集</button>
                         </form>
                         <!-- 削除フォーム -->
-                        <form action="{{ route('owner.reservation.destroy') }}" method="post" style="display:inline;">
+                        <form action="{{ route('owner.reservation.destroy') }}" method="post">
                             @csrf
                             @method('DELETE')
                             <input type="hidden" name="reservation_id" value="{{ $reservation->id }}">
@@ -56,5 +57,8 @@
         </table>
     </div>
     @endforeach
+    <div class="back__button">
+        <a href="/owner/dashboard">戻る</a>
+    </div>
 </div>
 @endsection
