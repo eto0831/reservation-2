@@ -1,0 +1,141 @@
+/* フォームコンテナ */
+.shop-info__content {
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    width: 500px;
+    margin: 0 auto;
+    padding: 20px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* アラートメッセージ */
+.attendance__alert {
+    color: #333;
+    font-size: 14px;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* フォームグループ */
+.form__group {
+    margin-bottom: 15px;
+}
+
+.form__group-title {
+    display: flex;
+    align-items: center;
+    margin-bottom: 5px;
+}
+
+.form__label--item {
+    font-weight: bold;
+    color: #333;
+    margin-right: 5px;
+}
+
+.form__label--required {
+    color: red;
+    font-size: 14px;
+}
+
+/* 入力フィールド */
+.form__group__input input,
+.select__item-select {
+    width: 100%;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+}
+
+.select__item-wrapper {
+    margin-top: 5px;
+}
+
+/* ファイル選択 */
+input[type="file"] {
+    border: none;
+    padding: 5px;
+}
+
+/* 画像プレビュー */
+#preview {
+    display: block;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    max-width: 200px;
+    max-height: 200px;
+}
+
+.form__error {
+    color: red;
+    font-size: 12px;
+}
+
+.form__button-submit {
+    background-color: #3b82f6;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.form__button-submit:hover {
+    background-color: #2563eb;
+}
+
+
+.form__button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.form__button-submit {
+    width: 150px;
+    height: 40px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form__button-submit:hover {
+    background-color: #0056b3;
+}
+
+.form__button-back {
+    width: 150px;
+    height: 40px;
+    background-color: #ff00a2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.form__button-back:hover {
+    background-color: #5a6268;
+}
+
+.form__button-group {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    margin-top: 20px;
+}

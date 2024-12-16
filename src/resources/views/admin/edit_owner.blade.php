@@ -98,8 +98,9 @@
                     @error('password') <div class="form__error">{{ $message }}</div> @enderror
                 </div>
             </div>
-            <div class="form__button">
-                <button class="form__button-submit" type="submit" onclick="return confirm('この内容で確定しますか？')">ユーザー情報を更新</button>
+            <div class="form__button-group">
+                <a href="{{ url()->previous() }}" class="form__button-back">戻る</a>
+                <button class="form__button-submit" type="submit" onclick="return confirm('この内容で確定しますか？')">変更を確定</button>
             </div>
         </form>
     </div>

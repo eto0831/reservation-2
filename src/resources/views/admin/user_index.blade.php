@@ -8,10 +8,12 @@
 <div class="attendance__alert">
     {{ session('status') }}
 </div>
-<h2>Owners Index</h2>
-<h2>オーナー一覧</h2>
+
+<h2>店舗代表者一覧</h2>
+
+<!-- テーブルコンテナ -->
 <div class="owners__wrap">
-    <table class="owners__table" border="1">
+    <table class="owners__table">
         <thead>
             <tr>
                 <th>#</th>
@@ -48,12 +50,6 @@
                     @if ($loop->first)
                         <td rowspan="{{ $rowCount }}">
                             <a href="{{ route('admin.owner.edit', ['owner_id' => $owner->id]) }}">編集</a>
-                            <form action="/owner" method="post">
-                                @csrf
-                                @method('DELETE')
-                                <input type="hidden" name="owner_id" value="{{ $owner->id }}">
-                                <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
-                            </form>
                         </td>
                     @endif
                 </tr>
@@ -70,16 +66,14 @@
                     <td colspan="2">担当店舗なし</td>
                     <td>
                         <a href="{{ route('admin.owner.edit', ['owner_id' => $owner->id]) }}">編集</a>
-                        <form action="/owner" method="post">
-                            @csrf
-                            @method('DELETE')
-                            <input type="hidden" name="owner_id" value="{{ $owner->id }}">
-                            <button type="submit" onclick="return confirm('本当に削除しますか？')">削除</button>
-                        </form>
                     </td>
                 </tr>
             @endforeach
         </tbody>
     </table>
+
+<div class="back__button">
+    <a href="/admin/dashboard">戻る</a>
+</div>
 </div>
 @endsection

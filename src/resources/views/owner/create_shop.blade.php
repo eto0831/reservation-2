@@ -27,6 +27,51 @@
                 </div>
             </div>
         </div>
+        
+        <div class="form__group">
+            <div class="form__group-title">
+                <span class="form__label--item">エリア</span>
+                <span class="form__label--required">※</span>
+            </div>
+            <div class="form__group-content">
+                <div class="select__item-wrapper">
+                    <select class="select__item-select" name="area_id">
+                        <option value="" disabled selected>エリアを選択</option>
+                        @foreach($areas as $area)
+                        <option value="{{ $area->id }}">{{ $area->area_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form__error">
+                    @error('area_id')
+                    {{ $message }}
+                    @enderror
+                </div>
+            </div>
+        </div>
+
+        <div class="form__group">
+            <div class="form__group-title">
+                <span class="form__label--item">ジャンル</span>
+                <span class="form__label--required">※</span>
+            </div>
+            <div class="form__group-content">
+                <div class="select__item-wrapper">
+                    <select class="select__item-select" name="genre_id">
+                        <option value="" disabled selected>ジャンルを選択</option>
+                        @foreach($genres as $genre)
+                        <option value="{{ $genre->id }}">{{ $genre->genre_name }}</option>
+                        @endforeach
+                    </select>
+                </div>
+                <div class="form__error">
+                    @error('genre_id')
+                    {{ $message }}
+                    @enderror
+                </div>
+            </div>
+        </div>
+
         <div class="form__group">
             <div class="form__group-title">
                 <span class="form__label--item">店舗情報</span>
@@ -43,48 +88,7 @@
                 </div>
             </div>
         </div>
-        <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">Area</span>
-                <span class="form__label--required">※</span>
-            </div>
-            <div class="form__group-content">
-                <div class="select__item-wrapper">
-                    <select class="select__item-select" name="area_id">
-                        <option value="" disabled>Area</option>
-                        @foreach($areas as $area)
-                        <option value="{{ $area->id }}">{{ $area->area_name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form__error">
-                    @error('description')
-                    {{ $message }}
-                    @enderror
-                </div>
-            </div>
-        </div>
-        <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">Genre</span>
-                <span class="form__label--required">※</span>
-            </div>
-            <div class="form__group-content">
-                <div class="select__item-wrapper">
-                    <select class="select__item-select" name="genre_id">
-                        <option value="" disabled>Genre</option>
-                        @foreach($genres as $genre)
-                        <option value="{{ $genre->id }}">{{ $genre->genre_name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="form__error">
-                    @error('description')
-                    {{ $message }}
-                    @enderror
-                </div>
-            </div>
-        </div>
+
         <div class="form__group">
             <div class="form__group-title">
                 <span class="form__label--item">画像</span>
@@ -95,7 +99,7 @@
                 </div>
                 <div class="form__error">
                     @error('image')
-                        {{ $message }}
+                    {{ $message }}
                     @enderror
                 </div>
             </div>
@@ -106,12 +110,13 @@
                 <span class="form__label--item">プレビュー</span>
             </div>
             <div class="form__group-content">
-                <img id="preview" src="#" alt="プレビュー" style="max-width: 200px; max-height: 200px; display: none;">
+                <img id="preview" src="#" alt="プレビュー" style="display: none;">
             </div>
         </div>
 
-        <div class="form__button">
-            <button class="form__button-submit" type="submit" onclick="return confirm('この内容で作成しますか？')">作成</button>
+        <div class="form__button-group">
+            <a href="/owner/dashboard" class="form__button-back">戻る</a>
+            <button class="form__button-submit" type="submit" onclick="return confirm('この内容で確定しますか？')">作成</button>
         </div>
     </form>
 </div>
@@ -127,15 +132,13 @@
         reader.onload = (e) => {
             preview.src = e.target.result;
             preview.style.display = 'block';
-        }
+        };
 
         if (file) {
             reader.readAsDataURL(file);
         } else {
-            preview.src = '#';
             preview.style.display = 'none';
         }
     });
 </script>
-
 @endsection

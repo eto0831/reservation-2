@@ -13,7 +13,7 @@
 
     <div class="dashboard__links">
         <a class="dashboard__link" href="/owner/shop/create">店舗情報作成</a>
-        <a class="dashboard__link" href="/owner/shops">店舗情報管理</a>
+        <a class="dashboard__link" href="/owner/shops">店舗情報編集</a>
         <a class="dashboard__link" href="/owner/reservations">予約情報管理</a>
     </div>
 </div>

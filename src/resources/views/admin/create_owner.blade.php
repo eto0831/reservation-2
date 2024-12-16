@@ -66,7 +66,7 @@
 
         <!-- ボタンのグループ -->
         <div class="form__button-group">
-            <a href="{{ url()->previous() }}" class="form__button-back">戻る</a>
+            <a href="/admin/dashboard" class="form__button-back">戻る</a>
             <button class="form__button-submit" type="submit" onclick="return confirm('この内容で登録しますか？')">登録</button>
         </div>
     </form>
