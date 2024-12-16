@@ -1,0 +1,92 @@
+.container {
+    width: 100%;
+    max-width: 600px;
+    margin: 10px auto 0;
+    background-color: #ffffff;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    padding: 30px;
+}
+
+.container__title {
+    text-align: center;
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-control {
+    width: 100%;
+    height: 40px;
+    padding: 5px 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+textarea.form-control {
+    resize: none;
+    height: 120px;
+}
+
+.button__group {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.button {
+    width: 100px;
+    height: 40px;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.button--primary {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.button--primary:hover {
+    background-color: #0056b3;
+}
+
+.button--secondary {
+    background-color: #ff00a2;
+    color: #fff;
+    text-decoration: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.button--secondary:hover {
+    background-color: #5a6268;
+}
+
+.alert {
+    padding: 10px 15px;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+    color: #721c24;
+    border-radius: 5px;
+    margin-bottom: 20px;
+}

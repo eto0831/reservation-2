@@ -6,9 +6,10 @@
 
 @section('content')
 <div class="container">
-    <h1>Email Notification</h1>
+    <h2 class="container__title">お知らせメール作成</h2>
+
     @if ($errors->any())
-    <div class="alert alert-danger">
+    <div class="alert">
         <ul>
             @foreach ($errors->all() as $error)
             <li>{{ $error }}</li>
@@ -36,7 +37,10 @@
             <label for="message">本文</label>
             <textarea name="message" id="message" class="form-control" rows="5"></textarea>
         </div>
-        <button type="submit" class="btn btn-primary" onclick="return confirm('この内容で送信しますか？')">メール送信</button>
+        <div class="button__group">
+            <a href="/admin/dashboard" class="button button--secondary">戻る</a>
+            <button type="submit" class="button button--primary" onclick="return confirm('この内容で送信しますか？')">メール送信</button>
+        </div>
     </form>
 </div>
 @endsection

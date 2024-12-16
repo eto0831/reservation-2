@@ -1,0 +1,107 @@
+.dashboard__content {
+    width: 100%;
+    max-width: 600px;
+    margin: 50px auto 0;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    padding: 30px;
+}
+
+.register-form__heading h2 {
+    font-size: 24px;
+    font-weight: bold;
+    color: #333;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.form__group {
+    margin-bottom: 20px;
+}
+
+.form__group-title {
+    margin-bottom: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    color: #555;
+}
+
+.form__label--required {
+    color: #e74c3c; /* 赤色で必須項目を表示 */
+    margin-left: 5px;
+}
+
+.form__input--text input,
+.select__item-select {
+    width: 100%;
+    height: 40px;
+    padding: 5px 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+}
+
+.select__item-wrapper {
+    position: relative;
+}
+
+.form__error {
+    margin-top: 5px;
+    font-size: 12px;
+    color: #e74c3c;
+}
+
+.form__button {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
+}
+
+.form__button-submit {
+    width: 150px;
+    height: 40px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.form__button-submit:hover {
+    background-color: #0056b3;
+}
+
+/* 戻るボタンのスタイル */
+.form__button-back {
+    width: 150px;
+    height: 40px;
+    background-color: #ff00a2;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-right: 10px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+}
+
+.form__button-back:hover {
+    background-color: #5a6268;
+}
+
+.form__button-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 20px;
+}
