@@ -84,6 +84,8 @@
 }
 
 .btn {
+    width: 100px;
+    height: 40px;
     margin-top: 10px;
     display: inline-block;
     padding: 10px 20px;
@@ -103,6 +105,8 @@
 }
 
 .btn-back {
+    width: 100px;
+    height: 40px;
     display: block;
     margin: 20px auto;
     text-align: center;
