@@ -34,32 +34,33 @@ Route::match(['get', 'post'], '/search', [ShopController::class, 'search']);
 
 Route::middleware(['auth', 'verified'])->group(function () {
 
-    Route::delete('/reservation', [ReservationController::class, 'destroy']);
-    Route::post('/favorite', [FavoriteController::class, 'store']);
-    Route::delete('/favorite', [FavoriteController::class, 'destroy']);
     Route::get('/mypage', [AuthController::class, 'index']);
-    // 予約編集のルート
-    Route::get('/reservation/edit/{id}', [ReservationController::class, 'edit'])->name('reservation.edit');
-    // 予約更新のルート
-    Route::patch('/reservation/update', [ReservationController::class, 'update'])->name('reservation.update');
 
+    //予約作成、支払い画面表示、支払処理、thanks画面表示の順
+    Route::post('/reservation/process', [ReservationController::class, 'process'])->name('reservation.process');
+    Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
+    Route::post('/payment', [PaymentController::class, 'processPayment'])->name('payment.process');
+    Route::get('/thanks', [PaymentController::class, 'success'])->name('thanks');
+
+    // 予約編集、更新、削除のルート
+    Route::get('/reservation/edit/{id}', [ReservationController::class, 'edit'])->name('reservation.edit');
+    Route::patch('/reservation/update', [ReservationController::class, 'update'])->name('reservation.update');
+    Route::delete('/reservation', [ReservationController::class, 'destroy']);
+
+    // QRコードスキャン関連、予約認証
     Route::get('/reservation/scan', [ReservationController::class, 'scan'])->name('reservation.scan');
     Route::get('/reservation/verify/{id?}', [ReservationController::class, 'verify'])->name('reservation.verify');
     Route::post('/reservation/verify/{id}', [ReservationController::class, 'updateIsVisited'])->name('reservation.updateIsVisited');
+
+    // お気に入り関連
+    Route::post('/favorite', [FavoriteController::class, 'store']);
+    Route::delete('/favorite', [FavoriteController::class, 'destroy']);
 
     Route::post('/review', [ReviewController::class, 'store']);
     Route::delete('/review/delete', [ReviewController::class, 'destroy']);
     Route::get('/review/edit/{review}', [ReviewController::class, 'edit'])->name('review.edit');
     Route::put('/review/update/{review}', [ReviewController::class, 'update'])->name('review.update');
-
-    Route::get('/payment', [PaymentController::class, 'index'])->name('payment.index');
-    Route::post('/payment', [PaymentController::class, 'processPayment'])->name('payment.process');
-
-
-    Route::post('/reservation/process', [ReservationController::class, 'process'])->name('reservation.process');
 });
-
-// web.php
 
 // admin
 Route::group(['middleware' => ['role:admin']], function () {

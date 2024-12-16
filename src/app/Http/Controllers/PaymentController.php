@@ -76,10 +76,15 @@ public function processPayment(Request $request)
         // セッションから予約情報を削除
         $request->session()->forget('reservation_data');
 
-        return redirect('/mypage')->with('status', '予約と決済が完了しました！');
+        return redirect('/thanks')->with('status', '予約と決済が完了しました！');
     } catch (ApiErrorException $e) {
         return back()->with('error', '決済に失敗しました：' . $e->getMessage());
     }
+}
+
+public function success()
+{
+    return view('/thanks');
 }
 
 }

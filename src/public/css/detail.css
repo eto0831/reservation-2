@@ -220,6 +220,7 @@
     transition: background-color 0.2s;
     display: inline-block;
     text-align: center;
+    vertical-align: middle;
 }
 
 .review__wrap a:hover,

@@ -23,6 +23,7 @@
     width: calc(50% - 10px); /* 25% - 左右の隙間(10px * 2) */
     padding: 0 10px 0 10px;
     box-sizing: border-box; /* paddingをwidthに含める */
+    margin-bottom: 10px;
 }
 
 .shop__img {
