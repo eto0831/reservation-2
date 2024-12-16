@@ -1,0 +1,113 @@
+/* 全体コンテナ */
+.verify-reservation {
+    width: 90%;
+    max-width: 600px;
+    margin: 30px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    text-align: center;
+}
+
+/* タイトル */
+.verify-reservation h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* 成功・エラーメッセージ */
+.success, .error {
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.success {
+    color: #155724;
+    background-color: #d4edda;
+    border: 1px solid #c3e6cb;
+}
+
+.error {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+/* 予約内容テーブル */
+.reservation-table {
+    width: 100%;
+    margin: 20px 0;
+    border-collapse: collapse;
+    font-size: 16px;
+    color: #333;
+}
+
+.reservation-table th, .reservation-table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+.reservation-table th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+    width: 40%;
+}
+
+.reservation-table td {
+    width: 60%;
+}
+
+.reservation-table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+/* ボタンコンテナ */
+.button-group {
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* 来店確認ボタン */
+.form__button-submit {
+    width: 120px;
+    height: 40px;
+    color: #fff;
+    background-color: #007bff;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.form__button-submit:hover {
+    background-color: #0056b3;
+}
+
+/* 戻るボタン */
+.btn-back {
+    display: inline-block;
+    width: 120px;
+    height: 40px;
+    text-align: center;
+    line-height: 40px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #ff00a2;
+    border-radius: 5px;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.btn-back:hover {
+    background-color: #d4008a;
+}

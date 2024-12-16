@@ -1,0 +1,71 @@
+/* コンテナ */
+.scan-qrcode {
+    width: 90%;
+    max-width: 700px;
+    margin: 20px auto;
+    padding: 20px;
+    text-align: center;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+/* タイトル */
+.scan-qrcode h2 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 20px;
+    color: #333;
+}
+
+/* アラートメッセージ */
+.alert {
+    font-size: 14px;
+    margin-bottom: 20px;
+    padding: 10px;
+    border-radius: 5px;
+    text-align: center;
+}
+
+.alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border: 1px solid #f5c6cb;
+}
+
+/* 動画表示 */
+#qr-video {
+    width: 100%;
+    height: auto;
+    border: 2px solid #ccc;
+}
+
+/* QRコードの結果 */
+#qr-result {
+    margin-top: 20px;
+    font-size: 16px;
+    color: #007bff;
+    font-weight: bold;
+}
+
+/* 戻るボタン */
+.btn-back {
+    display: block;
+    width: 150px;
+    margin: 20px auto 0;
+    text-align: center;
+    padding: 10px 15px;
+    font-size: 16px;
+    color: #fff;
+    background-color: #ff00a2;
+    text-decoration: none;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+.btn-back:hover {
+    background-color: #5a6268;
+    text-decoration: none;
+    color: #fff;
+}
