@@ -71,12 +71,21 @@ class ReservationController extends Controller
         // 該当予約を取得
         $reservation = Reservation::findOrFail($request->reservation_id);
 
+        // ユーザーが予約者かどうかを確認
         if (Auth::id() !== $reservation->user_id) {
             abort(403, 'この予約を更新する権限がありません');
         }
 
+        // 予約データを更新
+        $reservation->reserve_date = $request->input('reserve_date');
+        $reservation->reserve_time = $request->input('reserve_time');
+        $reservation->guest_count = $request->input('guest_count');
+        $reservation->save(); // 保存処理
+
+        // 更新後、リダイレクト
         return redirect('/mypage')->with('status', '予約を変更しました');
     }
+
 
 
     public function scan()
@@ -110,5 +119,4 @@ class ReservationController extends Controller
             return redirect()->back()->with('error', '予約が見つかりませんでした');
         }
     }
-
 }
