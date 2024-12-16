@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/review/edit.css') }}">
+@endsection
+
 @section('content')
     <h1>レビュー編集</h1>
     <form action="{{ route('review.update', $review->id) }}" method="post">

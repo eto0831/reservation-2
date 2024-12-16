@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/stores/scan.css') }}">
+@endsection
+
 @section('content')
 <div class="scan-qrcode">
     <h2>QRコードを読み込んでください</h2>

@@ -5,7 +5,7 @@
 @endsection
 
 @section('content')
-<div class="attendance__alert">
+<div class="mail__alert">
     {{ session('status') }}
 </div>
 

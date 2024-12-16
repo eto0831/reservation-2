@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/payment/index.css') }}">
+@endsection
+
 @section('content')
 <div class="container">
     @if (session('status'))
@@ -7,7 +11,7 @@
         {{ session('status') }}
     </div>
     @endif
-    @if (session('error'))
+    @if (session('error')
     <div class="alert alert-danger">
         {{ session('error') }}
     </div>

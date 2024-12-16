@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/stores/verify.css') }}">
+@endsection
+
 @section('content')
 <div class="verify-reservation">
     <h2>予約照合</h2>

@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('css')
+<link rel="stylesheet" href="{{ asset('css/admin/email-notification.css') }}">
+@endsection
+
 @section('content')
 <div class="container">
     <h1>Email Notification</h1>
