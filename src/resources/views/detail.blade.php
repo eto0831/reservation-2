@@ -68,6 +68,9 @@
             <p>この店舗はまだ訪問していません。</p>
             @endif
             <h3>レビュー一覧</h3>
+            @if ($reviews->isEmpty())
+            <p>レビューはまだありません</p>
+            @else
             @foreach($reviews as $review)
             <li>
                 <div>
@@ -86,6 +89,8 @@
                 @endif
             </li>
             @endforeach
+            @endif
+
         </div>
     </div>
     <div class="reservation__form">
