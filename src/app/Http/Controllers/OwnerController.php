@@ -158,10 +158,16 @@ class OwnerController extends Controller
     public function reservations()
     {
         // 現在のオーナーが担当するすべての店舗の予約情報を取得
-        $shops = Auth::user()->shops()->with('reservations.user')->get();
+        $shops = Auth::user()
+            ->shops()
+            ->with(['reservations' => function ($query) {
+                $query->orderByRaw('CASE WHEN reserve_date >= ? THEN 0 ELSE 1 END, reserve_date ASC, reserve_time ASC', [now()->toDateString()]);
+            }, 'reservations.user'])
+            ->get();
 
         return view('owner.reservations', compact('shops'));
     }
+
 
     // OwnerController
     public function destroyReservation(Request $request)
