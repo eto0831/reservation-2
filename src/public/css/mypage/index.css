@@ -8,63 +8,71 @@
 
 .mypage__content {
     display: flex;
-    justify-content: space-around; /* 追加 */
+    justify-content: center;
+    gap: 40px; /* コンテンツ間の隙間 */
     width: 100%;
+    box-sizing: border-box;
 }
 
 .shop__wrap {
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    gap: 10px; /* 縦横10pxの隙間 */
+    gap: 20px; /* 縦横20pxの隙間 */
 }
 
 .shop__content {
-    width: calc(50% - 10px); /* 25% - 左右の隙間(10px * 2) */
+    width: calc(50% - 20px);
     padding: 0 10px 0 10px;
-    box-sizing: border-box; /* paddingをwidthに含める */
+    box-sizing: border-box;
     margin-bottom: 10px;
 }
 
 .shop__img {
     width: 100%;
+    height: 200px;
+    object-fit: cover;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
 }
 
 .shop__buttons {
     display: flex;
     justify-content: space-between;
+    align-items: center;
 }
 
-
 .reservation__header h4 {
-    display: inline-block; /* または block */
+    display: inline-block;
     display: flex;
     justify-content: start;
     align-items: center;
 }
 
-.reservation__header h4::before  {
+.reservation__header h4::before {
     content: "";
     display: inline-block;
     background: url(../img/clock.svg) no-repeat;
     background-size: contain;
     width: 32px;
     height: 32px;
-  }
+}
 
 .reservation__container {
     width: 40%;
+    margin: 0 auto;
 }
 
 .reservation__container h3 {
     text-align: left;
+    margin-left: 35px;
 }
 
 .reservations__wrap {
     display: flex;
-    justify-content: start; /* 水平方向の中央揃え */
-    align-items: center; /* 垂直方向の中央揃え */
-    flex-wrap: wrap; /* 複数行に折り返す */
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
     gap: 20px;
 }
 
@@ -82,10 +90,10 @@
     align-items: center;
 }
 
-.reservation__menus{
+.reservation__menus {
     display: flex;
     justify-content: space-between;
-    gap:5%;
+    gap: 5%;
 }
 
 .reservation__heder h3 {
@@ -98,45 +106,44 @@
 }
 
 .icon-button {
-    width: 26px; /* ボタンサイズ */
+    width: 26px;
     height: 26px;
-    background-color: transparent; /* 背景色を透明に */
-    border: none; /* ボーダーを削除 */
-    cursor: pointer; /* クリック可能なマウスカーソル */
-    position: relative; /* 疑似要素用 */
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
     align-items: center;
     justify-content: center;
 }
 
-/* 疑似要素でSVGを追加 */
 .icon-button::before {
-    content: ""; /* 空に設定 */
+    content: "";
     display: block;
-    width: 100%; /* ボタン内でSVGをフルサイズに */
+    width: 100%;
     height: 100%;
-    background-size: contain; /* SVGをボタンサイズに調整 */
-    background-repeat: no-repeat; /* 繰り返さない */
-    background-position: center; /* 中央揃え */
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
 }
 
 /* QRボタン用のSVG */
 .qr-button::before {
-    background-image: url('../img/qr.svg');
+    background-image: url("../img/qr.svg");
 }
 
 /* 目ボタン用のSVG */
 .edit-button::before {
-    background-image: url('../img/memo.svg');
+    background-image: url("../img/memo.svg");
 }
 
 /* 削除ボタン用のSVG */
 .delete-button::before {
-    background-image: url('../img/x.svg');
+    background-image: url("../img/x.svg");
 }
 
-
 .favorites__container {
-    width: 60%;
+    width: 55%;
+    margin: 0 auto;
 }
 
 .favorites__container h2 {
@@ -147,6 +154,5 @@
     display: flex;
     flex-wrap: wrap;
     width: 100%;
-    gap: 10px; /* 縦横10pxの隙間 */
+    gap: 10px;
 }
-
