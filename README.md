@@ -1,4 +1,4 @@
-# Atte(勤怠管理アプリ)
+# ReseRese(勤怠管理アプリ)
 勤怠管理アプリです。
 ![トップ画面](src/top.png)
 ## 作成した目的
@@ -30,27 +30,27 @@
 ```bash
 git clone git@github.com:eto0831/reservation-2.git
 ```
-2. リポジトリの設定
+2. リポジトリの設定(必要であれば)
 ```bash
 git remote set-url origin git@github.com:eto0831/reservation-x.git
 ```
-3. サブモジュールの更新
+3. サブモジュールの更新(プロジェクトのルートディレクトリで)
 ```bash
 git submodule update --init --recursive
 ```
 4. DockerDesktopアプリを立ち上げる
-5. ドッカーのビルド
+5. ドッカーのビルド  
+※この時点ではjobsテーブル等がないため、警告が出る場合がありますがそのまま進めてください。  
 ```bash
 docker-compose up -d --build
 ```
-
-
 **Laravel環境構築**
 1. コンテナに入る
 ```bash
 docker-compose exec php bash
 ```
-2. コンポーザーのインストール
+2. コンポーザーのインストール  
+※この時点ではjobsテーブル等がないため、警告が出る場合がありますがそのまま進めてください。  
 ```bash
 composer install
 ```
@@ -71,6 +71,8 @@ DB_DATABASE=laravel_db
 DB_USERNAME=laravel_user
 DB_PASSWORD=laravel_pass
 
+QUEUE_CONNECTION=database
+
 MAIL_MAILER=smtp
 MAIL_HOST=mailhog
 MAIL_PORT=1025
@@ -79,6 +81,9 @@ MAIL_PASSWORD=null
 MAIL_ENCRYPTION=null
 MAIL_FROM_ADDRESS=test@example.com
 MAIL_FROM_NAME="${APP_NAME}"
+
+STRIPE_KEY=pk_test_から始まるキー
+STRIPE_SECRET=sk_test_から始まるキー
 ```
 
 6. アプリケーションキーの作成
@@ -99,29 +104,19 @@ php artisan db:seed
 ```bash
 php artisan storage:link
 ```
-10. 画像の貼り付け
-```text
-reservation-2/src/storage/app/public/images/shops
-```
-11.  PHPコンテナを出る
+10.  PHPコンテナを出る
 ```bash
 exit
 ```
-12. ドッカーを落とす
+11. ドッカーを落とす
 ```bash
 docker-compose down
 ```
-13. 再ビルド
+12. 再ビルド
 ```bash
 docker-compose up -d --build
 ```
-14. 権限
-```bash
-sudo chmod -R 775 /var/www/storage
-```
-```bash
-sudo chmod -R 775 bootstrap/cache
-```
+
 
 ## テーブル設計
 ![テーブル設計](src/table.png)
@@ -132,17 +127,30 @@ sudo chmod -R 775 bootstrap/cache
 ## テストアカウントおよび確認ができるサンプルケース
 シーディングを実行すると下記アカウントおよびデータの作成が行われます。
 
-メールアドレス：popo1@example.com ～ popo35@example.com  
+## ユーザー一覧
+1. 管理者　　　email: popo1@example.com
+2. 店舗代表者　email: popo2@example.com ※"shop_id:21(店名：test)と22(店名：test2)"の代表者
+3. 一般ユーザー　　email: popo3@example.com  ※お気に入り情報のみランダムで設定済み
+4. 一般ユーザー　　email: popo5@example.com  ※レビュー関連操作確認用
+5. 一般ユーザー　　email: popo7@example.com  ※レビュー関連操作確認用
+6. 一般ユーザー　　email: popo8@example.com  ※予約関連操作確認用
+
+メールアドレス：popo1@example.com ～ popo8@example.com  
 各ユーザー名：@の前の部分(例：popo1@example.comの場合は popo1)  
 パスワード：popo1212 （共通）  
 
 【確認ができるサンプルケース】  
-AWS上で予約照合する際、カメラのアクセスを許可するため、下記URLにアクセスして設定を変更してください。（クロームをご使用ください。）その他のブラウザでは下記手順と同様の操作をご確認の上、実施してください。
-chrome://flags/
-Insecure origins treated as secureで検索
-http://54.249.56.110/reservation/scan
-を入力しタブを停止中から有効に変更し。再起動ボタンを押し、クロームを再起動してください。
-再起動後カメラの許可を求められますので許可してください。
+
+AWS上で予約照合する際、カメラのアクセスを許可するため、下記URLにアクセスして設定を変更してください。（クロームをご使用ください。）  
+その他のブラウザでは下記手順と同様の操作をご確認の上、実施してください。  
+chrome://flags/  
+Insecure origins treated as secureで検索  
+http://54.249.56.110/reservation/scan  
+を入力しタブを停止中から有効に変更し。再起動ボタンを押し、クロームを再起動してください。  
+再起動後カメラの許可を求められますので許可してください。  
+
 ## 注意事項
-.envファイルがスクールでの通常のプロジェクトの設定と少し異なっているため、
-お手数ですが上記のLaravel環境構築に記載の環境変数をご入力ください。
+
+もし画像がない場合は、  
+https://reservation-aws-bucket-eto0831.s3.ap-northeast-1.amazonaws.com/images/shops/  
+より全てダウンロードし、src/storage/app/public/images/shopsを作成の上、フォルダ内に画像を保存してください。  
