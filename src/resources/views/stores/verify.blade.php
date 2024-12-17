@@ -41,7 +41,7 @@
     <!-- ボタンエリア -->
     <div class="button-group">
         <!-- 戻るボタン -->
-        <a href="/mypage" class="btn-back">戻る</a>
+        <a href="/owner/dashboard" class="btn-back">戻る</a>
 
         <!-- 来店確認ボタン -->
         <form action="{{ route('reservation.updateIsVisited', $reservation->id) }}" method="post">

@@ -21,7 +21,7 @@
   <p id="qr-result"></p>
 
   <!-- 戻るボタン -->
-  <a href="/mypage" class="btn-back">戻る</a>
+  <a href="/owner/dashboard" class="btn-back">戻る</a>
 </div>
 
 <script src="{{ asset('js/jsQR/dist/jsQR.js') }}"></script>

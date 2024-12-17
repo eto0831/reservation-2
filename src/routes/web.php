@@ -47,11 +47,6 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::patch('/reservation/update', [ReservationController::class, 'update'])->name('reservation.update');
     Route::delete('/reservation', [ReservationController::class, 'destroy']);
 
-    // QRコードスキャン関連、予約認証
-    Route::get('/reservation/scan', [ReservationController::class, 'scan'])->name('reservation.scan');
-    Route::get('/reservation/verify/{id?}', [ReservationController::class, 'verify'])->name('reservation.verify');
-    Route::post('/reservation/verify/{id}', [ReservationController::class, 'updateIsVisited'])->name('reservation.updateIsVisited');
-
     // お気に入り関連
     Route::post('/favorite', [FavoriteController::class, 'store']);
     Route::delete('/favorite', [FavoriteController::class, 'destroy']);
@@ -96,4 +91,9 @@ Route::group(['middleware' => ['auth', 'verified', 'role:owner', 'can:manage sho
     Route::get('/owner/reservation/edit/{id}', [OwnerController::class, 'editReservation'])->name('owner.reservation.edit');
     Route::patch('/owner/reservation/update', [OwnerController::class, 'updateReservation'])->name('owner.reservation.update');
     Route::delete('/owner/reservation/destroy', [OwnerController::class, 'destroyReservation'])->name('owner.reservation.destroy');
+
+    // QRコードスキャン関連、予約認証
+    Route::get('/reservation/scan', [ReservationController::class, 'scan'])->name('reservation.scan');
+    Route::get('/reservation/verify/{id?}', [ReservationController::class, 'verify'])->name('reservation.verify');
+    Route::post('/reservation/verify/{id}', [ReservationController::class, 'updateIsVisited'])->name('reservation.updateIsVisited');
 });
