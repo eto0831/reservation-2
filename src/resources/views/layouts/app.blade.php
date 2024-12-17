@@ -34,6 +34,16 @@
                                 <li class="header-nav__item">
                                     <a class="header-nav__link" href="/mypage">Mypage</a>
                                 </li>
+                                @if (Auth::user()->hasRole('admin'))
+                                <li class="header-nav__item">
+                                    <a class="header-nav__link" href="/admin/dashboard">Admin</a>
+                                </li>
+                                @endif
+                                @if (Auth::user()->hasRole('owner'))
+                                <li class="header-nav__item">
+                                    <a class="header-nav__link" href="/owner/dashboard">Owner</a>
+                                </li>
+                                @endif
                                 <li class="header-nav__item">
                                     <form class="form" action="/logout" method="post">
                                         @csrf

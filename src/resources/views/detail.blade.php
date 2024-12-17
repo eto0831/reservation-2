@@ -22,7 +22,7 @@
         @endif
         <div class="shop__info">
             <div class="shop__heading">
-                <a href="{{ url()->previous() }}">&lt;</a>
+                <a href="/">&lt;</a>
                 <h2>{{ $shop->shop_name }}</h2>
             </div>
             <div class="shop__img-container">
