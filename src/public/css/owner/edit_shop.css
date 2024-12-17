@@ -46,6 +46,18 @@
     font-size: 14px;
 }
 
+.form__group__textarea textarea {
+    width: 100%;
+    height: 100px;
+    padding: 8px 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 14px;
+    resize: none; /* ユーザーによるリサイズを無効化 */
+    box-sizing: border-box;
+}
+
+
 .select__item-wrapper {
     margin-bottom: 10px;
 }

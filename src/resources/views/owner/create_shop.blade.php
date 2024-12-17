@@ -78,8 +78,8 @@
                 <span class="form__label--required">※</span>
             </div>
             <div class="form__group-content">
-                <div class="form__group__input">
-                    <input type="text" name="description" placeholder="店舗情報" value="{{ old('description') }}">
+                <div class="form__group__textarea">
+                    <textarea name="description" placeholder="店舗情報">{{ old('description') }}</textarea>
                 </div>
                 <div class="form__error">
                     @error('description')

@@ -35,13 +35,19 @@
                 <span class="form__label--item">店舗情報</span>
                 <span class="form__label--required">※</span>
             </div>
-            <div class="form__group__input">
-                <input type="text" name="description" placeholder="店舗情報" value="{{ old('description', $shop->description) }}">
-            </div>
-            <div class="form__error">
-                @error('description') {{ $message }} @enderror
+            <div class="form__group-content">
+                <div class="form__group__textarea">
+                    <textarea name="description"
+                        placeholder="店舗情報">{{ old('description', $shop->description) }}</textarea>
+                </div>
+                <div class="form__error">
+                    @error('description')
+                    {{ $message }}
+                    @enderror
+                </div>
             </div>
         </div>
+
 
         <!-- Area -->
         <div class="form__group">
@@ -71,7 +77,8 @@
                 <select class="select__item-select" name="genre_id">
                     <option value="" disabled>Genre</option>
                     @foreach($genres as $genre)
-                    <option value="{{ $genre->id }}" @if(old('genre_id', $shop->genre_id) == $genre->id) selected @endif>
+                    <option value="{{ $genre->id }}" @if(old('genre_id', $shop->genre_id) == $genre->id) selected
+                        @endif>
                         {{ $genre->genre_name }}
                     </option>
                     @endforeach
