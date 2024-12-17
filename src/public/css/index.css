@@ -39,8 +39,9 @@
 
 .reservation__content {
     margin: 0 auto;
-    padding: 30px 15px;
+    padding: 0px 10px 30px 10px;
     max-width: 1230px;
+    transform: translateY(-45px);
 }
 
 .reservation-table {
@@ -78,7 +79,7 @@
 .shop__content {
     width: calc(25% - 5px); /* 25% - 左右の隙間(10px * 2) */
     padding: 5px;
-    box-sizing: border-box; /* paddingをwidthに含める */
+    box-sizing: border-box;
 }
 
 .shop__img {
@@ -94,7 +95,8 @@
     display: flex;
     justify-content: end;
     pointer-events: none;
-    transform: translateY(-105px);
+    transform: translate(-8px, -30px);
+    
 }
 
 .search-form {
@@ -108,12 +110,12 @@
 
 .search-form input,
 .search-form select {
-    pointer-events: auto; /* 入力フィールドのクリックを有効化 */
+    pointer-events: auto;
 }
 .search-form__item-input {
-    padding-left: 30px; /* テキストの開始位置を調整 */
+    padding-left: 30px;
     background: url('img/loupe.svg') no-repeat 5px center;
-    background-size: 20px 20px; /* アイコンのサイズ */
+    background-size: 20px 20px;
     height: 40px;
     border: none;
     outline: none;
