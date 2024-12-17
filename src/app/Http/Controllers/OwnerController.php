@@ -92,26 +92,20 @@ class OwnerController extends Controller
     }
 
 
-    public function editShop(Request $request)
+    public function editShop($shop_id)
     {
-        // バリデーション: shop_id が送信されていることを確認
-        $request->validate([
-            'shop_id' => 'required|exists:shops,id',
-        ]);
+        // 店舗情報を取得
+        $shop = Shop::findOrFail($shop_id);
 
-        // 該当予約を取得
-        $shop = Shop::findOrFail($request->shop_id);
-        // nullチェック
-        if (!$shop) {
-            abort(404, 'ショップが見つかりません');
-        }
-        // 認可チェックsrc/app/Providers/AuthServiceProvider.phpに登録済みのポリシー
+        // 認可チェック (Policy)
         $this->authorize('update', $shop);
+
         $areas = Area::all();
         $genres = Genre::all();
 
         return view('owner.edit_shop', compact('shop', 'areas', 'genres'));
     }
+
 
     public function updateShop(ShopRequest $request)
     {

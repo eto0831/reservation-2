@@ -83,8 +83,9 @@ Route::group(['middleware' => ['auth', 'verified', 'role:owner', 'can:manage sho
     Route::get('/owner/shops', [OwnerController::class, 'shops'])->name('owner.shops');
     Route::get('/owner/shop/create', [OwnerController::class, 'createShop'])->name('owner.shop.create');
     Route::post('/owner/shop/store', [OwnerController::class, 'storeShop'])->name('owner.shop.store');
-    Route::post('/owner/shop/edit', [OwnerController::class, 'editShop'])->name('owner.shop.edit');
+    Route::get('/owner/shop/edit/{shop_id}', [OwnerController::class, 'editShop'])->name('owner.shop.edit');
     Route::patch('/owner/shop/update', [OwnerController::class, 'updateShop'])->name('owner.shop.update');
+    
     Route::delete('/owner/shop/delete', [OwnerController::class, 'destroyShop'])->name('owner.shop.destroy');
 
     Route::get('/owner/reservations', [OwnerController::class, 'reservations'])->name('owner.reservations');

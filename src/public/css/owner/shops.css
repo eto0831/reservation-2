@@ -15,70 +15,85 @@
     padding: 20px;
     background-color: #f9f9f9;
     border-radius: 8px;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
 }
 
-.container h1 {
+/* タイトル */
+.shop__title {
     font-size: 24px;
     color: #333;
     text-align: center;
     margin-bottom: 20px;
 }
 
-/* 店舗セクション */
-.shop-section {
-    margin-top: 10px;
-}
-
-.shop-section table {
+/* テーブル */
+.shop-table {
     width: 100%;
     border-collapse: collapse;
     margin-top: 10px;
+    font-size: 14px;
 }
 
-.shop-section th, .shop-section td {
-    padding: 12px;
-    text-align: center;
-    border: 1px solid #ddd;
-}
-
-.shop-section th {
+.shop-table__header th {
     background-color: #007bff;
     color: #fff;
+    padding: 12px;
+    text-align: center;
     font-weight: bold;
 }
 
-.shop-section td {
+.shop-table__row td {
+    padding: 10px;
+    text-align: center;
+    border: 1px solid #ddd;
     background-color: #f9f9f9;
 }
 
-.shop-section tr:nth-child(even) td {
+.shop-table__row:nth-child(even) td {
     background-color: #f1f1f1;
 }
 
-/* アクションボタン */
-.shop-section form {
-    display: inline-block;
-    margin: 0 5px;
+.shop-table__empty {
+    text-align: center;
+    padding: 20px;
+    color: #666;
 }
 
-.shop-section button {
-    background-color: #007bff;
+/* アクションボタン */
+.shop-table__actions {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.action-button {
+    display: inline-block;
     color: #fff;
+    padding: 8px 15px;
     border: none;
     border-radius: 4px;
-    padding: 5px 10px;
+    text-decoration: none;
     font-size: 14px;
+    font-weight: bold;
     cursor: pointer;
+    text-align: center;
     transition: background-color 0.3s ease;
 }
 
-.shop-section button:hover {
-    background-color: #0056b3;
+.action-button--edit {
+    background-color: #28a745; /* 緑色 */
 }
 
-.shop-section button:focus {
-    outline: none;
+.action-button--edit:hover {
+    background-color: #218838;
+}
+
+.action-button--delete {
+    background-color: #dc3545; /* 赤色 */
+}
+
+.action-button--delete:hover {
+    background-color: #c82333;
 }
 
 /* 戻るボタン */
@@ -87,17 +102,19 @@
     text-align: center;
 }
 
-.back__button a {
-    background-color: #ff00a2;
+.back-button {
+    display: inline-block;
     color: #fff;
+    background-color: #ff00a2;
     padding: 8px 15px;
     border-radius: 5px;
     text-decoration: none;
     font-weight: bold;
-    transition: background-color 0.3s;
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-.back__button a:hover {
-    background-color: #5a6268;
+.back-button:hover {
+    background-color: #d80088;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
 }
