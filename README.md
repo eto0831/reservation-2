@@ -142,17 +142,22 @@ docker-compose up -d --build
 各ユーザー名：@の前の部分(例：popo1@example.comの場合は popo1)  
 パスワード：popo1212 （共通）  
 
-### ロールによる管理画面ダッシュボードへのアクセス
+### ロールによる管理画面ダッシュボードへのアクセスとその他注意事項
 管理者および店舗代表者はログイン後、ハンバーガーボタンを押すと表示される、「Admin」、または「Owner」のリンクをクリックしてください。  
 管理者は管理者ページ内の店舗代表者作成、店舗代表者情報管理、お知らせメール機能、  
 店舗代表者は店舗代表者ページ内の店舗情報作成、店舗情報編集、予約情報管理、来店確認機能から各機能をご確認ください。  
+※店舗代表者作成機能に関し、店舗代表者の担当店舗がない状態で作成することも可能です。  
+  後から管理者アカウントの「店舗代表者情報管理」で、担当店舗を追加や削除をすることが可能です。  
+※店舗代表者は新規で店舗情報の作成が可能です。また、画像がない場合は「Noimage」（準備中の意味合いで）の画像が適用されます。  
+  また、店舗作成および編集画面では店舗の説明文を必須としていますが、設計テーブルでは将来的なインポートなどを考慮しnullの値を許容しています。  
+
 
 ### 店舗での予約QR読み取りによる、予約情報および来店確認について
 popo2@example.com(店舗代表者)のアカウントで、店舗代表者ページからの「来店確認機能」へお進みください。  
-ユーザーはマイページのQRコードマークからQRを表示し、店舗代表者は</reservation/scan>で起動されるカメラから予約QRを読み込んでください。  
-PCが一台の場合はQRをスマホ等で撮影し、PCのWEBカメラにと読ませてください。  
-その後、予約照合画面で、予約を確認ボタンを押してください。  
-※注意 この操作をすることで、ユーザーは来店した店舗へのレビュー評価が可能になります。  
+ユーザーはマイページのQRコードマークからQRを表示し、店舗代表者はPCなどで</reservation/scan>で起動されるカメラから予約QRを読み込んでください。  
+PCが一台の場合はQRをスマホ等で撮影し、PCのWEBカメラに読ませてください。  
+その後、予約照合画面で、「予約を確認ボタン」を押してください。  
+※注意: この操作をすることで、ユーザーは来店した店舗へのレビュー評価が可能になります。  
 
 AWS上で予約照合する際、カメラのアクセスを許可するため、下記URLにアクセスして設定を変更してください。（クロームをご使用ください。）  
 その他のブラウザでは下記手順と同様の操作をご確認の上、実施してください。  
@@ -163,6 +168,14 @@ Insecure origins treated as secureで検索
 再起動後カメラの許可を求められますので許可してください。  
 
 ## 注意事項
-もし店舗画像がない、または表示されない場合は、  
-<https://reservation-aws-bucket-eto0831.s3.ap-northeast-1.amazonaws.com/images/shops/>  
-より全てダウンロードし、src/storage/app/public/images/shopsを作成の上、フォルダ内に画像を保存してください。  
+1. もし店舗画像がない、または表示されない場合は、  
+<https://reservation-aws-bucket-eto0831.s3.ap-northeast-1.amazonaws.com/images/shops/italian.jpg>
+<https://reservation-aws-bucket-eto0831.s3.ap-northeast-1.amazonaws.com/images/shops/izakaya.jpg>
+<https://reservation-aws-bucket-eto0831.s3.ap-northeast-1.amazonaws.com/images/shops/noimage.png>
+<https://reservation-aws-bucket-eto0831.s3.ap-northeast-1.amazonaws.com/images/shops/ramen.jpg>
+<https://reservation-aws-bucket-eto0831.s3.ap-northeast-1.amazonaws.com/images/shops/sushi.jpg>
+<https://reservation-aws-bucket-eto0831.s3.ap-northeast-1.amazonaws.com/images/shops/yakiniku.jpg>  
+   より全てダウンロードし、src/storage/app/public/images/shopsのパスでフォルダを作成の上、フォルダ内に画像を保存してください。  
+2. メール関連機能に関し、jobとqueue、supervisor等を使用しているため、メールが届くまでに時間がかかる場合があります。  
+   届かない場合はお手数ですが、phpコンテナ内で、php artisan queue:workを実行し再度機能の確認をお願いいたします。  
+
