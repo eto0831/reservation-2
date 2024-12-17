@@ -47,6 +47,7 @@
     display: flex;
     justify-content: start;
     align-items: center;
+    font-size: 16px;
 }
 
 .reservation__header h4::before {
@@ -54,8 +55,10 @@
     display: inline-block;
     background: url(../img/clock.svg) no-repeat;
     background-size: contain;
-    width: 32px;
-    height: 32px;
+    width: 22px;
+    height: 22px;
+    margin-right: 5px;
+    transform: translateY(-1px);
 }
 
 .reservation__container {
@@ -79,7 +82,7 @@
 .reservation__contents {
     width: 80%;
     background: #0764ff;
-    padding: 10px;
+    padding: 5px 25px;
     color: white;
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
@@ -129,16 +132,26 @@
 /* QRボタン用のSVG */
 .qr-button::before {
     background-image: url("../img/qr.svg");
+    width: 22px;
+    height: 22px;
 }
 
 /* 目ボタン用のSVG */
 .edit-button::before {
     background-image: url("../img/memo.svg");
+    width: 22px;
+    height: 22px;
 }
 
 /* 削除ボタン用のSVG */
 .delete-button::before {
     background-image: url("../img/x.svg");
+    width: 22px;
+    height: 22px;
+}
+
+.delete-button {
+    margin-right: 10px;
 }
 
 .favorites__container {
