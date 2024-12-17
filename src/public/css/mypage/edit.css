@@ -1,12 +1,157 @@
-.shop__img{
-    width: 300px;
-}
-
-.detail__content{
+/* 全体レイアウト */
+.detail__content {
+    padding: 0 15px;
     display: flex;
-
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 60px;
 }
 
-.detail__wrap{
-    width: 50%;
+.detail__wrap {
+    width: 45%;
+}
+
+.reservation__form {
+    width: 48%;
+    background: #0764ff;
+    color: white;
+    border-radius: 5px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    padding: 20px;
+}
+
+/* 店舗詳細部分 */
+.shop__info {
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    padding: 15px;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+}
+
+.shop__info h2 {
+    margin: 0 0 10px;
+    font-size: 24px;
+}
+
+.shop__info p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+.shop__img {
+    width: 100%;
+    height: 350px;
+    object-fit: cover;
+}
+
+/* フォーム要素 */
+.reservation__form-heading {
+    margin-bottom: 20px;
+    font-size: 20px;
+    text-align: center;
+}
+
+/* セレクトボックス */
+.reservation__form select {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 15px;
+    padding: 0 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    appearance: none;
+    background: #ffffff url("../img/v.svg") no-repeat right 10px center;
+    background-size: 10px;
+    box-sizing: border-box;
+    cursor: pointer;
+}
+
+/* 日付入力（カレンダーアイコンはデフォルトを維持） */
+.reservation__form input[type="date"] {
+    width: 100%;
+    height: 40px;
+    margin-bottom: 15px;
+    padding: 0 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    box-sizing: border-box;
+    cursor: pointer;
+    appearance: none; /* デフォルトスタイルをリセット */
+    background: #ffffff; /* 背景を白に */
+}
+
+.confirmation__table {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #4d97ff;
+    border-radius: 5px;
+    color: white;
+    padding: 10px;
+}
+
+.confirmation__table table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.confirmation__table th,
+.confirmation__table td {
+    padding: 10px;
+    text-align: left;
+    font-size: 14px;
+}
+
+/* ボタンスタイル */
+.reserve__button {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    background-color: #0020ef;
+    color: #fff;
+    font-size: 16px;
+    text-align: center;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.reserve__button:hover {
+    background-color: #0056b3;
+}
+
+.icon-buttons {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.icon-button {
+    width: 40px;
+    height: 40px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+    position: relative;
+}
+
+.icon-button::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-size: contain;
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.edit-button::before {
+    background-image: url("../img/memo.svg");
+}
+
+.delete-button::before {
+    background-image: url("../img/x.svg");
 }
