@@ -58,9 +58,17 @@ class OwnerController extends Controller
             } else {
                 // ローカルに保存
                 $imagePath = $request->file('image')->store('public/images/shops');
-                $shopData['image_url'] = str_replace('public/', 'storage/', $imagePath);
+                $relativePath = str_replace('public/', '', $imagePath);
+
+                // BASE_URLが`/storage`を含むか確認
+                if (str_ends_with(env('BASE_URL'), '/storage')) {
+                    $shopData['image_url'] = env('BASE_URL') . '/' . $relativePath;
+                } else {
+                    $shopData['image_url'] = env('BASE_URL') . '/storage/' . $relativePath;
+                }
             }
         }
+
 
         $shop = Shop::create($shopData);
 
@@ -129,7 +137,14 @@ class OwnerController extends Controller
             } else {
                 // ローカルに保存
                 $imagePath = $request->file('image')->store('public/images/shops');
-                $shopData['image_url'] = str_replace('public/', 'storage/', $imagePath);
+                $relativePath = str_replace('public/', '', $imagePath);
+
+                // BASE_URLが`/storage`を含むか確認
+                if (str_ends_with(env('BASE_URL'), '/storage')) {
+                    $shopData['image_url'] = env('BASE_URL') . '/' . $relativePath;
+                } else {
+                    $shopData['image_url'] = env('BASE_URL') . '/storage/' . $relativePath;
+                }
             }
         }
 

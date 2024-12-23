@@ -95,18 +95,18 @@ class RolesAndPermissionsSeeder extends Seeder
         }
 
         // popo8が22店舗に1日ずつ予約を入れる
-        $date = now()->toDateString();
+        $date = now(); // 初期日付を現在の日付に設定
         foreach ($shops as $shop) {
             Reservation::firstOrCreate([
                 'user_id' => $popo8->id,
                 'shop_id' => $shop->id,
             ], [
-                'reserve_date' => $date,
+                'reserve_date' => $date->toDateString(),
                 'reserve_time' => '18:00',
                 'guest_count' => rand(1, 5),
                 'is_visited' => 0,
             ]);
-            $date = now()->addDay()->toDateString();
+            $date->addDay(); // 次の日にインクリメント
         }
 
         // popo2に店舗ID 21と22の担当権限を与える
