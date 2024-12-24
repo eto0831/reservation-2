@@ -60,15 +60,10 @@ class OwnerController extends Controller
                 $imagePath = $request->file('image')->store('public/images/shops');
                 $relativePath = str_replace('public/', '', $imagePath);
 
-                // BASE_URLが`/storage`を含むか確認
-                if (str_ends_with(env('BASE_URL'), '/storage')) {
-                    $shopData['image_url'] = env('BASE_URL') . '/' . $relativePath;
-                } else {
-                    $shopData['image_url'] = env('BASE_URL') . '/storage/' . $relativePath;
-                }
+                // BASE_URLに/storageを追加
+                $shopData['image_url'] = env('BASE_URL') . '/storage/' . $relativePath;
             }
         }
-
 
         $shop = Shop::create($shopData);
 
@@ -139,15 +134,10 @@ class OwnerController extends Controller
                 $imagePath = $request->file('image')->store('public/images/shops');
                 $relativePath = str_replace('public/', '', $imagePath);
 
-                // BASE_URLが`/storage`を含むか確認
-                if (str_ends_with(env('BASE_URL'), '/storage')) {
-                    $shopData['image_url'] = env('BASE_URL') . '/' . $relativePath;
-                } else {
-                    $shopData['image_url'] = env('BASE_URL') . '/storage/' . $relativePath;
-                }
+                // BASE_URLに/storageを追加
+                $shopData['image_url'] = env('BASE_URL') . '/storage/' . $relativePath;
             }
         }
-
 
         Shop::find($request->input('shop_id'))->update($shopData);
 
