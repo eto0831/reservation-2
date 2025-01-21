@@ -587,3 +587,6 @@
 2025-01-21 14:48:11,959 INFO spawned: 'scheduler' with pid 10
 2025-01-21 14:48:12,960 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2025-01-21 14:48:12,961 INFO success: scheduler entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-01-21 18:26:24,457 INFO exited: queue (exit status 0; expected)
+2025-01-21 18:26:25,474 INFO spawned: 'queue' with pid 1474
+2025-01-21 18:26:26,476 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
