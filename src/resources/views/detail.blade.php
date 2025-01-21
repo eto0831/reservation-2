@@ -42,7 +42,7 @@
                 <p>{{ $shop->description }}</p>
             </div>
             <div class="shop__rating">
-                <p>平均評価: {{ number_format($shop->average_rating, 1) }} / 5</p>
+                <p>平均評価: {{ number_format($shop->avg_rating, 1) }} / 5</p>
             </div>
         </div>
         <div class="review__wrap">

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Review;
 use App\Http\Requests\ReviewRequest;
+use App\Models\Shop;
 
 
 class ReviewController extends Controller
@@ -29,6 +30,12 @@ class ReviewController extends Controller
                 'comment' => $request->input('comment'),
             ]);
 
+            // ショップモデルのインスタンスを取得して平均評価を更新
+            $shop = Shop::find($request->input('shop_id'));
+            if ($shop) {
+                $shop->updateShopAverageRating();
+            }
+
             return redirect()->back()->with('status', 'レビューの作成に成功しました');
         } else {
             return redirect()->back()->with('status', '既にレビュー済みです');
@@ -40,6 +47,10 @@ class ReviewController extends Controller
         $deleted = auth()->user()->reviews()->where('shop_id', $request->shop_id)->delete();
 
         if ($deleted) {
+            $shop = Shop::find($request->shop_id); // リクエストから shop_id を取得
+            if ($shop) {
+                $shop->updateShopAverageRating(); // 平均評価を更新
+            }
             return back()->with('success', '投稿を削除しました');
         } else {
             return back()->with('error', '投稿の削除に失敗しました');
@@ -65,6 +76,13 @@ class ReviewController extends Controller
             'rating' => $request->rating,
             'comment' => $request->comment,
         ]);
+
+        // ショップモデルのインスタンスを取得して平均評価を更新
+        $shop = Shop::find($review->shop_id); // Review 経由で shop_id を取得
+        if ($shop) {
+            $shop->updateShopAverageRating(); // 引数なしで呼び出し
+        }
+
         return redirect()->route('detail', ['shop_id' => $review->shop_id])
             ->with('status', 'レビューを更新しました');
     }

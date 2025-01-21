@@ -78,10 +78,13 @@ class Shop extends Model
         return $this->reviews()->where('user_id', $userId)->exists();
     }
 
-    // 平均評価を取得するアクセサ
-    public function getAverageRatingAttribute()
+
+    public function updateShopAverageRating()
     {
-        // reviewsリレーションから平均値を計算
-        return $this->reviews()->avg('rating') ?? 0;
+        // reviews リレーションを利用して平均評価を計算
+        $this->avg_rating = $this->reviews()->avg('rating') ?? 0;
+
+        // avg_rating カラムを更新
+        $this->save();
     }
 }

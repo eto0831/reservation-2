@@ -15,7 +15,7 @@
                     <span>#{{ $shop->genre->genre_name }}</span>
                 </p>
                 <div class="shop-rating__container">
-                    <p class="rating">{{ number_format($shop->average_rating, 1) }} / 5</p>
+                    <p class="rating">{{ number_format($shop->avg_rating, 1) }} / 5</p>
                 </div>
             </div>
 
