@@ -63,6 +63,8 @@ Route::group(['middleware' => ['role:admin']], function () {
     Route::get('/admin/user/index', [AdminController::class, 'userIndex'])->name('admin.user.index');
     Route::get('/admin/owner/create', [AdminController::class, 'createOwner'])->name('admin.owner.create');
     Route::post('/admin/owner/store', [AdminController::class, 'storeOwner'])->name('admin.owner.store');
+    Route::get('/admin/csv/import', [AdminController::class, 'csvIndex'])->name('admin.csv.index');
+    Route::post('/admin/csv/store', [AdminController::class, 'storeCsv'])->name('admin.csv.store');
 
     // オーナー編集画面の表示（GETメソッド、owner_idをURLパラメータとして渡す）
     Route::get('/admin/owner/edit/{owner_id}', [AdminController::class, 'editOwner'])->name('admin.owner.edit');

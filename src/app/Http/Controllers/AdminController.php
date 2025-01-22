@@ -11,6 +11,11 @@ use App\Models\Genre;
 use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateOwnerRequest;
 use App\Http\Requests\UpdateOwnerRequest;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Str;
+
+
 
 class AdminController extends Controller
 {
@@ -147,5 +152,102 @@ class AdminController extends Controller
         $owner->shops()->detach($request->shop_id);
 
         return redirect()->route('admin.owner.edit', ['owner_id' => $owner->id])->with('status', '担当店舗を解除しました。');
+    }
+
+    public function csvIndex()
+    {
+        return view('admin.import_csv');
+    }
+
+
+    public function storeCsv(Request $request)
+    {
+        // ファイルのバリデーション
+        $validator = Validator::make($request->all(), [
+            'csv' => 'required|mimes:csv,txt'
+        ]);
+
+        if ($validator->fails()) {
+            return redirect()->back()->withErrors($validator->errors());
+        }
+
+        // アップロードされたCSVファイルを取得
+        $path = $request->file('csv')->getRealPath();
+
+        // CSVファイルを読み込む
+        $file = fopen($path, 'r');
+
+        // デリミタを指定してヘッダーを取得
+        $header = fgetcsv($file, 0, ',');
+
+        // 最初のヘッダーからBOMを除去
+        $header[0] = preg_replace('/^\xEF\xBB\xBF/', '', $header[0]);
+
+        // 期待するヘッダー
+        $expectedHeaders = ['shop_name', 'area_name', 'genre_name', 'description', 'image_url'];
+
+        // ヘッダーの確認
+        if ($header !== $expectedHeaders) {
+            //dd($header); // ヘッダーの内容を確認する場合
+            return redirect()->back()->withErrors(['CSVのヘッダーが期待する形式と一致しません。']);
+        }
+
+        $errors = [];
+        $lineNumber = 1;
+
+        while (($row = fgetcsv($file, 0, ',')) !== false) {
+            $lineNumber++;
+
+            // CSVの行を連想配列にマッピング
+            $data = array_combine($header, $row);
+
+            // 各行のバリデーション
+            $rowValidator = Validator::make($data, [
+                'shop_name'   => 'required|string|max:50',
+                'area_name'   => 'required|in:東京,大阪,福岡',
+                'genre_name'  => 'required|in:寿司,焼肉,イタリアン,居酒屋,ラーメン',
+                'description' => 'required|string|max:400',
+                'image_url'   => 'required|url',
+            ]);
+
+            if ($rowValidator->fails()) {
+                $errors[$lineNumber] = $rowValidator->errors()->all();
+                continue;
+            }
+
+            // 画像URLの拡張子を確認
+            $extension = Str::lower(pathinfo($data['image_url'], PATHINFO_EXTENSION));
+            if (!in_array($extension, ['jpg', 'jpeg', 'png'])) {
+                $errors[$lineNumber][] = '画像はJPEGまたはPNG形式である必要があります。';
+                continue;
+            }
+
+            // エリアとジャンルのIDを取得
+            $area = Area::where('area_name', $data['area_name'])->first();
+            $genre = Genre::where('genre_name', $data['genre_name'])->first();
+
+            if (!$area || !$genre) {
+                $errors[$lineNumber][] = 'エリアまたはジャンルが正しくありません。';
+                continue;
+            }
+
+            // Shopレコードを作成
+            Shop::create([
+                'shop_name'   => $data['shop_name'],
+                'area_id'     => $area->id,
+                'genre_id'    => $genre->id,
+                'description' => $data['description'],
+                'image_url'   => $data['image_url'],
+            ]);
+        }
+
+        fclose($file);
+
+        if (!empty($errors)) {
+            // 行ごとのエラーを返す
+            return redirect()->back()->withErrors($errors);
+        }
+
+        return redirect()->back()->with('success', 'CSVのインポートが完了しました。');
     }
 }

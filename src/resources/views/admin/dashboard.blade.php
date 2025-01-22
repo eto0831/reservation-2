@@ -15,6 +15,7 @@
         <a class="admin__link" href="/admin/owner/create">店舗代表者作成</a>
         <a class="admin__link" href="/admin/user/index">店舗代表者情報管理</a>
         <a class="admin__link" href="{{ route('admin.emailNotification') }}">お知らせメール機能</a>
+        <a class="admin__link" href="/admin/csv/import">csvインポート</a>
     </div>
 </div>
 @endsection
