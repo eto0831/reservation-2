@@ -60,8 +60,8 @@ class OwnerController extends Controller
                 $imagePath = $request->file('image')->store('public/images/shops');
                 $relativePath = str_replace('public/', '', $imagePath);
 
-                // BASE_URLに/storageを追加
-                $shopData['image_url'] = env('BASE_URL') . '/storage/' . $relativePath;
+                // BASE_URLに/を追加
+                $shopData['image_url'] = env('BASE_URL') . '/' . $relativePath;
             }
         }
 
@@ -134,8 +134,8 @@ class OwnerController extends Controller
                 $imagePath = $request->file('image')->store('public/images/shops');
                 $relativePath = str_replace('public/', '', $imagePath);
 
-                // BASE_URLに/storageを追加
-                $shopData['image_url'] = env('BASE_URL') . '/storage/' . $relativePath;
+                // BASE_URLに/を追加
+                $shopData['image_url'] = env('BASE_URL') . '/' . $relativePath;
             }
         }
 

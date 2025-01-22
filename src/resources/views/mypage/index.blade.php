@@ -42,10 +42,6 @@
                 </div>
                 <h4>{{ $reservation->shop->shop_name }}</h4>
                 <p>Date: {{ \Carbon\Carbon::parse($reservation->reserve_date)->locale('ja')->isoFormat('YYYY-MM-DD (dd)') }} </p>
-                {{-- <p>Date: {{ $reservation->reserve_date }} </p> --}}
-                {{-- <p>Time: {{ date('H:i',strtotime($reservation->reserve_time)) }}</p> --}}
-                {{-- <p>Time: {{ \Carbon\Carbon::createFromFormat('H:i:s', $reservation->reserve_time)->format('H:i') }}</p> --}}
-                {{-- <p>Time: {{ \Carbon\Carbon::parse($reservation->reserve_time)->format('H:i') }}</p> --}}
                 <p>Time: {{ \Carbon\Carbon::parse($reservation->reserve_time)->format('H:i') }}</p>
                 </p>
                 <p>Number: {{ $reservation->guest_count }}人</p>

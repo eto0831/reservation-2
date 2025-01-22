@@ -27,9 +27,9 @@
             </div>
             <div class="shop__img-container">
                 @if ($shop->image_url)
-                <img src="{{ asset($shop->image_url) }}" alt="{{ $shop->shop_name }}" class="shop__img">
+                    <img src="{{ $shop->image_url }}" alt="{{ $shop->shop_name }}" class="shop__img">
                 @else
-                <img src="{{ env('BASE_URL') . '/images/shops/noimage.png' }}" alt="デフォルト画像" class="shop__img">
+                    <img src="{{ env('BASE_URL') . '/images/shops/noimage.png' }}" alt="デフォルト画像" class="shop__img">
                 @endif
             </div>
             <div class="shop__categories">
