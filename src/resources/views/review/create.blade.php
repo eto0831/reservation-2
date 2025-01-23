@@ -5,22 +5,58 @@
 @endsection
 
 @section('content')
-    <h1>レビュー編集</h1>
-    <form action="{{ route('review.update', $review->id) }}" method="post">
-        @csrf
-        @method('PUT')
-        <div>
-            <label for="rating">評価:</label>
-            <select name="rating" id="rating">
-                @for ($i = 1; $i <= 5; $i++)
-                    <option value="{{ $i }}" {{ $review->rating == $i ? 'selected' : '' }}>{{ $i }}</option>
-                @endfor
-            </select>
+    <h1>{{ isset($review) ? 'レビューを編集する' : 'レビューを投稿する' }}</h1>
+
+    {{-- エラーメッセージの表示 --}}
+    @if ($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach ($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
         </div>
-        <div>
-            <label for="comment">コメント:</label>
-            <textarea name="comment" id="comment">{{ $review->comment }}</textarea>
-        </div>
-        <button type="submit" onclick="return confirm('内容この内容で更新しますか？')">更新</button>
-    </form>
+    @endif
+
+    @if (!isset($review))
+        {{-- **新規作成フォーム** --}}
+        <form class="review__form" action="/review" method="post">
+            @csrf
+            <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+            <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+            <input type="hidden" name="reservation_id" value="{{ $reservationId }}">
+            <div>
+                <label for="rating">評価:</label>
+                <select name="rating" id="rating">
+                    @for ($i = 1; $i <=5; $i++)
+                        <option value="{{ $i }}" {{ old('rating') == $i ? 'selected' : '' }}>{{ $i }}</option>
+                    @endfor
+                </select>
+            </div>
+            <div>
+                <label for="comment">コメント:</label>
+                <textarea name="comment" placeholder="レビューは191文字以内の上、必ずご入力ください。">{{ old('comment') }}</textarea>
+            </div>
+            <button type="submit" onclick="return confirm('この内容でレビューを投稿しますか？')">投稿</button>
+        </form>
+    @else
+        {{-- **編集フォーム** --}}
+        <form action="{{ route('review.update', $review->id) }}" method="post">
+            @csrf
+            @method('PUT')
+            <div>
+                <label for="rating">評価:</label>
+                <select name="rating" id="rating">
+                    @for ($i = 1; $i <= 5; $i++)
+                        <option value="{{ $i }}" {{ (old('rating', $review->rating) == $i) ? 'selected' : '' }}>{{ $i }}</option>
+                    @endfor
+                </select>
+            </div>
+            <div>
+                <label for="comment">コメント:</label>
+                <textarea name="comment" id="comment">{{ old('comment', $review->comment) }}</textarea>
+            </div>
+            <button type="submit" onclick="return confirm('この内容で更新しますか？')">更新</button>
+        </form>
+    @endif
 @endsection

@@ -47,51 +47,41 @@
         </div>
         <div class="review__wrap">
             @if (Auth::check() && $reservationId = Auth::user()->isVisited($shop->id))
-            <p>この店舗は訪問済みです。</p>
-
-            {{-- レビュー済みかどうかをチェック --}}
-            @if (!$shop->hasReviewed(Auth::user()->id))
-            <form class="review__form" action="/review" method="post">
-                @csrf
-                <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                <input type="hidden" name="user_id">
-                <input type="hidden" name="reservation_id" value="{{ $reservationId }}">
-                <select name="rating" id="rating">
-                    @for ($i = 1; $i <=5; $i++) <option value="{{ $i }}">{{ $i }}</option>
-                        @endfor
-                </select>
-                <input type="text" name="comment" value="" placeholder="レビューは191文字以内の上、必ずご入力ください。">
-                <button type="submit" onclick="return confirm('この内容でレビューを投稿しますか？')">投稿</button>
-            </form>
-            @endif
-            @else
-            <p>この店舗はまだ訪問していません。</p>
-            @endif
-            <h3>レビュー一覧</h3>
-            @if ($reviews->isEmpty())
-            <p>レビューはまだありません</p>
-            @else
-            @foreach($reviews as $review)
-            <li>
-                <div>
-                    <p>評価：{{ $review->rating }} コメント：{{ $review->comment }} by {{ $review->user->name }}</p>
-                </div>
-                @if (Auth::check() && $review->user_id === Auth::user()->id)
-                <div>
-                    <a href="{{ route('review.edit', $review->id) }}">編集</a>
-                    <form action="/review/delete" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                        <button type="submit" onclick="return confirm('レビューを削除しますか？')">削除</button>
-                    </form>
-                </div>
+                <p>この店舗は訪問済みです。</p>
+        
+                {{-- レビュー済みかどうかをチェック --}}
+                @if (!$shop->hasReviewed(Auth::user()->id))
+                    <a href="{{ route('review', $shop->id) }}">口コミを投稿する</a>
+        
+                    <!-- すべての口コミを見るリンクをここに移動 -->
+                    <a href="{{ route('reviews.index', ['shop' => $shop->id]) }}">すべての口コミを見る</a>
+                @else
+                    <!-- あなたのレビューの前にリンクを配置 -->
+                    <a href="{{ route('reviews.index', ['shop' => $shop->id]) }}">すべての口コミを見る</a>
+        
+                    <h3>あなたのレビュー</h3>
+                    @if($userReview)
+                        <li>
+                            <div>
+                                <p>評価：{{ $userReview->rating }} コメント：{{ $userReview->comment }}</p>
+                            </div>
+                            <div>
+                                <a href="{{ route('review.edit', $userReview->id) }}">編集</a>
+                                <form action="/review/delete" method="post">
+                                    @csrf
+                                    @method('DELETE')
+                                    <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+                                    <button type="submit" onclick="return confirm('レビューを削除しますか？')">削除</button>
+                                </form>
+                            </div>
+                        </li>
+                    @endif
                 @endif
-            </li>
-            @endforeach
+            @else
+                <p>この店舗はまだ訪問していません。</p>
             @endif
-
         </div>
+        
     </div>
     <div class="reservation__form">
         <div class="reservation__form-heading">

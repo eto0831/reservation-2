@@ -52,7 +52,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::delete('/favorite', [FavoriteController::class, 'destroy']);
 
     // レビュー関連
-    Route::get('/review', [ReviewController::class, 'review']);
+    Route::get('/review{shop}', [ReviewController::class, 'review'])->name('review');
+    Route::get('/reviews/{shop}', [ReviewController::class, 'index'])->name('reviews.index');
     Route::post('/review', [ReviewController::class, 'store']);
     Route::delete('/review/delete', [ReviewController::class, 'destroy']);
     Route::get('/review/edit/{review}', [ReviewController::class, 'edit'])->name('review.edit');
@@ -89,7 +90,7 @@ Route::group(['middleware' => ['auth', 'verified', 'role:owner', 'can:manage sho
     Route::post('/owner/shop/store', [OwnerController::class, 'storeShop'])->name('owner.shop.store');
     Route::get('/owner/shop/edit/{shop_id}', [OwnerController::class, 'editShop'])->name('owner.shop.edit');
     Route::patch('/owner/shop/update', [OwnerController::class, 'updateShop'])->name('owner.shop.update');
-    
+
     Route::delete('/owner/shop/delete', [OwnerController::class, 'destroyShop'])->name('owner.shop.destroy');
 
     Route::get('/owner/reservations', [OwnerController::class, 'reservations'])->name('owner.reservations');

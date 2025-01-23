@@ -6,14 +6,36 @@ use Illuminate\Http\Request;
 use App\Models\Review;
 use App\Http\Requests\ReviewRequest;
 use App\Models\Shop;
-
+use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
 {
-    public function review()
+    public function review($shop_id)
     {
-        return view('review.create');
+        $shop = Shop::findOrFail($shop_id);
+        $review = Review::where('shop_id', $shop_id)
+            ->where('user_id', auth()->user()->id)
+            ->first();
+        $reservationId = Auth::user()->isVisited($shop_id); // 予約IDを取得
+
+        return view('review.create', compact('shop', 'review', 'reservationId'));
     }
+
+    // app/Http/Controllers/ReviewController.php
+
+    public function index($shop_id)
+    {
+        // ショップ情報を取得
+        $shop = Shop::findOrFail($shop_id);
+
+        // 特定のショップのレビューを取得し、関連するユーザー情報もロード
+        $reviews = Review::with('user')->where('shop_id', $shop_id)->get();
+
+        // ビューにデータを渡す
+        return view('review.review_index', compact('reviews', 'shop'));
+    }
+
+
 
     public function store(ReviewRequest $request)
     {
@@ -36,11 +58,14 @@ class ReviewController extends Controller
                 $shop->updateShopAverageRating();
             }
 
-            return redirect()->back()->with('status', 'レビューの作成に成功しました');
+            // **詳細ページにリダイレクトし、メッセージを設定**
+            return redirect()->route('detail', ['shop_id' => $request->input('shop_id')])
+                ->with('status', 'レビューを投稿しました');
         } else {
             return redirect()->back()->with('status', '既にレビュー済みです');
         }
     }
+
 
     public function destroy(Request $request)
     {
@@ -78,11 +103,12 @@ class ReviewController extends Controller
         ]);
 
         // ショップモデルのインスタンスを取得して平均評価を更新
-        $shop = Shop::find($review->shop_id); // Review 経由で shop_id を取得
+        $shop = Shop::find($review->shop_id);
         if ($shop) {
-            $shop->updateShopAverageRating(); // 引数なしで呼び出し
+            $shop->updateShopAverageRating();
         }
 
+        // **詳細ページにリダイレクトし、メッセージを設定**
         return redirect()->route('detail', ['shop_id' => $review->shop_id])
             ->with('status', 'レビューを更新しました');
     }

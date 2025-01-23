@@ -9,6 +9,7 @@ use App\Models\Genre;
 use App\Models\Favorite;
 use App\Models\Review;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Auth;
 
 class ShopController extends Controller
 {
@@ -27,13 +28,13 @@ class ShopController extends Controller
     {
         // ソート条件を取得
         $sort = $request->input('sort', 'random'); // デフォルトは 'random'
-    
+
         // ショップのクエリビルダを作成
         $query = Shop::with(['genre', 'area', 'reviews'])
             ->GenreSearch($request->genre_id)
             ->AreaSearch($request->area_id)
             ->KeywordSearch($request->keyword);
-    
+
         // ソート条件に応じてクエリを修正
         if ($sort == 'high_rating') {
             $query->orderByRaw('
@@ -48,36 +49,35 @@ class ShopController extends Controller
         } else {
             $query->inRandomOrder();
         }
-    
+
         // ショップ一覧を取得
         $shops = $query->paginate(12);
-    
+
         $areas = Area::all();
         $genres = Genre::all();
         $favorites = auth()->check() ? auth()->user()->favorites()->pluck('shop_id')->toArray() : [];
         return view('index', compact('shops', 'areas', 'genres', 'favorites', 'sort'));
     }
-    
-
-    public function sortByRating()
-    {
-        
-    }
 
 
-
+    public function sortByRating() {}
 
 
     public function detail(Request $request)
     {
-        $shop = Shop::with(['genre', 'area', 'reviews'])->find($request->shop_id);
+        $shop = Shop::with(['genre', 'area'])->findOrFail($request->shop_id);
         $areas = Area::all();
         $genres = Genre::all();
-        $reviews = $shop->reviews()
-            ->with(['shop', 'user'])
-            ->orderByRaw("CASE WHEN user_id = ? THEN 0 ELSE 1 END", [auth()->id() ?? 0])
-            ->get();
 
-        return view('detail', compact('shop', 'areas', 'genres', 'reviews'));
+        // 現在のユーザーのレビューを取得
+        $userReview = null;
+        if (Auth::check()) {
+            $userReview = $shop->reviews()
+                ->with('user')
+                ->where('user_id', Auth::id())
+                ->first();
+        }
+
+        return view('detail', compact('shop', 'areas', 'genres', 'userReview'));
     }
 }
