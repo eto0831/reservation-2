@@ -20,7 +20,7 @@
 
     @if (!isset($review))
         {{-- **新規作成フォーム** --}}
-        <form class="review__form" action="/review" method="post">
+        <form class="review__form" action="/review" method="post" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="shop_id" value="{{ $shop->id }}">
             <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
@@ -37,6 +37,22 @@
                 <label for="comment">コメント:</label>
                 <textarea name="comment" placeholder="レビューは191文字以内の上、必ずご入力ください。">{{ old('comment') }}</textarea>
             </div>
+            <div class="form__group">
+                <div class="form__group-title">
+                    <span class="form__label--item">画像</span>
+                </div>
+                <div class="form__group-content">
+                    <div class="form__group__input">
+                        <input type="file" name="image">
+                    </div>
+                    <div class="form__error">
+                        @error('image')
+                        {{ $message }}
+                        @enderror
+                    </div>
+                </div>
+            </div>
+    
             <button type="submit" onclick="return confirm('この内容でレビューを投稿しますか？')">投稿</button>
         </form>
     @else

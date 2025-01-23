@@ -44,13 +44,31 @@ class ReviewController extends Controller
             ->first();
 
         if (!$review) {
-            Review::create([
+            $reviewData = [
                 'shop_id' => $request->input('shop_id'),
                 'user_id' => auth()->user()->id,
                 'reservation_id' => $request->input('reservation_id'),
                 'rating' => $request->input('rating'),
                 'comment' => $request->input('comment'),
-            ]);
+            ];
+
+            if ($request->hasFile('image')) {
+                if (config('app.env') === 'production') {
+                    // S3にアップロード
+                    $path = Storage::disk('s3')->put('images/reviews', $request->file('image'));
+                    $reviewData['review_image_url'] = Storage::disk('s3')->url($path);
+                } else {
+                    // ローカルに保存
+                    $imagePath = $request->file('image')->store('public/images/reviews');
+                    $relativePath = str_replace('public/', '', $imagePath);
+    
+                    // BASE_URLに/を追加
+                    $reviewData['review_image_url'] = env('BASE_URL') . '/' . $relativePath;
+                }
+            }
+
+            // レヴューを作成
+            Review::create($reviewData);
 
             // ショップモデルのインスタンスを取得して平均評価を更新
             $shop = Shop::find($request->input('shop_id'));

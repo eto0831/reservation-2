@@ -66,6 +66,13 @@
                                 <p>評価：{{ $userReview->rating }} コメント：{{ $userReview->comment }}</p>
                             </div>
                             <div>
+                                @if ($userReview->review_image_url)
+                                <img id="currentImage" src="{{ $userReview->review_image_url }}" alt="現在の画像">
+                                @else
+                                <img id="currentImage" src="{{ env('BASE_URL') . '/images/shops/noimage.png' }}" alt="デフォルト画像">
+                                @endif
+                            </div>
+                            <div>
                                 <a href="{{ route('review.edit', $userReview->id) }}">編集</a>
                                 <form action="/review/delete" method="post">
                                     @csrf
