@@ -8,6 +8,7 @@ use App\Models\Area;
 use App\Models\Genre;
 use App\Models\Favorite;
 use App\Models\Review;
+use Illuminate\Support\Facades\DB;
 
 class ShopController extends Controller
 {
@@ -22,20 +23,45 @@ class ShopController extends Controller
     }
 
 
-
-
     public function search(Request $request)
     {
-        $shops = Shop::with(['genre', 'area'])
+        // ソート条件を取得
+        $sort = $request->input('sort', 'random'); // デフォルトは 'random'
+    
+        // ショップのクエリビルダを作成
+        $query = Shop::with(['genre', 'area', 'reviews'])
             ->GenreSearch($request->genre_id)
             ->AreaSearch($request->area_id)
-            ->KeywordSearch($request->keyword)
-            ->paginate(12);
-
+            ->KeywordSearch($request->keyword);
+    
+        // ソート条件に応じてクエリを修正
+        if ($sort == 'high_rating') {
+            $query->orderByRaw('
+                CASE WHEN avg_rating IS NULL OR avg_rating = 0 THEN 1 ELSE 0 END ASC,
+                avg_rating DESC
+            ');
+        } elseif ($sort == 'low_rating') {
+            $query->orderByRaw('
+                CASE WHEN avg_rating IS NULL OR avg_rating = 0 THEN 1 ELSE 0 END ASC,
+                avg_rating ASC
+            ');
+        } else {
+            $query->inRandomOrder();
+        }
+    
+        // ショップ一覧を取得
+        $shops = $query->paginate(12);
+    
         $areas = Area::all();
         $genres = Genre::all();
-        $favorites = auth()->check() ? auth()->user()->favorites()->pluck('shop_id')->toArray() : []; // ログインしていない場合は空配列
-        return view('index', compact('shops', 'areas', 'genres', 'favorites'));
+        $favorites = auth()->check() ? auth()->user()->favorites()->pluck('shop_id')->toArray() : [];
+        return view('index', compact('shops', 'areas', 'genres', 'favorites', 'sort'));
+    }
+    
+
+    public function sortByRating()
+    {
+        
     }
 
 
