@@ -12,7 +12,7 @@ class ReviewController extends Controller
 {
     public function review()
     {
-        return view('review');
+        return view('review.create');
     }
 
     public function store(ReviewRequest $request)
@@ -63,7 +63,7 @@ class ReviewController extends Controller
         if ($review->user_id !== auth()->id()) {
             abort(403); // 権限がない場合はアクセスを拒否
         }
-        return view('review.edit', compact('review'));
+        return view('review.create', compact('review'));
     }
 
     public function update(ReviewRequest $request, Review $review)

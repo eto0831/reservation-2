@@ -51,6 +51,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::post('/favorite', [FavoriteController::class, 'store']);
     Route::delete('/favorite', [FavoriteController::class, 'destroy']);
 
+    // レビュー関連
+    Route::get('/review', [ReviewController::class, 'review']);
     Route::post('/review', [ReviewController::class, 'store']);
     Route::delete('/review/delete', [ReviewController::class, 'destroy']);
     Route::get('/review/edit/{review}', [ReviewController::class, 'edit'])->name('review.edit');
