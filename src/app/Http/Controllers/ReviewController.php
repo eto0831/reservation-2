@@ -7,6 +7,7 @@ use App\Models\Review;
 use App\Http\Requests\ReviewRequest;
 use App\Models\Shop;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Storage;
 
 class ReviewController extends Controller
 {
@@ -61,7 +62,7 @@ class ReviewController extends Controller
                     // ローカルに保存
                     $imagePath = $request->file('image')->store('public/images/reviews');
                     $relativePath = str_replace('public/', '', $imagePath);
-    
+
                     // BASE_URLに/を追加
                     $reviewData['review_image_url'] = env('BASE_URL') . '/' . $relativePath;
                 }
@@ -115,18 +116,39 @@ class ReviewController extends Controller
         if ($review->user_id !== auth()->id()) {
             abort(403); // 権限がない場合はアクセスを拒否
         }
-        $review->update([
-            'rating' => $request->rating,
-            'comment' => $request->comment,
-        ]);
 
-        // ショップモデルのインスタンスを取得して平均評価を更新
+        // レビューデータを準備
+        $reviewData = [
+            'rating' => $request->input('rating'),
+            'comment' => $request->input('comment'),
+        ];
+
+        // 画像の処理
+        if ($request->hasFile('image')) {
+            if (config('app.env') === 'production') {
+                // S3にアップロード
+                $path = Storage::disk('s3')->put('images/reviews', $request->file('image'));
+                $reviewData['review_image_url'] = Storage::disk('s3')->url($path);
+            } else {
+                // ローカルに保存
+                $imagePath = $request->file('image')->store('public/images/reviews');
+                $relativePath = str_replace('public/', '', $imagePath);
+
+                // BASE_URLに/を追加
+                $reviewData['review_image_url'] = env('BASE_URL') . '/' . $relativePath;
+            }
+        }
+
+        // レビューの更新
+        $review->update($reviewData);
+
+        // ショップの平均評価を更新
         $shop = Shop::find($review->shop_id);
         if ($shop) {
             $shop->updateShopAverageRating();
         }
 
-        // **詳細ページにリダイレクトし、メッセージを設定**
+        // 詳細ページにリダイレクトし、メッセージを設定
         return redirect()->route('detail', ['shop_id' => $review->shop_id])
             ->with('status', 'レビューを更新しました');
     }
