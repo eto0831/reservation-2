@@ -22,6 +22,21 @@
         display: none;
         margin-top: 10px;
     }
+
+    /* 評価の星のスタイル */
+    .rating-stars {
+        display: flex;
+        gap: 5px;
+        cursor: pointer;
+    }
+    .rating-stars .star {
+        font-size: 30px;
+        color: #ccc;
+        transition: color 0.2s;
+    }
+    .rating-stars .star.selected {
+        color: #f5a623;
+    }
 </style>
 @endsection
 
@@ -56,17 +71,15 @@
             <input type="hidden" name="reservation_id" value="{{ $reservationId }}">
         @endif
 
-        {{-- 評価 --}}
+        {{-- 評価（星形式） --}}
         <div>
             <label for="rating">評価:</label>
-            <select name="rating" id="rating">
+            <div class="rating-stars" id="rating-stars">
                 @for ($i = 1; $i <= 5; $i++)
-                    <option value="{{ $i }}"
-                        {{ old('rating', $review->rating ?? '') == $i ? 'selected' : '' }}>
-                        {{ $i }}
-                    </option>
+                    <span class="star {{ old('rating', $review->rating ?? 0) >= $i ? 'selected' : '' }}" data-value="{{ $i }}">★</span>
                 @endfor
-            </select>
+            </div>
+            <input type="hidden" name="rating" id="rating" value="{{ old('rating', $review->rating ?? '') }}">
         </div>
 
         {{-- コメント --}}
@@ -186,6 +199,23 @@
                     }
                 }
             }
+
+            // 星の選択
+            const stars = document.querySelectorAll('.rating-stars .star');
+            const ratingInput = document.getElementById('rating');
+
+            stars.forEach(star => {
+                star.addEventListener('click', function() {
+                    const value = this.getAttribute('data-value');
+
+                    stars.forEach(s => s.classList.remove('selected'));
+                    for (let i = 0; i < value; i++) {
+                        stars[i].classList.add('selected');
+                    }
+
+                    ratingInput.value = value;
+                });
+            });
         });
     </script>
 @endsection
