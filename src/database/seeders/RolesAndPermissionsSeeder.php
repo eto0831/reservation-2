@@ -92,6 +92,8 @@ class RolesAndPermissionsSeeder extends Seeder
                     'comment' => '良いお店でした！',
                 ]);
             }
+            // ショップごとに avg_rating を更新
+            $shop->updateShopAverageRating();
         }
 
         // popo8が22店舗に1日ずつ予約を入れる
