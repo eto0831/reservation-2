@@ -85,22 +85,6 @@ class ReviewController extends Controller
         }
     }
 
-
-    public function destroy(Request $request)
-    {
-        $deleted = auth()->user()->reviews()->where('shop_id', $request->shop_id)->delete();
-
-        if ($deleted) {
-            $shop = Shop::find($request->shop_id); // リクエストから shop_id を取得
-            if ($shop) {
-                $shop->updateShopAverageRating(); // 平均評価を更新
-            }
-            return back()->with('success', '投稿を削除しました');
-        } else {
-            return back()->with('error', '投稿の削除に失敗しました');
-        }
-    }
-
     public function edit(Review $review)
     {
         // ログインユーザーがレビューの作者かどうかを確認
@@ -151,5 +135,20 @@ class ReviewController extends Controller
         // 詳細ページにリダイレクトし、メッセージを設定
         return redirect()->route('detail', ['shop_id' => $review->shop_id])
             ->with('status', 'レビューを更新しました');
+    }
+
+    public function destroy(Request $request)
+    {
+        $deleted = auth()->user()->reviews()->where('shop_id', $request->shop_id)->delete();
+
+        if ($deleted) {
+            $shop = Shop::find($request->shop_id); // リクエストから shop_id を取得
+            if ($shop) {
+                $shop->updateShopAverageRating(); // 平均評価を更新
+            }
+            return back()->with('success', '投稿を削除しました');
+        } else {
+            return back()->with('error', '投稿の削除に失敗しました');
+        }
     }
 }
