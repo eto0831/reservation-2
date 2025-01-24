@@ -54,7 +54,7 @@
             <textarea name="comment" id="comment" placeholder="レビューは191文字以内でご入力ください。">{{ old('comment', $review->comment ?? '') }}</textarea>
         </div>
 
-        {{-- 画像 --}}
+        {{-- 現在の画像 --}}
         @if (isset($review) && $review->review_image_url)
             <div class="form__group">
                 <div class="form__group-title">
@@ -64,8 +64,22 @@
                     <img src="{{ $review->review_image_url }}" alt="現在の画像" style="max-width: 200px;">
                 </div>
             </div>
+
+            {{-- 画像削除オプション --}}
+            <div class="form__group">
+                <div class="form__group-title">
+                    <span class="form__label--item">画像の削除</span>
+                </div>
+                <div class="form__group-content">
+                    <label>
+                        <input type="checkbox" name="delete_image" value="1">
+                        現在の画像を削除する
+                    </label>
+                </div>
+            </div>
         @endif
 
+        {{-- 画像アップロード --}}
         <div class="form__group">
             <div class="form__group-title">
                 <span class="form__label--item">画像アップロード</span>

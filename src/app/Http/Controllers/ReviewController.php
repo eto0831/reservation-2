@@ -51,31 +51,21 @@ class ReviewController extends Controller
                 'comment' => $request->input('comment'),
             ];
 
-            if ($request->hasFile('image')) {
-                if (config('app.env') === 'production') {
-                    // S3にアップロード
-                    $path = Storage::disk('s3')->put('images/reviews', $request->file('image'));
-                    $reviewData['review_image_url'] = Storage::disk('s3')->url($path);
-                } else {
-                    // ローカルに保存
-                    $imagePath = $request->file('image')->store('public/images/reviews');
-                    $relativePath = str_replace('public/', '', $imagePath);
-
-                    // BASE_URLに/を追加
-                    $reviewData['review_image_url'] = env('BASE_URL') . '/' . $relativePath;
-                }
+            // 画像のアップロード処理
+            $imageUrl = $this->handleImageUpload($request);
+            if ($imageUrl) {
+                $reviewData['review_image_url'] = $imageUrl;
             }
 
-            // レヴューを作成
+            // レビューを作成
             Review::create($reviewData);
 
-            // ショップモデルのインスタンスを取得して平均評価を更新
+            // ショップの平均評価を更新
             $shop = Shop::find($request->input('shop_id'));
             if ($shop) {
                 $shop->updateShopAverageRating();
             }
 
-            // **詳細ページにリダイレクトし、メッセージを設定**
             return redirect()->route('detail', ['shop_id' => $request->input('shop_id')])
                 ->with('status', 'レビューを投稿しました');
         } else {
@@ -105,20 +95,22 @@ class ReviewController extends Controller
             'comment' => $request->input('comment'),
         ];
 
-        // 画像の処理
-        if ($request->hasFile('image')) {
-            if (config('app.env') === 'production') {
-                // S3にアップロード
-                $path = Storage::disk('s3')->put('images/reviews', $request->file('image'));
-                $reviewData['review_image_url'] = Storage::disk('s3')->url($path);
-            } else {
-                // ローカルに保存
-                $imagePath = $request->file('image')->store('public/images/reviews');
-                $relativePath = str_replace('public/', '', $imagePath);
+        // 画像の削除処理
+        if ($request->input('delete_image')) {
+            // 古い画像を削除
+            $this->deleteImage($review->review_image_url);
+            // データベースの画像URLをnullに設定
+            $reviewData['review_image_url'] = null;
+        }
 
-                // BASE_URLに/を追加
-                $reviewData['review_image_url'] = env('BASE_URL') . '/' . $relativePath;
+        // 新しい画像のアップロード
+        $newImageUrl = $this->handleImageUpload($request);
+        if ($newImageUrl) {
+            // 古い画像を削除（必要に応じて）
+            if ($review->review_image_url && !$request->input('delete_image')) {
+                $this->deleteImage($review->review_image_url);
             }
+            $reviewData['review_image_url'] = $newImageUrl;
         }
 
         // レビューの更新
@@ -130,23 +122,73 @@ class ReviewController extends Controller
             $shop->updateShopAverageRating();
         }
 
-        // 詳細ページにリダイレクトし、メッセージを設定
         return redirect()->route('detail', ['shop_id' => $review->shop_id])
             ->with('status', 'レビューを更新しました');
     }
 
+    // 画像削除の共通メソッド
+    private function deleteImage($imageUrl)
+    {
+        if (!$imageUrl) {
+            return;
+        }
+
+        if (config('app.env') === 'production') {
+            // S3から画像を削除
+            $path = parse_url($imageUrl, PHP_URL_PATH);
+            $path = ltrim($path, '/'); // 先頭のスラッシュを削除
+            Storage::disk('s3')->delete($path);
+        } else {
+            // ローカルから画像を削除
+            $relativePath = str_replace(env('BASE_URL') . '/', '', $imageUrl);
+            Storage::delete('public/' . $relativePath);
+        }
+    }
+
+    private function handleImageUpload(Request $request)
+    {
+        if ($request->hasFile('image')) {
+            if (config('app.env') === 'production') {
+                // S3にアップロード
+                $path = Storage::disk('s3')->put('images/reviews', $request->file('image'));
+                return Storage::disk('s3')->url($path);
+            } else {
+                // ローカルに保存
+                $imagePath = $request->file('image')->store('public/images/reviews');
+                $relativePath = str_replace('public/', '', $imagePath);
+
+                // BASE_URLに/を追加
+                return env('BASE_URL') . '/' . $relativePath;
+            }
+        }
+        return null;
+    }
+
     public function destroy(Request $request)
     {
-        $deleted = auth()->user()->reviews()->where('shop_id', $request->shop_id)->delete();
+        // 削除するレビューを取得
+        $review = auth()->user()->reviews()->where('shop_id', $request->shop_id)->first();
 
-        if ($deleted) {
-            $shop = Shop::find($request->shop_id); // リクエストから shop_id を取得
-            if ($shop) {
-                $shop->updateShopAverageRating(); // 平均評価を更新
+        if ($review) {
+            // 画像が存在する場合は削除
+            if ($review->review_image_url) {
+                $this->deleteImage($review->review_image_url);
             }
-            return back()->with('success', '投稿を削除しました');
+
+            // レビューを削除
+            $deleted = $review->delete();
+
+            if ($deleted) {
+                $shop = Shop::find($request->shop_id);
+                if ($shop) {
+                    $shop->updateShopAverageRating(); // 平均評価を更新
+                }
+                return back()->with('success', '投稿を削除しました');
+            } else {
+                return back()->with('error', '投稿の削除に失敗しました');
+            }
         } else {
-            return back()->with('error', '投稿の削除に失敗しました');
+            return back()->with('error', '削除するレビューが見つかりません');
         }
     }
 }
