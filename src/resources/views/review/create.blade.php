@@ -2,6 +2,27 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/review/create.css') }}">
+<style>
+    /* ドラッグアンドドロップエリアのスタイル */
+    .drag-drop-area {
+        border: 2px dashed #ccc;
+        padding: 20px;
+        text-align: center;
+        cursor: pointer;
+        color: #aaa;
+        margin-top: 10px;
+    }
+    .drag-drop-area.dragover {
+        border-color: #000;
+        color: #000;
+    }
+    .drag-drop-area img {
+        max-width: 100%;
+        height: auto;
+        display: none;
+        margin-top: 10px;
+    }
+</style>
 @endsection
 
 @section('content')
@@ -79,30 +100,24 @@
             </div>
         @endif
 
-        {{-- 画像アップロード --}}
+        {{-- 画像アップロード（ドラッグアンドドロップ対応） --}}
         <div class="form__group">
             <div class="form__group-title">
                 <span class="form__label--item">画像アップロード</span>
             </div>
             <div class="form__group-content">
-                <div class="form__group__input">
-                    <input type="file" name="image" id="image">
+                {{-- ファイル入力は非表示 --}}
+                <input type="file" name="image" id="image" style="display: none;">
+                {{-- ドラッグアンドドロップエリア --}}
+                <div class="drag-drop-area" id="drag-drop-area">
+                    ここにファイルをドラッグ＆ドロップ<br>またはクリックして選択
+                    <img id="preview" src="#" alt="プレビュー">
                 </div>
                 <div class="form__error">
                     @error('image')
                     {{ $message }}
                     @enderror
                 </div>
-            </div>
-        </div>
-
-        {{-- プレビュー --}}
-        <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">プレビュー</span>
-            </div>
-            <div>
-                <img id="preview" src="#" alt="プレビュー" style="display: none; max-width: 200px;">
             </div>
         </div>
 
@@ -114,23 +129,62 @@
 
     {{-- プレビュー用のJavaScript --}}
     <script>
-        const inputImage = document.querySelector('input[name="image"]');
-        const preview = document.getElementById('preview');
+        document.addEventListener('DOMContentLoaded', function() {
+            const inputImage = document.getElementById('image');
+            const dragDropArea = document.getElementById('drag-drop-area');
+            const preview = document.getElementById('preview');
 
-        inputImage.addEventListener('change', () => {
-            const file = inputImage.files[0];
-            const reader = new FileReader();
+            // ファイルが選択されたとき
+            inputImage.addEventListener('change', () => {
+                handleFiles(inputImage.files);
+            });
 
-            reader.onload = (e) => {
-                preview.src = e.target.result;
-                preview.style.display = 'block';
-            };
+            // ドラッグオーバー
+            dragDropArea.addEventListener('dragover', function(e) {
+                e.preventDefault();
+                dragDropArea.classList.add('dragover');
+            });
 
-            if (file) {
-                reader.readAsDataURL(file);
-            } else {
-                preview.src = '#';
-                preview.style.display = 'none';
+            // ドラッグアウト
+            dragDropArea.addEventListener('dragleave', function(e) {
+                e.preventDefault();
+                dragDropArea.classList.remove('dragover');
+            });
+
+            // ドロップ
+            dragDropArea.addEventListener('drop', function(e) {
+                e.preventDefault();
+                dragDropArea.classList.remove('dragover');
+                const files = e.dataTransfer.files;
+                handleFiles(files);
+                inputImage.files = files; // ファイルをinputにセット
+            });
+
+            // クリックでファイル選択
+            dragDropArea.addEventListener('click', function() {
+                inputImage.click();
+            });
+
+            function handleFiles(files) {
+                if (files.length > 0) {
+                    const file = files[0];
+
+                    if (file.type.startsWith('image/')) {
+                        const reader = new FileReader();
+
+                        reader.onload = (e) => {
+                            preview.src = e.target.result;
+                            preview.style.display = 'block';
+                        };
+
+                        reader.readAsDataURL(file);
+                    } else {
+                        alert('画像ファイルを選択してください。');
+                        inputImage.value = ''; // 入力をリセット
+                        preview.src = '#';
+                        preview.style.display = 'none';
+                    }
+                }
             }
         });
     </script>
