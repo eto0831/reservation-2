@@ -36,8 +36,6 @@ class ReviewController extends Controller
         return view('review.review_index', compact('reviews', 'shop'));
     }
 
-
-
     public function store(ReviewRequest $request)
     {
         $review = Review::where('shop_id', $request->input('shop_id'))
