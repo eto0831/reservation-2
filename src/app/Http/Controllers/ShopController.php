@@ -15,7 +15,10 @@ class ShopController extends Controller
 {
     public function index()
     {
-        $shops = Shop::with(['genre', 'area', 'reviews'])->paginate(12);
+        $shops = Shop::with(['genre', 'area', 'reviews'])
+            ->withCount('reviews') // 評価数を取得
+            ->paginate(12);
+
         $areas = Area::all();
         $genres = Genre::all();
         $favorites = auth()->check() ? auth()->user()->favorites()->pluck('shop_id')->toArray() : [];
@@ -23,41 +26,39 @@ class ShopController extends Controller
         return view('index', compact('shops', 'areas', 'genres', 'favorites'));
     }
 
-
     public function search(Request $request)
     {
-        // ソート条件を取得
-        $sort = $request->input('sort', 'random'); // デフォルトは 'random'
+        $sort = $request->input('sort', 'random');
 
-        // ショップのクエリビルダを作成
         $query = Shop::with(['genre', 'area', 'reviews'])
+            ->withCount('reviews') // 評価数を取得
             ->GenreSearch($request->genre_id)
             ->AreaSearch($request->area_id)
             ->KeywordSearch($request->keyword);
 
-        // ソート条件に応じてクエリを修正
         if ($sort == 'high_rating') {
             $query->orderByRaw('
-                CASE WHEN avg_rating IS NULL OR avg_rating = 0 THEN 1 ELSE 0 END ASC,
-                avg_rating DESC
-            ');
+            CASE WHEN avg_rating IS NULL OR avg_rating = 0 THEN 1 ELSE 0 END ASC,
+            avg_rating DESC
+        ');
         } elseif ($sort == 'low_rating') {
             $query->orderByRaw('
-                CASE WHEN avg_rating IS NULL OR avg_rating = 0 THEN 1 ELSE 0 END ASC,
-                avg_rating ASC
-            ');
+            CASE WHEN avg_rating IS NULL OR avg_rating = 0 THEN 1 ELSE 0 END ASC,
+            avg_rating ASC
+        ');
         } else {
             $query->inRandomOrder();
         }
 
-        // ショップ一覧を取得
         $shops = $query->paginate(12);
 
         $areas = Area::all();
         $genres = Genre::all();
         $favorites = auth()->check() ? auth()->user()->favorites()->pluck('shop_id')->toArray() : [];
+
         return view('index', compact('shops', 'areas', 'genres', 'favorites', 'sort'));
     }
+
 
 
     public function sortByRating() {}
@@ -65,7 +66,10 @@ class ShopController extends Controller
 
     public function detail(Request $request)
     {
-        $shop = Shop::with(['genre', 'area'])->findOrFail($request->shop_id);
+        $shop = Shop::with(['genre', 'area', 'reviews'])
+            ->withCount('reviews') // 評価数を取得
+            ->findOrFail($request->shop_id);
+
         $areas = Area::all();
         $genres = Genre::all();
 

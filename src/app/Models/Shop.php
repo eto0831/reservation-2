@@ -87,4 +87,12 @@ class Shop extends Model
         // avg_rating カラムを更新
         $this->save();
     }
+
+    // Shop.php
+    public function reviewsCount()
+    {
+        return $this->reviews()
+            ->selectRaw('shop_id, COUNT(*) as count')
+            ->groupBy('shop_id');
+    }
 }
