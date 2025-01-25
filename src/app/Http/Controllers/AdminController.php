@@ -206,8 +206,8 @@ class AdminController extends Controller
                 'shop_name'   => 'required|string|max:50',
                 'area_name'   => 'required|in:東京,大阪,福岡',
                 'genre_name'  => 'required|in:寿司,焼肉,イタリアン,居酒屋,ラーメン',
-                'description' => 'required|string|max:400',
-                'image_url'   => 'required|url',
+                'image_url'   => 'required|string', // 相対パスを必須にする
+
             ]);
 
             if ($rowValidator->fails()) {
@@ -237,7 +237,7 @@ class AdminController extends Controller
                 'area_id'     => $area->id,
                 'genre_id'    => $genre->id,
                 'description' => $data['description'],
-                'image_url'   => $data['image_url'],
+                'image_url'   => $data['image_url'], // 相対パスをそのまま保存
             ]);
         }
 
