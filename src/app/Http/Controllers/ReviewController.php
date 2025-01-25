@@ -119,24 +119,38 @@ class ReviewController extends Controller
         }
 
         if (config('app.env') === 'production') {
-            Storage::disk('s3')->delete($imageUrl);
+            // S3の場合はそのまま削除
+            $relativePath = ltrim(parse_url($imageUrl, PHP_URL_PATH), '/');
+            Storage::disk('s3')->delete($relativePath);
         } else {
+            // ローカルの場合は 'public/' を補完して削除
             Storage::disk('public')->delete($imageUrl);
         }
     }
 
+
     public function destroy(Request $request)
     {
+        // 必須項目のバリデーション
+        $request->validate([
+            'shop_id' => 'required|exists:shops,id',
+            'review_id' => 'required|exists:reviews,id',
+        ]);
+
         // レビューを取得
-        $review = auth()->user()->hasRole('admin')
-            ? Review::where('id', $request->review_id)->where('shop_id', $request->shop_id)->first()
-            : Review::where('id', $request->review_id)->where('shop_id', $request->shop_id)->where('user_id', auth()->id())->first();
+        $reviewQuery = Review::where('id', $request->review_id)->where('shop_id', $request->shop_id);
+
+        if (!auth()->user()->hasRole('admin')) {
+            $reviewQuery->where('user_id', auth()->id());
+        }
+
+        $review = $reviewQuery->first();
 
         if (!$review) {
             return back()->with('error', '削除するレビューが見つかりません');
         }
 
-        // 画像の削除
+        // 画像を削除
         if ($review->review_image_url) {
             $this->deleteImage($review->review_image_url);
         }
@@ -144,7 +158,7 @@ class ReviewController extends Controller
         // レビューを削除
         $review->delete();
 
-        // 平均評価を更新
+        // ショップの平均評価を更新
         $shop = Shop::find($request->shop_id);
         if ($shop) {
             $shop->updateShopAverageRating();
