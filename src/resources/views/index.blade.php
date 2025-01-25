@@ -66,6 +66,7 @@
     document.addEventListener('DOMContentLoaded', function () {
         const sortSelect = document.querySelector('.sort-select');
         const allSelects = document.querySelectorAll('.search-form__item-select');
+        const searchInput = document.querySelector('.search-form__item-input');
         let sortSelectClicked = false;
 
         // ソートセレクタがクリックされたらフラグを立てる
@@ -84,6 +85,11 @@
                 }
             });
 
+            // サーチボックスがクリックされた場合もリセットを無視
+            if (searchInput.contains(e.target)) {
+                isClickInsideAnySelect = true;
+            }
+
             // セレクタ外をクリックした場合のみリセット
             if (!isClickInsideAnySelect && sortSelectClicked) {
                 sortSelect.value = ''; // 初期値に戻す
@@ -100,6 +106,7 @@
         });
     });
 </script>
+
 
 
 
