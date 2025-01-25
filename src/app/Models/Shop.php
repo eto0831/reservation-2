@@ -95,4 +95,11 @@ class Shop extends Model
             ->selectRaw('shop_id, COUNT(*) as count')
             ->groupBy('shop_id');
     }
+
+    public function scopeOrderByRating($query, $direction = 'desc')
+    {
+        return $query->orderByRaw('
+        CASE WHEN avg_rating IS NULL OR avg_rating = 0 THEN 1 ELSE 0 END ASC
+    ')->orderBy('avg_rating', $direction);
+    }
 }

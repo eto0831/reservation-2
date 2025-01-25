@@ -17,7 +17,7 @@ class ShopController extends Controller
     {
         $shops = Shop::with(['genre', 'area', 'reviews'])
             ->withCount('reviews') // 評価数を取得
-            ->paginate(12);
+            ->get();
 
         $areas = Area::all();
         $genres = Genre::all();
@@ -28,7 +28,7 @@ class ShopController extends Controller
 
     public function search(Request $request)
     {
-        $sort = $request->input('sort', 'random');
+        $sort = $request->input('sort'); // 並び替え条件を取得
 
         $query = Shop::with(['genre', 'area', 'reviews'])
             ->withCount('reviews') // 評価数を取得
@@ -36,21 +36,15 @@ class ShopController extends Controller
             ->AreaSearch($request->area_id)
             ->KeywordSearch($request->keyword);
 
-        if ($sort == 'high_rating') {
-            $query->orderByRaw('
-            CASE WHEN avg_rating IS NULL OR avg_rating = 0 THEN 1 ELSE 0 END ASC,
-            avg_rating DESC
-        ');
-        } elseif ($sort == 'low_rating') {
-            $query->orderByRaw('
-            CASE WHEN avg_rating IS NULL OR avg_rating = 0 THEN 1 ELSE 0 END ASC,
-            avg_rating ASC
-        ');
-        } else {
-            $query->inRandomOrder();
+        if ($sort === 'high_rating') {
+            $query->orderByRating('desc'); // 評価が高い順
+        } elseif ($sort === 'low_rating') {
+            $query->orderByRating('asc'); // 評価が低い順
+        } elseif ($sort === 'random') {
+            $query->inRandomOrder(); // 毎回異なる順序で取得
         }
 
-        $shops = $query->paginate(12);
+        $shops = $query->get(); // ページネーションなしで全件取得
 
         $areas = Area::all();
         $genres = Genre::all();
@@ -58,6 +52,8 @@ class ShopController extends Controller
 
         return view('index', compact('shops', 'areas', 'genres', 'favorites', 'sort'));
     }
+
+
 
 
 

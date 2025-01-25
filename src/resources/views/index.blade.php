@@ -43,11 +43,15 @@
             <!-- ソート選択を追加 -->
             <div class="contact-search">
                 <select class="search-form__item-select sort-select" name="sort" onchange="this.form.submit()">
-                    <option value="random" @if(request('sort')=='random' ) selected @endif>ランダム</option>
-                    <option value="high_rating" @if(request('sort')=='high_rating' ) selected @endif>評価が高い順</option>
-                    <option value="low_rating" @if(request('sort')=='low_rating' ) selected @endif>評価が低い順</option>
+                    <!-- 初期値（並び替え：評価高/低） -->
+                    <option value="" hidden {{ !request('sort') ? 'selected' : '' }}>並び替え：評価高/低</option>
+                    <!-- 選択肢 -->
+                    <option value="random" {{ request('sort') == 'random' ? 'selected' : '' }}>ランダム</option>
+                    <option value="high_rating" {{ request('sort') == 'high_rating' ? 'selected' : '' }}>評価が高い順</option>
+                    <option value="low_rating" {{ request('sort') == 'low_rating' ? 'selected' : '' }}>評価が低い順</option>
                 </select>
             </div>
+            
         </form>
     </div>
 
@@ -56,6 +60,47 @@
         @include('components.shop-card', ['shop' => $shop])
         @endforeach
     </div>
-    {{ $shops->withQueryString()->links('vendor.pagination.custom') }}
+
 </div>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const sortSelect = document.querySelector('.sort-select');
+        const allSelects = document.querySelectorAll('.search-form__item-select');
+        let sortSelectClicked = false;
+
+        // ソートセレクタがクリックされたらフラグを立てる
+        sortSelect.addEventListener('click', () => {
+            sortSelectClicked = true;
+        });
+
+        // ドキュメント全体のクリックイベント
+        document.addEventListener('click', (e) => {
+            let isClickInsideAnySelect = false;
+
+            // クリックがどれかのセレクタ内かチェック
+            allSelects.forEach(select => {
+                if (select.contains(e.target)) {
+                    isClickInsideAnySelect = true;
+                }
+            });
+
+            // セレクタ外をクリックした場合のみリセット
+            if (!isClickInsideAnySelect && sortSelectClicked) {
+                sortSelect.value = ''; // 初期値に戻す
+                sortSelect.form.submit(); // フォーム送信
+                sortSelectClicked = false; // フラグをリセット
+            }
+        });
+
+        // 各セレクタの操作時に外部のリセットを無効化
+        allSelects.forEach(select => {
+            select.addEventListener('change', (e) => {
+                e.stopPropagation();
+            });
+        });
+    });
+</script>
+
+
+
 @endsection
