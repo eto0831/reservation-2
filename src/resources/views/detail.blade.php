@@ -27,11 +27,12 @@
             </div>
             <div class="shop__img-container">
                 @if ($shop->image_url)
-                <img src="{{ $shop->image_url }}" alt="{{ $shop->shop_name }}" class="shop__img">
+                    <img src="{{ Storage::url($shop->image_url) }}" alt="{{ $shop->shop_name }}" class="shop__img">
                 @else
-                <img src="{{ env('BASE_URL') . '/images/shops/noimage.png' }}" alt="デフォルト画像" class="shop__img">
+                    <img src="{{ Storage::url('images/shops/noimage.png') }}" alt="デフォルト画像" class="shop__img">
                 @endif
             </div>
+
             <div class="shop__categories">
                 <p class="shop__categories-content">
                     <span>#{{ $shop->area->area_name }}</span>
@@ -64,8 +65,8 @@
                                 <p>評価：{{ $userReview->rating }} コメント：{{ $userReview->comment }}</p>
                             </div>
                             <div>
-                                @if ($userReview->review_image_url)
-                                <img id="currentImage" src="{{ $userReview->review_image_url }}" alt="現在の画像">
+                                @if ($userReview && $userReview->review_image_url)
+                                    <img id="currentImage" src="{{ Storage::url($userReview->review_image_url) }}" alt="現在の画像">
                                 @endif
                             </div>
                             <div>

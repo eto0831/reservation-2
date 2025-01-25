@@ -95,7 +95,7 @@
                     <span class="form__label--item">現在の画像</span>
                 </div>
                 <div>
-                    <img src="{{ $review->review_image_url }}" alt="現在の画像" style="max-width: 200px;">
+                    <img src="{{ Storage::url($review->review_image_url) }}" alt="現在の画像" style="max-width: 200px;">
                 </div>
             </div>
 

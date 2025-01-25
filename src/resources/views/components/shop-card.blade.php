@@ -1,9 +1,10 @@
 <div class="shop__content">
     <div class="shop-card__container">
         @if ($shop->image_url)
-        <img src="{{ $shop->image_url }}" alt="{{ $shop->shop_name }}" class="shop__img">
+        <img src="{{ Storage::url($shop->image_url) }}" alt="{{ $shop->shop_name }}" class="shop__img">
+
         @else
-        <img src="{{ env('BASE_URL') . '/images/shops/noimage.png' }}" alt="デフォルト画像" class="shop__img">
+        <img src="{{ Storage::url('images/shops/noimage.png') }}" alt="デフォルト画像" class="shop__img">
         @endif
         <div class="shop-articles">
             <h3 class="shop__name">{{ $shop->shop_name }}</h3>

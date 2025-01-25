@@ -52,17 +52,15 @@ class OwnerController extends Controller
 
         if ($request->hasFile('image')) {
             if (config('app.env') === 'production') {
-                // S3にアップロード
-                $path = Storage::disk('s3')->put('images/shops', $request->file('image'));
-                $shopData['image_url'] = Storage::disk('s3')->url($path);
+                // S3に保存
+                $path = $request->file('image')->store('images/shops', 's3'); // S3にアップロード
             } else {
                 // ローカルに保存
-                $imagePath = $request->file('image')->store('public/images/shops');
-                $relativePath = str_replace('public/', '', $imagePath);
-
-                // BASE_URLに/を追加
-                $shopData['image_url'] = env('BASE_URL') . '/' . $relativePath;
+                $path = $request->file('image')->store('images/shops', 'public'); // ローカルに保存
             }
+
+            // 相対パスを保存（どちらの場合でも対応可能）
+            $shopData['image_url'] = $path;
         }
 
         $shop = Shop::create($shopData);
@@ -126,18 +124,17 @@ class OwnerController extends Controller
 
         if ($request->hasFile('image')) {
             if (config('app.env') === 'production') {
-                // S3にアップロード
-                $path = Storage::disk('s3')->put('images/shops', $request->file('image'));
-                $shopData['image_url'] = Storage::disk('s3')->url($path);
+                // S3に保存
+                $path = $request->file('image')->store('images/shops', 's3'); // S3にアップロード
             } else {
                 // ローカルに保存
-                $imagePath = $request->file('image')->store('public/images/shops');
-                $relativePath = str_replace('public/', '', $imagePath);
-
-                // BASE_URLに/を追加
-                $shopData['image_url'] = env('BASE_URL') . '/' . $relativePath;
+                $path = $request->file('image')->store('images/shops', 'public'); // ローカルに保存
             }
+
+            // 相対パスを保存（どちらの場合でも対応可能）
+            $shopData['image_url'] = $path;
         }
+
 
         Shop::find($request->input('shop_id'))->update($shopData);
 

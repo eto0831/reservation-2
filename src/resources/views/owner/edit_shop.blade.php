@@ -93,9 +93,9 @@
             </div>
             <div>
                 @if ($shop->image_url)
-                <img id="currentImage" src="{{ $shop->image_url }}" alt="現在の画像">
+                <img id="currentImage" src="{{ Storage::url($shop->image_url) }}" alt="現在の画像">
                 @else
-                <img id="currentImage" src="{{ env('BASE_URL') . '/images/shops/noimage.png' }}" alt="デフォルト画像">
+                <img id="currentImage" src="{{ Storage::url('images/shops/noimage.png') }}" alt="デフォルト画像">
                 @endif
             </div>
         </div>
