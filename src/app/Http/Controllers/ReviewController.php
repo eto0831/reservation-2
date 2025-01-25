@@ -127,28 +127,29 @@ class ReviewController extends Controller
 
     public function destroy(Request $request)
     {
+        // レビューを取得
         $review = auth()->user()->hasRole('admin')
             ? Review::where('id', $request->review_id)->where('shop_id', $request->shop_id)->first()
-            : auth()->user()->reviews()->where('shop_id', $request->shop_id)->where('id', $request->review_id)->first();
+            : Review::where('id', $request->review_id)->where('shop_id', $request->shop_id)->where('user_id', auth()->id())->first();
 
-        if ($review) {
-            if ($review->review_image_url) {
-                $this->deleteImage($review->review_image_url);
-            }
-
-            $deleted = $review->delete();
-
-            if ($deleted) {
-                $shop = Shop::find($request->shop_id);
-                if ($shop) {
-                    $shop->updateShopAverageRating();
-                }
-                return back()->with('success', '投稿を削除しました');
-            } else {
-                return back()->with('error', '投稿の削除に失敗しました');
-            }
-        } else {
+        if (!$review) {
             return back()->with('error', '削除するレビューが見つかりません');
         }
+
+        // 画像の削除
+        if ($review->review_image_url) {
+            $this->deleteImage($review->review_image_url);
+        }
+
+        // レビューを削除
+        $review->delete();
+
+        // 平均評価を更新
+        $shop = Shop::find($request->shop_id);
+        if ($shop) {
+            $shop->updateShopAverageRating();
+        }
+
+        return back()->with('success', '投稿を削除しました');
     }
 }

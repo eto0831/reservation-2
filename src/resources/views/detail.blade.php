@@ -71,12 +71,14 @@
                             </div>
                             <div>
                                 <a href="{{ route('review.edit', $userReview->id) }}">編集</a>
-                                <form action="/review/delete" method="post">
+                                <form action="{{ route('review.delete') }}" method="post">
                                     @csrf
                                     @method('DELETE')
                                     <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+                                    <input type="hidden" name="review_id" value="{{ $userReview->id }}">
                                     <button type="submit" onclick="return confirm('レビューを削除しますか？')">削除</button>
                                 </form>
+                                
                             </div>
                         </li>
                     @endif
