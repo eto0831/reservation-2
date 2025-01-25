@@ -166,8 +166,14 @@ class ReviewController extends Controller
 
     public function destroy(Request $request)
     {
-        // 削除するレビューを取得
-        $review = auth()->user()->reviews()->where('shop_id', $request->shop_id)->first();
+        // adminロールかどうかをチェック
+        if (auth()->user()->hasRole('admin')) {
+            // adminの場合、指定されたレビューを直接取得
+            $review = Review::where('id', $request->review_id)->where('shop_id', $request->shop_id)->first();
+        } else {
+            // 一般ユーザーの場合、自分のレビューのみ削除可能
+            $review = auth()->user()->reviews()->where('shop_id', $request->shop_id)->where('id', $request->review_id)->first();
+        }
 
         if ($review) {
             // 画像が存在する場合は削除
@@ -179,9 +185,10 @@ class ReviewController extends Controller
             $deleted = $review->delete();
 
             if ($deleted) {
+                // 平均評価を更新
                 $shop = Shop::find($request->shop_id);
                 if ($shop) {
-                    $shop->updateShopAverageRating(); // 平均評価を更新
+                    $shop->updateShopAverageRating();
                 }
                 return back()->with('success', '投稿を削除しました');
             } else {
