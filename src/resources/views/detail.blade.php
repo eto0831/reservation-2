@@ -48,12 +48,9 @@
         </div>
         <div class="review__wrap">
             @if (Auth::check() && $reservationId = Auth::user()->isVisited($shop->id))
-                <p>この店舗は訪問済みです。</p>
-        
                 {{-- レビュー済みかどうかをチェック --}}
                 @if (!$shop->hasReviewed(Auth::user()->id))
                     <a href="{{ route('review', $shop->id) }}">口コミを投稿する</a>
-        
                     <!-- すべての口コミを見るリンクをここに移動 -->
                     <a href="{{ route('reviews.index', ['shop' => $shop->id]) }}">すべての口コミを見る</a>
                 @else
@@ -84,7 +81,7 @@
                     @endif
                 @endif
             @else
-                <p>この店舗はまだ訪問していません。</p>
+            <a href="{{ route('reviews.index', ['shop' => $shop->id]) }}">すべての口コミを見る</a>
             @endif
         </div>
         
