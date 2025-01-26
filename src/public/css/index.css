@@ -90,25 +90,30 @@
     justify-content: space-between;
 }
 
-.search-form__wrapper {
+.search-form {
     display: flex;
     justify-content: end;
     pointer-events: none;
+    gap: 20px;
 }
 
-.search-form {
+.search-form__box {
     display: flex;
     justify-content: end;
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
     background: white;
     padding: 6px;
+
 }
 
 .search-form input,
 .search-form select {
     pointer-events: auto;
 }
+
+
+
 .search-form__item-input {
     padding-left: 30px;
     background: url('img/loupe.svg') no-repeat 5px center;
