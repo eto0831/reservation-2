@@ -10,8 +10,22 @@
     <div class="search-form__wrapper">
         <form class="search-form" action="/search" method="get">
             @csrf
+
+            <!-- ソート選択を追加 -->
+            <div class="category-search">
+                <select class="search-form__item-select sort-select" name="sort" onchange="this.form.submit()">
+                    <!-- 初期値（並び替え：評価高/低） -->
+                    <option value="" hidden {{ !request('sort') ? 'selected' : '' }}>並び替え：評価高/低</option>
+                    <!-- 選択肢 -->
+                    <option value="random" {{ request('sort')=='random' ? 'selected' : '' }}>ランダム</option>
+                    <option value="high_rating" {{ request('sort')=='high_rating' ? 'selected' : '' }}>評価が高い順</option>
+                    <option value="low_rating" {{ request('sort')=='low_rating' ? 'selected' : '' }}>評価が低い順</option>
+                </select>
+            </div>
+
+
             <!-- エリア選択 -->
-            <div class="contact-search">
+            <div class="category-search">
                 <select class="search-form__item-select area-select" name="area_id" onchange="this.form.submit()">
                     <option value="" selected>All area</option>
                     @foreach ($areas as $area)
@@ -21,7 +35,7 @@
                 </select>
             </div>
             <!-- ジャンル選択 -->
-            <div class="contact-search">
+            <div class="category-search">
                 <select class="search-form__item-select genre-select" name="genre_id" onchange="this.form.submit()">
                     <option value="" selected>All genre</option>
                     @foreach ($genres as $genre)
@@ -35,18 +49,6 @@
                 <input type="text" class="search-form__item-input" placeholder="Search..." name="keyword"
                     value="{{ request('keyword') ?? old('keyword') }}">
             </div>
-            <!-- ソート選択を追加 -->
-            <div class="contact-search">
-                <select class="search-form__item-select sort-select" name="sort" onchange="this.form.submit()">
-                    <!-- 初期値（並び替え：評価高/低） -->
-                    <option value="" hidden {{ !request('sort') ? 'selected' : '' }}>並び替え：評価高/低</option>
-                    <!-- 選択肢 -->
-                    <option value="random" {{ request('sort')=='random' ? 'selected' : '' }}>ランダム</option>
-                    <option value="high_rating" {{ request('sort')=='high_rating' ? 'selected' : '' }}>評価が高い順</option>
-                    <option value="low_rating" {{ request('sort')=='low_rating' ? 'selected' : '' }}>評価が低い順</option>
-                </select>
-            </div>
-
         </form>
     </div>
 </div>

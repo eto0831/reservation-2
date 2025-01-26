@@ -32,7 +32,12 @@ body {
 } */
 
 .header {
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
     background: #eee;
+    z-index: 1000;
 }
 
 .header__inner {
@@ -42,6 +47,7 @@ body {
     margin: 0 auto;
     padding: 20px 15px;
     max-width: 1230px;
+
 }
 
 .header-utilities {
