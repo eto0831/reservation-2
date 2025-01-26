@@ -1,3 +1,10 @@
+.shop__content{
+    min-width: 265px;
+    min-height: 265px;
+}
+
+
+
 .shop-card__container {
     width: 100%;
     background: white;
