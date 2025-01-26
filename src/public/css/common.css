@@ -27,6 +27,23 @@ body {
     font-style: normal;
 }
 
+@media (max-width: 768px) {
+    body {
+        padding: 0 30px 25px 30px;
+    }
+}
+@media (max-width: 480px) {
+    body {
+        padding: 0 15px 25px 15px;
+    }
+}
+
+@media (max-width: 380px) {
+    body {
+        padding: 0 15px 25px 15px;
+    }
+}
+
 /* * {
     border: solid 1px red;
 } */
@@ -42,12 +59,12 @@ body {
 
 .header__inner {
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
     justify-content: space-between;
     margin: 0 auto;
     padding: 20px 15px;
     max-width: 1230px;
-
 }
 
 .header-utilities {
@@ -58,6 +75,7 @@ body {
 }
 
 .header__logo {
+    min-width: 72px;
     color: #0764ff;
     height: 40px;
     text-decoration: none;

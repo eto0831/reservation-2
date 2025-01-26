@@ -92,6 +92,7 @@
 
 .search-form {
     display: flex;
+    flex-wrap: wrap;
     justify-content: end;
     pointer-events: none;
     gap: 20px;
@@ -104,7 +105,6 @@
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
     background: white;
     padding: 6px;
-
 }
 
 .search-form input,
@@ -112,11 +112,9 @@
     pointer-events: auto;
 }
 
-
-
 .search-form__item-input {
     padding-left: 30px;
-    background: url('img/loupe.svg') no-repeat 5px center;
+    background: url("img/loupe.svg") no-repeat 5px center;
     background-size: 20px 20px;
     height: 40px;
     border: none;
@@ -124,14 +122,13 @@
     box-sizing: border-box;
 }
 
-
 .search-form__item-select {
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background: url('img/v.svg') no-repeat right 10px center;
+    background: url("img/v.svg") no-repeat right 10px center;
     background-size: 8px 8px;
-    padding:0 30px 0 6px;
+    padding: 0 30px 0 6px;
     border: none;
     height: 40px;
 }
@@ -142,26 +139,25 @@
 }
 
 
-
-
-
-/* 画面幅が768px以下の場合: 3列表示 */
 @media (max-width: 768px) {
     .shop__content {
-        width: calc(33.333% - 5px); /* 3列表示 */
+        width: calc(33.333% - 5px);
     }
 }
-
-/* 画面幅が480px以下の場合: 2列表示 */
 @media (max-width: 480px) {
     .shop__content {
-        width: calc(50% - 5px); /* 2列表示 */
-    }
+        width: calc(50% - 5px);     }
+
 }
 
-/* 画面幅が320px以下の場合: 1列表示 */
-@media (max-width: 320px) {
+
+@media (max-width: 380px) {
     .shop__content {
-        width: 100%; /* 1列表示 */
+        width: 100%;
+    }
+
+    .search-form input,
+    .search-form select {
+        width: 85px;
     }
 }
