@@ -53,9 +53,11 @@
             @if (Auth::check() && $reservationId = Auth::user()->isVisited($shop->id))
             {{-- レビュー済みかどうかをチェック --}}
             @if (!$shop->hasReviewed(Auth::user()->id))
+            @unless (Auth::user()->hasRole(['admin', 'owner']))
             <div class="review-form__link">
                 <a class="review-form__link-item" href="{{ route('review', $shop->id) }}">口コミを投稿する</a>
             </div>
+            @endunless
             <!-- 全ての口コミ情報リンクをここに移動 -->
             <div class="review-list__link">
                 <a class="review-list__link-item"
