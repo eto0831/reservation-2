@@ -56,16 +56,16 @@
             <div class="review-form__link">
                 <a class="review-form__link-item" href="{{ route('review', $shop->id) }}">口コミを投稿する</a>
             </div>
-            <!-- すべての口コミを見るリンクをここに移動 -->
+            <!-- 全ての口コミ情報リンクをここに移動 -->
             <div class="review-list__link">
                 <a class="review-list__link-item"
-                    href="{{ route('reviews.index', ['shop' => $shop->id]) }}">すべての口コミを見る</a>
+                    href="{{ route('reviews.index', ['shop' => $shop->id]) }}">全ての口コミ情報</a>
             </div>
             @else
             <!-- あなたのレビューの前にリンクを配置 -->
             <div class="review-list__link">
                 <a class="review-list__link-item"
-                    href="{{ route('reviews.index', ['shop' => $shop->id]) }}">すべての口コミを見る</a>
+                    href="{{ route('reviews.index', ['shop' => $shop->id]) }}">全ての口コミ情報</a>
             </div>
             <h3>あなたのレビュー</h3>
             @if($userReview)
@@ -92,7 +92,10 @@
             @endif
             @endif
             @else
-            <a href="{{ route('reviews.index', ['shop' => $shop->id]) }}">すべての口コミを見る</a>
+            <div class="review-list__link">
+                <a class="review-list__link-item"
+                    href="{{ route('reviews.index', ['shop' => $shop->id]) }}">全ての口コミ情報</a>
+            </div>
             @endif
         </div>
     </div>
