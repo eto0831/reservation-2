@@ -5,13 +5,8 @@
 <link rel="stylesheet" href="{{ asset('css/components/shop-card.css') }}">
 @endsection
 
-@section('content')
-<div class="reservation__alert">
-    {{ session('status') }}
-</div>
-
-<div class="reservation__content">
-    <!-- ソートフォームを検索フォームの上に追加 -->
+@section('header')
+<div class="header-utilities">
     <div class="search-form__wrapper">
         <form class="search-form" action="/search" method="get">
             @csrf
@@ -46,14 +41,25 @@
                     <!-- 初期値（並び替え：評価高/低） -->
                     <option value="" hidden {{ !request('sort') ? 'selected' : '' }}>並び替え：評価高/低</option>
                     <!-- 選択肢 -->
-                    <option value="random" {{ request('sort') == 'random' ? 'selected' : '' }}>ランダム</option>
-                    <option value="high_rating" {{ request('sort') == 'high_rating' ? 'selected' : '' }}>評価が高い順</option>
-                    <option value="low_rating" {{ request('sort') == 'low_rating' ? 'selected' : '' }}>評価が低い順</option>
+                    <option value="random" {{ request('sort')=='random' ? 'selected' : '' }}>ランダム</option>
+                    <option value="high_rating" {{ request('sort')=='high_rating' ? 'selected' : '' }}>評価が高い順</option>
+                    <option value="low_rating" {{ request('sort')=='low_rating' ? 'selected' : '' }}>評価が低い順</option>
                 </select>
             </div>
-            
+
         </form>
     </div>
+</div>
+@endsection
+
+
+@section('content')
+<div class="reservation__alert">
+    {{ session('status') }}
+</div>
+
+<div class="reservation__content">
+    <!-- ソートフォームを検索フォームの上に追加 -->
 
     <div class="shop__wrap">
         @foreach ($shops as $shop)

@@ -41,7 +41,6 @@
     margin: 0 auto;
     padding: 0px 10px 30px 10px;
     max-width: 1230px;
-    transform: translateY(-45px);
 }
 
 .reservation-table {
@@ -95,8 +94,6 @@
     display: flex;
     justify-content: end;
     pointer-events: none;
-    transform: translate(-8px, -30px);
-    
 }
 
 .search-form {

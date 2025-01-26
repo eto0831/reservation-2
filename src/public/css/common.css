@@ -36,6 +36,9 @@ body {
 }
 
 .header__inner {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin: 0 auto;
     padding: 20px 15px;
     max-width: 1230px;

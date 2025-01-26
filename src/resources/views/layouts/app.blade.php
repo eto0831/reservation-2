@@ -67,8 +67,9 @@
                 </div>
                 <h1 class="header__logo">Rese</h1>
             </div>
+            @yield('header')
         </div>
-        </div>
+
     </header>
 
     <main>
