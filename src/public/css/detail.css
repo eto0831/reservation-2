@@ -1,3 +1,7 @@
+.header {
+    width: 50%;
+}
+
 .detail__content {
     padding: 0 15px 0 15px;
     display: flex;
@@ -11,12 +15,12 @@
 }
 
 .reservation__form {
+    margin-top: -75px;
     width: 48%;
     background: #0764ff;
     color: white;
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-    transform: translateY(-75px);
 }
 
 .shop__info {
@@ -31,7 +35,7 @@
     height: 35px;
 }
 
-.shop__heading a {
+.shop__heading-link {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -45,7 +49,7 @@
     font-size: 18px;
 }
 
-.shop__heading h2 {
+.shop__heading-title {
     display: flex;
     align-items: center;
     height: 35px;
@@ -65,6 +69,11 @@
     height: 100%;
     object-fit: cover;
     display: block;
+}
+
+.shop__rating-inner {
+    display: flex;
+    justify-content: space-between;
 }
 
 .reservation__form-container {
@@ -173,6 +182,15 @@
 .reserve__button:hover {
     background-color: #0056b3;
 }
+
+.review-list__link {
+    width: 100%;
+}
+
+.review-list__link-item {
+    width: 100%;
+}
+
 .review__wrap ul {
     list-style: none;
     padding: 0;
@@ -278,5 +296,12 @@
 
     .review__wrap li div:last-child {
         justify-content: flex-start;
+    }
+    .header {
+        width: 100%;
+    }
+
+    .reservation__form {
+        margin-top: 0px;
     }
 }

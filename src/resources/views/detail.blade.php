@@ -22,14 +22,14 @@
         @endif
         <div class="shop__info">
             <div class="shop__heading">
-                <a href="/">&lt;</a>
-                <h2>{{ $shop->shop_name }}</h2>
+                <a class="shop__heading-link" href="/">&lt;</a>
+                <h2 class="shop__heading-title">{{ $shop->shop_name }}</h2>
             </div>
             <div class="shop__img-container">
                 @if ($shop->image_url)
-                    <img src="{{ Storage::url($shop->image_url) }}" alt="{{ $shop->shop_name }}" class="shop__img">
+                <img src="{{ Storage::url($shop->image_url) }}" alt="{{ $shop->shop_name }}" class="shop__img">
                 @else
-                    <img src="{{ Storage::url('images/shops/noimage.png') }}" alt="デフォルト画像" class="shop__img">
+                <img src="{{ Storage::url('images/shops/noimage.png') }}" alt="デフォルト画像" class="shop__img">
                 @endif
             </div>
 
@@ -43,51 +43,58 @@
                 <p>{{ $shop->description }}</p>
             </div>
             <div class="shop__rating">
-                <p>平均評価: {{ number_format($shop->avg_rating, 1) }} / 5</p>
-                <p>評価数: {{ $shop->reviews_count }} 件</p>
+                <p class="shop__rating-inner">
+                    <span class="shop__rating-item">平均評価: {{ number_format($shop->avg_rating, 1) }} / 5</span>
+                    <span class="shop__rating-item">評価数: {{ $shop->reviews_count }} 件</span>
+                </p>
             </div>
         </div>
         <div class="review__wrap">
             @if (Auth::check() && $reservationId = Auth::user()->isVisited($shop->id))
-                {{-- レビュー済みかどうかをチェック --}}
-                @if (!$shop->hasReviewed(Auth::user()->id))
-                    <a href="{{ route('review', $shop->id) }}">口コミを投稿する</a>
-                    <!-- すべての口コミを見るリンクをここに移動 -->
-                    <a href="{{ route('reviews.index', ['shop' => $shop->id]) }}">すべての口コミを見る</a>
-                @else
-                    <!-- あなたのレビューの前にリンクを配置 -->
-                    <a href="{{ route('reviews.index', ['shop' => $shop->id]) }}">すべての口コミを見る</a>
-        
-                    <h3>あなたのレビュー</h3>
-                    @if($userReview)
-                        <li>
-                            <div>
-                                <p>評価：{{ $userReview->rating }} コメント：{{ $userReview->comment }}</p>
-                            </div>
-                            <div>
-                                @if ($userReview && $userReview->review_image_url)
-                                    <img id="currentImage" src="{{ Storage::url($userReview->review_image_url) }}" alt="現在の画像">
-                                @endif
-                            </div>
-                            <div>
-                                <a href="{{ route('review.edit', $userReview->id) }}">編集</a>
-                                <form action="{{ route('review.delete') }}" method="post">
-                                    @csrf
-                                    @method('DELETE')
-                                    <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                                    <input type="hidden" name="review_id" value="{{ $userReview->id }}">
-                                    <button type="submit" onclick="return confirm('レビューを削除しますか？')">削除</button>
-                                </form>
-                                
-                            </div>
-                        </li>
+            {{-- レビュー済みかどうかをチェック --}}
+            @if (!$shop->hasReviewed(Auth::user()->id))
+            <div class="review-form__link">
+                <a class="review-form__link-item" href="{{ route('review', $shop->id) }}">口コミを投稿する</a>
+            </div>
+            <!-- すべての口コミを見るリンクをここに移動 -->
+            <div class="review-list__link">
+                <a class="review-list__link-item"
+                    href="{{ route('reviews.index', ['shop' => $shop->id]) }}">すべての口コミを見る</a>
+            </div>
+            @else
+            <!-- あなたのレビューの前にリンクを配置 -->
+            <div class="review-list__link">
+                <a class="review-list__link-item"
+                    href="{{ route('reviews.index', ['shop' => $shop->id]) }}">すべての口コミを見る</a>
+            </div>
+            <h3>あなたのレビュー</h3>
+            @if($userReview)
+            <li>
+                <div>
+                    <p>評価：{{ $userReview->rating }} コメント：{{ $userReview->comment }}</p>
+                </div>
+                <div>
+                    @if ($userReview && $userReview->review_image_url)
+                    <img id="currentImage" src="{{ Storage::url($userReview->review_image_url) }}" alt="現在の画像">
                     @endif
-                @endif
+                </div>
+                <div>
+                    <a href="{{ route('review.edit', $userReview->id) }}">編集</a>
+                    <form action="{{ route('review.delete') }}" method="post">
+                        @csrf
+                        @method('DELETE')
+                        <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+                        <input type="hidden" name="review_id" value="{{ $userReview->id }}">
+                        <button type="submit" onclick="return confirm('レビューを削除しますか？')">削除</button>
+                    </form>
+                </div>
+            </li>
+            @endif
+            @endif
             @else
             <a href="{{ route('reviews.index', ['shop' => $shop->id]) }}">すべての口コミを見る</a>
             @endif
         </div>
-        
     </div>
     <div class="reservation__form">
         <div class="reservation__form-heading">
