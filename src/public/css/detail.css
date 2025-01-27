@@ -220,6 +220,8 @@
     vertical-align: middle;
 }
 
+
+
 @media (max-width: 768px) {
     .detail__content {
         flex-direction: column;
