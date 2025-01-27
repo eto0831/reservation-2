@@ -39,7 +39,7 @@
     }
 
     .rating-stars .star.selected {
-        color: #f5a623;
+        color: #0020ef;
     }
 </style>
 @endsection

@@ -64,33 +64,38 @@
                     href="{{ route('reviews.index', ['shop' => $shop->id]) }}">全ての口コミ情報</a>
             </div>
             @else
-            <!-- あなたのレビューの前にリンクを配置 -->
+            <!-- 自分のレビューの前にリンクを配置 -->
             <div class="review-list__link">
                 <a class="review-list__link-item"
                     href="{{ route('reviews.index', ['shop' => $shop->id]) }}">全ての口コミ情報</a>
             </div>
-            <h3>あなたのレビュー</h3>
+            {{-- 自分のレビュー --}}
             @if($userReview)
-            <li>
-                <div>
-                    <p>評価：{{ $userReview->rating }} コメント：{{ $userReview->comment }}</p>
-                </div>
-                <div>
-                    @if ($userReview && $userReview->review_image_url)
-                    <img id="currentImage" src="{{ Storage::url($userReview->review_image_url) }}" alt="現在の画像">
-                    @endif
-                </div>
-                <div>
-                    <a href="{{ route('review.edit', $userReview->id) }}">編集</a>
-                    <form action="{{ route('review.delete') }}" method="post">
+            <div class="my-review__container">
+                <div class="my-review__links">
+                    <a class="my-review__links-item" href="{{ route('review.edit', $userReview->id) }}">編集</a>
+                    <form class="my-review__links-item" action="{{ route('review.delete') }}" method="post">
                         @csrf
                         @method('DELETE')
                         <input type="hidden" name="shop_id" value="{{ $shop->id }}">
                         <input type="hidden" name="review_id" value="{{ $userReview->id }}">
-                        <button type="submit" onclick="return confirm('レビューを削除しますか？')">削除</button>
+                        <button class="my-review__links-button-submit" type="submit" onclick="return confirm('レビューを削除しますか？')">削除</button>
                     </form>
                 </div>
-            </li>
+                <div class="my-review__content">
+                    <div class="my-review__content-rating">
+                        <p> {{ $userReview->rating }} </p>
+                    </div>
+                    <div class="my-review__content-comment">
+                        <p> {{ $userReview->comment }} </p>
+                    </div>
+                    <div class="my-review__img-container">
+                        @if ($userReview && $userReview->review_image_url)
+                        <img class="my-review__img" id="currentImage" src="{{ Storage::url($userReview->review_image_url) }}" alt="現在の画像">
+                        @endif
+                    </div>
+                </div>
+            </div>
             @endif
             @endif
             @else
