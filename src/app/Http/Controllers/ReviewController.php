@@ -45,13 +45,14 @@ class ReviewController extends Controller
             ];
 
             // 画像のアップロード処理
-            if ($request->hasFile('image')) {
+            if ($request->hasFile('review_image_url')) {
                 $path = config('app.env') === 'production'
-                    ? $request->file('image')->store('images/reviews', 's3') // S3
-                    : $request->file('image')->store('images/reviews', 'public'); // ローカル
+                    ? $request->file('review_image_url')->store('images/reviews', 's3') // S3
+                    : $request->file('review_image_url')->store('images/reviews', 'public'); // ローカル
 
                 $reviewData['review_image_url'] = $path; // 相対パスを保存
             }
+
 
             Review::create($reviewData);
 
@@ -96,14 +97,14 @@ class ReviewController extends Controller
             $reviewData['review_image_url'] = null;
         }
 
-        if ($request->hasFile('image')) {
+        if ($request->hasFile('review_image_url')) {
             $path = config('app.env') === 'production'
-                ? $request->file('image')->store('images/reviews', 's3') // S3
-                : $request->file('image')->store('images/reviews', 'public'); // ローカル
+                ? $request->file('review_image_url')->store('images/reviews', 's3') // S3
+                : $request->file('review_image_url')->store('images/reviews', 'public'); // ローカル
 
-            $this->deleteImage($review->review_image_url);
             $reviewData['review_image_url'] = $path; // 相対パスを保存
         }
+
 
         $review->update($reviewData);
 
