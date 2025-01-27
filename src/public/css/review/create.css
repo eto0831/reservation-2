@@ -1,0 +1,14 @@
+.shop__content {
+    width: calc(25% - 5px); /* 25% - 左右の隙間(10px * 2) */
+    padding: 5px;
+    box-sizing: border-box;
+}
+
+.shop__img {
+    width: 100%;
+}
+
+.shop__buttons {
+    display: flex;
+    justify-content: space-between;
+}

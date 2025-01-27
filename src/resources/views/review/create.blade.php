@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/review/create.css') }}">
+<link rel="stylesheet" href="{{ asset('css/components/shop-card.css') }}">
 <style>
     /* ドラッグアンドドロップエリアのスタイル */
     .drag-drop-area {
@@ -58,91 +59,97 @@
 </div>
 @endif
 
+@include('components.shop-card', ['shop' => $shop])
 
-<form action="{{ isset($review) ? route('review.update', $review->id) : route('review.store') }}" method="post"
-    enctype="multipart/form-data">
-    @csrf
-    @if (isset($review))
-    @method('PUT')
-    @endif
+<div class="review-form__content">
+    <form action="{{ isset($review) ? route('review.update', $review->id) : route('review.store') }}" method="post"
+        enctype="multipart/form-data">
+        @csrf
+        @if (isset($review))
+        @method('PUT')
+        @endif
 
-    {{-- 隠しフィールド --}}
-    <input type="hidden" name="shop_id" value="{{ $shop->id ?? $review->shop_id }}">
-    <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
-    @if (!isset($review))
-    <input type="hidden" name="reservation_id" value="{{ $reservationId }}">
-    @endif
 
-    {{-- 評価（星形式） --}}
-    <div>
-        <label for="rating">評価:</label>
-        <div class="rating-stars" id="rating-stars">
-            @for ($i = 1; $i <= 5; $i++) <span
-                class="star {{ old('rating', $review->rating ?? 0) >= $i ? 'selected' : '' }}" data-value="{{ $i }}">
-                ★</span>
-                @endfor
-        </div>
-        <input type="hidden" name="rating" id="rating" value="{{ old('rating', $review->rating ?? '') }}">
-    </div>
+        {{-- 隠しフィールド --}}
+        <input type="hidden" name="shop_id" value="{{ $shop->id ?? $review->shop_id }}">
+        <input type="hidden" name="user_id" value="{{ auth()->user()->id }}">
+        @if (!isset($review))
+        <input type="hidden" name="reservation_id" value="{{ $reservationId }}">
+        @endif
 
-    {{-- コメント --}}
-    <div>
-        <label for="comment">コメント:</label>
-        <textarea name="comment" id="comment"
-            placeholder="レビューは400文字以内でご入力ください。">{{ old('comment', $review->comment ?? '') }}</textarea>
-    </div>
-
-    {{-- 現在の画像 --}}
-    @if (isset($review) && $review->review_image_url)
-    <div class="form__group">
-        <div class="form__group-title">
-            <span class="form__label--item">現在の画像</span>
-        </div>
+        {{-- 評価（星形式） --}}
         <div>
-            <img src="{{ Storage::url($review->review_image_url) }}" alt="現在の画像" style="max-width: 200px;">
-        </div>
-    </div>
-
-    {{-- 画像削除オプション --}}
-    <div class="form__group">
-        <div class="form__group-title">
-            <span class="form__label--item">画像の削除</span>
-        </div>
-        <div class="form__group-content">
-            <label>
-                <input type="checkbox" name="delete_image" value="1">
-                現在の画像を削除する
-            </label>
-        </div>
-    </div>
-    @endif
-
-    {{-- 画像アップロード（ドラッグアンドドロップ対応） --}}
-    <div class="form__group">
-        <div class="form__group-title">
-            <span class="form__label--item">画像アップロード</span>
-        </div>
-        <div class="form__group-content">
-            {{-- ファイル入力は非表示 --}}
-            <input type="file" name="review_image_url" id="image" style="display: none;">
-            {{-- ドラッグアンドドロップエリア --}}
-            <div class="drag-drop-area" id="drag-drop-area">
-                ここにファイルをドラッグ＆ドロップ<br>またはクリックして選択<br>JPEGまたはPNGファイルのみ可能
-                <img id="preview" src="#" alt="プレビュー">
+            <label for="rating">評価:</label>
+            <div class="rating-stars" id="rating-stars">
+                @for ($i = 1; $i <= 5; $i++) <span
+                    class="star {{ old('rating', $review->rating ?? 0) >= $i ? 'selected' : '' }}"
+                    data-value="{{ $i }}">
+                    ★</span>
+                    @endfor
             </div>
-            <div class="form__error">
-                @error('image')
-                {{ $message }}
-                @enderror
+            <input type="hidden" name="rating" id="rating" value="{{ old('rating', $review->rating ?? '') }}">
+        </div>
+
+        {{-- コメント --}}
+        <div>
+            <label for="comment">コメント:</label>
+            <textarea name="comment" id="comment"
+                placeholder="レビューは400文字以内でご入力ください。">{{ old('comment', $review->comment ?? '') }}</textarea>
+        </div>
+
+        {{-- 現在の画像 --}}
+        @if (isset($review) && $review->review_image_url)
+        <div class="form__group">
+            <div class="form__group-title">
+                <span class="form__label--item">現在の画像</span>
+            </div>
+            <div>
+                <img src="{{ Storage::url($review->review_image_url) }}" alt="現在の画像" style="max-width: 200px;">
             </div>
         </div>
-    </div>
 
-    {{-- ボタン --}}
-    <button type="submit" onclick="return confirm('{{ isset($review) ? 'この内容で更新しますか？' : 'この内容で投稿しますか？' }}')">
-        {{ isset($review) ? '更新' : '投稿' }}
-    </button>
-</form>
+        {{-- 画像削除オプション --}}
+        <div class="form__group">
+            <div class="form__group-title">
+                <span class="form__label--item">画像の削除</span>
+            </div>
+            <div class="form__group-content">
+                <label>
+                    <input type="checkbox" name="delete_image" value="1">
+                    現在の画像を削除する
+                </label>
+            </div>
+        </div>
+        @endif
+
+        {{-- 画像アップロード（ドラッグアンドドロップ対応） --}}
+        <div class="form__group">
+            <div class="form__group-title">
+                <span class="form__label--item">画像アップロード</span>
+            </div>
+            <div class="form__group-content">
+                {{-- ファイル入力は非表示 --}}
+                <input type="file" name="review_image_url" id="image" style="display: none;">
+                {{-- ドラッグアンドドロップエリア --}}
+                <div class="drag-drop-area" id="drag-drop-area">
+                    ここにファイルをドラッグ＆ドロップ<br>またはクリックして選択<br>JPEGまたはPNGファイルのみ可能
+                    <img id="preview" src="#" alt="プレビュー">
+                </div>
+                <div class="form__error">
+                    @error('image')
+                    {{ $message }}
+                    @enderror
+                </div>
+            </div>
+        </div>
+
+        {{-- ボタン --}}
+        <button type="submit" onclick="return confirm('{{ isset($review) ? 'この内容で更新しますか？' : 'この内容で投稿しますか？' }}')">
+            {{ isset($review) ? '更新' : '投稿' }}
+        </button>
+    </form>
+
+</div>
 
 {{-- プレビュー用のJavaScript --}}
 <script>

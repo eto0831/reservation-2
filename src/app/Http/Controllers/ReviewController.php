@@ -13,7 +13,7 @@ class ReviewController extends Controller
 {
     public function review($shop_id)
     {
-        $shop = Shop::findOrFail($shop_id);
+        $shop = Shop::withCount('reviews')->findOrFail($shop_id);
         $review = Review::where('shop_id', $shop_id)
             ->where('user_id', auth()->user()->id)
             ->first();
@@ -73,8 +73,12 @@ class ReviewController extends Controller
         if ($review->user_id !== auth()->id()) {
             abort(403);
         }
-        return view('review.create', compact('review'));
+        $shop = Shop::withCount('reviews')->find($review->shop_id);
+        return view('review.create', compact('review', 'shop'));
     }
+
+
+
 
     public function update(ReviewRequest $request, Review $review)
     {
