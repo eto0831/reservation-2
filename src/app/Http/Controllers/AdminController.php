@@ -206,9 +206,20 @@ class AdminController extends Controller
                 'shop_name'   => 'required|string|max:50',
                 'area_name'   => 'required|in:東京都,大阪府,福岡県',
                 'genre_name'  => 'required|in:寿司,焼肉,イタリアン,居酒屋,ラーメン',
-                'image_url'   => 'required|string', // 相対パスを必須にする
-
+                'description' => 'required|string|max:400', // descriptionの400文字以内を追加
+                'image_url'   => 'required|string',
+            ], [
+                'shop_name.required'   => '行' . $lineNumber . ': 店舗名は必須です。',
+                'shop_name.max'        => '行' . $lineNumber . ': 店舗名は最大50文字以内で入力してください。',
+                'area_name.required'   => '行' . $lineNumber . ': エリア名は必須です。',
+                'area_name.in'         => '行' . $lineNumber . ': エリア名は「東京都」「大阪府」「福岡県」のいずれかを指定してください。',
+                'genre_name.required'  => '行' . $lineNumber . ': ジャンルは必須です。',
+                'genre_name.in'        => '行' . $lineNumber . ': ジャンルは「寿司」「焼肉」「イタリアン」「居酒屋」「ラーメン」のいずれかを指定してください。',
+                'description.required' => '行' . $lineNumber . ': 店舗概要は必須です。',
+                'description.max'      => '行' . $lineNumber . ': 店舗概要は最大400文字以内で入力してください。',
+                'image_url.required'   => '行' . $lineNumber . ': 画像URLは必須です。',
             ]);
+
 
             if ($rowValidator->fails()) {
                 $errors[$lineNumber] = $rowValidator->errors()->all();
