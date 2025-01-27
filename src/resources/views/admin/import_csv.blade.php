@@ -5,39 +5,38 @@
 @endsection
 
 @section('content')
-<div class="mail__alert">
+<div class="csv-import-container">
     @if ($errors->any())
-    <div class="alert alert-danger">
-        <ul>
+    <div class="csv-alert">
+        <ul class="csv-alert-list">
             @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
+            <li class="csv-alert-item">{{ $error }}</li>
             @endforeach
         </ul>
     </div>
     @endif
 
-</div>
-
-
-<div class="csv__form">
-    <form action="{{ route('admin.csv.store')}}" method="post" enctype="multipart/form-data">
-        @csrf
-        <div class="form__group">
-            <div class="form__group-title">
-                <span class="form__label--item">CSVファイル</span>
-            </div>
-            <div class="form__group-content">
-                <div class="form__group__input">
-                    <input type="file" name="csv">
-                </div>
-                <div class="form__error">
-                    @error('csv')
-                    {{ $message }}
-                    @enderror
-                </div>
-            </div>
+    <div class="csv-form-wrapper">
+        <div class="csv-form-title">
+            <h2 class="title-heading">CSVインポートによる店舗追加</h2>
         </div>
-        <button type="submit" class="btn btn-primary">インポート</button>
-    </form>
+        <form action="{{ route('admin.csv.store') }}" method="post" enctype="multipart/form-data" class="csv-form">
+            @csrf
+            <div class="csv-form-group">
+                <label for="csv-file" class="csv-form-label">CSVファイル <span class="required">*</span></label>
+                <input type="file" name="csv" id="csv-file" class="csv-form-input">
+                @error('csv')
+                <p class="csv-form-error">{{ $message }}</p>
+                @enderror
+            </div>
+            <div class="csv-form-actions">
+                <button type="submit" class="csv-form-submit">インポート</button>
+            </div>
+        </form>
+        
+    </div>
+    <div class="back__button">
+        <a href="/admin/dashboard">戻る</a>
+    </div>
 </div>
 @endsection
