@@ -24,7 +24,7 @@ class ReviewController extends Controller
 
     public function index($shop_id)
     {
-        $shop = Shop::findOrFail($shop_id);
+        $shop = Shop::withCount('reviews')->findOrFail($shop_id);
         $reviews = Review::with('user')->where('shop_id', $shop_id)->get();
         return view('review.review_index', compact('reviews', 'shop'));
     }

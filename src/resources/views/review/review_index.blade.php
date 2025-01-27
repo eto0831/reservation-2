@@ -5,37 +5,57 @@
 @endsection
 
 @section('content')
-<h2>{{ $shop->shop_name }}のレビュー一覧</h2>
+<div class="review-list__content">
+    <div class="review-list__heading">
+        <h2>{{ $shop->shop_name }}のレビュー一覧</h2>
+    </div>
+    <div class="review-info">
+        <p class="shop__rating-inner">
+            <span class="shop__rating-item">平均評価: {{ number_format($shop->avg_rating, 1) }} / 5</span>
+            <span class="shop__rating-item">評価数: {{ $shop->reviews_count }} 件</span>
+        </p>
+    </div>
 
-@if ($reviews->isEmpty())
-    <p>レビューはまだありません</p>
-@else
-    <ul>
+    @if ($reviews->isEmpty())
+    <div class="review__message">
+        <p class="review__message-item">レビューはまだありません</p>
+    </div>
+    @else
+    <ul class="review__lists-container">
         @foreach($reviews as $review)
-            <li>
-                <div>
-                    <p>
-                        レーティング：{{ $review->rating }} / 5<br>
-                        コメント：{{ $review->comment }}<br>
-                        投稿者：{{ $review->user->name }}
-                    </p>
-                </div>
+        <li class="review__lists-item">
+            <div class="review-item">
+                <p>投稿者：{{ $review->user->name }}</p>
+                <p>レーティング：{{ $review->rating }} / 5</p>
+                <p>コメント：{{ $review->comment }}</p>
 
-                <!-- adminだけ削除ボタンを表示 -->
-                @if (Auth::user() && Auth::user()->hasRole('admin'))
-                    <form action="{{ route('review.delete') }}" method="post" style="display: inline;">
-                        @csrf
-                        @method('DELETE')
-                        <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                        <input type="hidden" name="review_id" value="{{ $review->id }}">
-                        <button type="submit" class="delete-button" onclick="return confirm('この投稿を削除しますか？')">投稿を削除</button>
-                    </form>
+                {{-- レビュー画像を表示 --}}
+                @if ($review->review_image_url)
+                <div class="review__img-container">
+                    <img class="review__img-item" src="{{ Storage::url($review->review_image_url) }}" alt="レビュー画像"
+                        style="max-width: 200px;">
+                </div>
                 @endif
-            </li>
+
+            </div>
+
+            {{-- adminだけ削除ボタンを表示 --}}
+            @if (Auth::user() && Auth::user()->hasRole('admin'))
+            <form class="delete-form" action="{{ route('review.delete') }}" method="post" style="display: inline;">
+                @csrf
+                @method('DELETE')
+                <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+                <input type="hidden" name="review_id" value="{{ $review->id }}">
+                <button type="submit" class="delete-button" onclick="return confirm('この投稿を削除しますか？')">投稿を削除</button>
+            </form>
+            @endif
+        </li>
         @endforeach
     </ul>
-@endif
+    @endif
 
-<!-- 必要に応じて詳細ページへのリンクを追加 -->
-<a href="{{ route('detail', ['shop_id' => $shop->id]) }}">店舗詳細に戻る</a>
+
+    <a class="back-button" href="{{ route('detail', ['shop_id' => $shop->id]) }}">店舗詳細に戻る</a>
+
+</div>
 @endsection
