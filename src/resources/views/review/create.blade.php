@@ -20,7 +20,9 @@
 @endif
 <div class="review-form__wrapper">
     <div class="shop-card__box">
-        <h2 class="shop-card__box-heading">{{ isset($review) ? '口コミを編集する' : '今回のご利用はいかがでしたか？' }}</h2>
+        <div class="shop-card__box-heading">
+            <h2 class="shop-card__box-heading--title">{{ isset($review) ? '口コミを編集する' : '今回のご利用はいかがでしたか？' }}</h2>
+        </div>
         @include('components.shop-card', ['shop' => $shop])
     </div>
     <div class="review-form__content">
