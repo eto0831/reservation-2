@@ -158,6 +158,10 @@
         height: 20px;
 
     }
+
+    .shop__wrap {
+        justify-content: center;
+    }
 }
 
 @media (max-width: 380px) {
@@ -175,5 +179,9 @@
     .sort-select {
         height: 20px;
 
+    }
+
+    .shop__wrap {
+        justify-content: center;
     }
 }
