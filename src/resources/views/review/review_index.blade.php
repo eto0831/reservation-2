@@ -27,7 +27,7 @@
         <li class="review__lists-item">
             <div class="review-item">
                 <p>投稿者：{{ $review->user->name }}</p>
-                <p>レーティング：{{ $review->rating }} / 5</p>
+                <p>評価：{{ $review->rating }} / 5</p>
                 <p>コメント：{{ $review->comment }}</p>
 
                 {{-- レビュー画像を表示 --}}
