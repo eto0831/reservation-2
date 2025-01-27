@@ -80,9 +80,4 @@ class User extends Authenticatable implements MustVerifyEmail
         return null; // 該当する予約がない場合は null を返す
     }
 
-    // 現状下記は機能させていない。
-    // public function getReservationsAttribute()
-    // {
-    //     return $this->reservations()->with(['shop', 'shop.genre', 'shop.area'])->get();
-    // }
 }
