@@ -24,7 +24,8 @@
         @include('components.shop-card', ['shop' => $shop])
     </div>
     <div class="review-form__content">
-        <form class="review__form" action="{{ isset($review) ? route('review.update', $review->id) : route('review.store') }}" method="post"
+        <form class="review__form"
+            action="{{ isset($review) ? route('review.update', $review->id) : route('review.store') }}" method="post"
             enctype="multipart/form-data">
             @csrf
             @if (isset($review))
@@ -41,7 +42,7 @@
 
             {{-- 評価（星形式） --}}
             <div class="review__form-items">
-                <label class="review__form-label" for="rating">体験を評価してください:</label>
+                <label class="review__form-label-item" for="rating">体験を評価してください</label>
                 <div class="rating-stars" id="rating-stars">
                     @for ($i = 1; $i <= 5; $i++) <span
                         class="star {{ old('rating', $review->rating ?? 0) >= $i ? 'selected' : '' }}"
@@ -54,8 +55,8 @@
 
             {{-- コメント --}}
             <div class="review__form-items">
-                <label class="review__form-label" for="comment">口コミを投稿:</label>
-                <textarea name="comment" id="comment"
+                <label class="review__form-label-item" for="comment">口コミを投稿</label>
+                <textarea class="review__form-items-comment" name="comment" id="comment"
                     placeholder="カジュアルな夜のお出かけにお勧めのスポット">{{ old('comment', $review->comment ?? '') }}</textarea>
             </div>
 
@@ -65,19 +66,20 @@
                 <div class="review__form-items-title">
                     <span class="form__label--item">現在の画像</span>
                 </div>
-                <div>
-                    <img src="{{ Storage::url($review->review_image_url) }}" alt="現在の画像" style="max-width: 200px;">
+                <div class="current__image">
+                    <img class="current__image-img" src="{{ Storage::url($review->review_image_url) }}" alt="現在の画像"
+                        style="max-width: 200px;">
                 </div>
             </div>
 
             {{-- 画像削除オプション --}}
             <div class="review__form-items">
                 <div class="review__form-items-title">
-                    <span class="form__label--item">画像の削除</span>
+                    <span class="review__form-label-item">画像の削除</span>
                 </div>
-                <div class="form__group-content">
-                    <label>
-                        <input type="checkbox" name="delete_image" value="1">
+                <div class="review__form-items-title">
+                    <label class="review__form-label-item">
+                        <input class="review__form-items-checkbox" type="checkbox" name="delete_image" value="1">
                         現在の画像を削除する
                     </label>
                 </div>
@@ -86,8 +88,8 @@
 
             {{-- 画像アップロード（ドラッグアンドドロップ対応） --}}
             <div class="review__form-items">
-                <div class="form__group-title">
-                    <span class="form__label--item">画像アップロード</span>
+                <div class="review__form-items-title">
+                    <span class="review__form-label-item">画像の追加</span>
                 </div>
                 <div class="review__form-items">
                     {{-- ファイル入力は非表示 --}}
@@ -106,9 +108,12 @@
             </div>
 
             {{-- ボタン --}}
-            <button type="submit" onclick="return confirm('{{ isset($review) ? 'この内容で更新しますか？' : 'この内容で投稿しますか？' }}')">
-                {{ isset($review) ? '更新' : '投稿' }}
-            </button>
+            <div class="review-form__button">
+                <button class="review-form__button-submit" type="submit"
+                    onclick="return confirm('{{ isset($review) ? 'この内容で更新しますか？' : 'この内容で投稿しますか？' }}')">
+                    {{ isset($review) ? '口コミを更新' : '口コミを投稿' }}
+                </button>
+            </div>
         </form>
     </div>
 </div>
