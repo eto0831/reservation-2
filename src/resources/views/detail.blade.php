@@ -72,30 +72,35 @@
             {{-- 自分のレビュー --}}
             @if($userReview)
             <div class="my-review__container">
-                <div class="my-review__links">
-                    <a class="my-review__links-item" href="{{ route('review.edit', $userReview->id) }}">編集</a>
-                    <form class="my-review__links-item" action="{{ route('review.delete') }}" method="post">
-                        @csrf
-                        @method('DELETE')
-                        <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                        <input type="hidden" name="review_id" value="{{ $userReview->id }}">
-                        <button class="my-review__links-button-submit" type="submit" onclick="return confirm('レビューを削除しますか？')">削除</button>
-                    </form>
+                <div class="my-review__header">
+                    <div class="my-review__links">
+                        <a class="my-review__links-item" href="{{ route('review.edit', $userReview->id) }}">編集</a>
+                        <form class="my-review__links-item" action="{{ route('review.delete') }}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <input type="hidden" name="shop_id" value="{{ $shop->id }}">
+                            <input type="hidden" name="review_id" value="{{ $userReview->id }}">
+                            <button class="my-review__links-button-submit" type="submit"
+                                onclick="return confirm('レビューを削除しますか？')">削除</button>
+                        </form>
+                    </div>
                 </div>
                 <div class="my-review__content">
                     <div class="my-review__content-rating">
-                        <p> {{ $userReview->rating }} </p>
+                        <p class="my-review__stars" data-rating="{{ $userReview->rating }}"></p>
                     </div>
                     <div class="my-review__content-comment">
-                        <p> {{ $userReview->comment }} </p>
+                        <p>{{ $userReview->comment }}</p>
                     </div>
                     <div class="my-review__img-container">
                         @if ($userReview && $userReview->review_image_url)
-                        <img class="my-review__img-item" id="currentImage" src="{{ Storage::url($userReview->review_image_url) }}" alt="現在の画像">
+                        <img class="my-review__img-item" id="currentImage"
+                            src="{{ Storage::url($userReview->review_image_url) }}" alt="現在の画像">
                         @endif
                     </div>
                 </div>
             </div>
+
             @endif
             @endif
             @else
@@ -178,6 +183,12 @@ document.getElementById('reserve_time').addEventListener('input', function() {
 
 document.getElementById('guest_count').addEventListener('input', function() {
     document.getElementById('display_guests').innerText = this.value + " 人";
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+    const stars = document.querySelector('.my-review__stars');
+    const rating = stars.getAttribute('data-rating');
+    stars.style.setProperty('--rating', rating);
 });
 </script>
 @endsection
