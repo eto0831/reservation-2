@@ -208,10 +208,6 @@
     vertical-align: middle;
 }
 
-.review-form__link {
-
-}
-
 .review-form__link-item {
     color: #000;
     border: none;
@@ -225,10 +221,21 @@
 }
 
 .my-review__container {
-    border-top: 2px solid #000;
-    border-bottom: 4px solid #000;
+    border-top: 2px solid #c7c7c7;
+    border-bottom: 2px solid #c7c7c7;
     padding: 10px;
     margin-bottom: 20px;
+    position: relative; /* 擬似要素のために必要 */
+}
+
+.my-review__container::after {
+    content: "";
+    position: absolute;
+    bottom: -2px; /* 下部ボーダーと揃える */
+    right: -40px; /* 右に60px伸ばす */
+    height: 2px; /* ボーダーの高さ */
+    width: 40px; /* ボーダーの幅 */
+    background-color: #c7c7c7; /* ボーダーの色 */
 }
 
 .my-review__header {
@@ -239,51 +246,52 @@
 
 .my-review__links {
     display: flex;
+    gap: 15px;
 }
 
-.my-review__links-item {
-    margin-left: 10px;
-    color: #007bff;
-    cursor: pointer;
-    text-decoration: none;
-    padding: 5px 10px;
-    border: 1px solid #007bff;
-    border-radius: 5px;
-    transition: background-color 0.2s, color 0.2s;
-}
-
-.my-review__links-item:hover {
-    background-color: #007bff;
-    color: #fff;
-}
-
+.my-review__links-item,
 .my-review__links-button-submit {
+    color: #000;
+    text-decoration: underline;
     background: none;
     border: none;
-    color: #007bff;
+    padding: 0;
+    font: inherit;
     cursor: pointer;
+    font-weight: normal;
+    font-size: 14px;
+}
+
+/* ホバー時のスタイル */
+.my-review__links-item:hover,
+.my-review__links-button-submit:hover {
+    color: #0056b3;
+    text-decoration: none;
 }
 
 .my-review__content {
-    margin-top: 20px;
+    margin-top: 10px;
 }
 
 .my-review__content-rating {
     display: flex;
     align-items: center;
+    height: 28px;
 }
 
 .my-review__stars {
     display: inline-block;
-    font-size: 32px;
+    font-size: 28px;
 }
 
 .my-review__stars::before {
     content: '★★★★★';
+    display: inline-block;
     letter-spacing: 3px;
     background: linear-gradient(90deg, #0020ef calc(var(--rating) * 20%), #e4e5e9 calc(var(--rating) * 20%));
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+    line-height: 1;
 }
 
 

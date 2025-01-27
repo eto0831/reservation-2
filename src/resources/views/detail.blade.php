@@ -74,14 +74,14 @@
             <div class="my-review__container">
                 <div class="my-review__header">
                     <div class="my-review__links">
-                        <a class="my-review__links-item" href="{{ route('review.edit', $userReview->id) }}">編集</a>
+                        <a class="my-review__links-item" href="{{ route('review.edit', $userReview->id) }}">口コミを編集</a>
                         <form class="my-review__links-item" action="{{ route('review.delete') }}" method="post">
                             @csrf
                             @method('DELETE')
                             <input type="hidden" name="shop_id" value="{{ $shop->id }}">
                             <input type="hidden" name="review_id" value="{{ $userReview->id }}">
                             <button class="my-review__links-button-submit" type="submit"
-                                onclick="return confirm('レビューを削除しますか？')">削除</button>
+                                onclick="return confirm('レビューを削除しますか？')">口コミを削除</button>
                         </form>
                     </div>
                 </div>
