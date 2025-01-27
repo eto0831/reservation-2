@@ -21,6 +21,10 @@
     color: white;
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    position: sticky;
+    top: 0; /* ビューポートの上部からの距離 */
+    height: auto; /* 必要に応じて高さを調整 */
+    overflow-y: auto;
 }
 
 .shop__info {
@@ -271,7 +275,7 @@
 
 .my-review__stars {
     display: inline-block;
-    font-size: 24px;
+    font-size: 32px;
 }
 
 .my-review__stars::before {
