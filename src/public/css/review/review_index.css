@@ -98,3 +98,18 @@
         max-height: 100%;
     }
 }
+/* 星のスタイル */
+.stars {
+    display: inline-block;
+    font-size: 24px;
+    line-height: 1;
+    position: relative;
+}
+
+.stars::before {
+    content: '★★★★★';
+    letter-spacing: 3px;
+    background: linear-gradient(90deg, #0020ef calc(var(--rating) * 20%), #e4e5e9 calc(var(--rating) * 20%));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}

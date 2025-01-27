@@ -27,7 +27,7 @@
         <li class="review__lists-item">
             <div class="review-item">
                 <p>投稿者：{{ $review->user->name }}</p>
-                <p>評価：{{ $review->rating }} / 5</p>
+                <p class="star-rating"><span class="stars" data-rating="{{ $review->rating }}"></span></p>
                 <p>コメント：{{ $review->comment }}</p>
 
                 {{-- レビュー画像を表示 --}}
@@ -79,5 +79,12 @@
     });
 });
 
+document.addEventListener('DOMContentLoaded', function() {
+        const stars = document.querySelectorAll('.stars');
+        stars.forEach(function(star) {
+            const rating = star.getAttribute('data-rating');
+            star.style.setProperty('--rating', rating);
+        });
+    });
 </script>
 @endsection

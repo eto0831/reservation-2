@@ -92,19 +92,22 @@ class ReviewController extends Controller
             'comment' => $request->input('comment'),
         ];
 
-        if ($request->input('delete_image')) {
-            $this->deleteImage($review->review_image_url);
-            $reviewData['review_image_url'] = null;
-        }
-
+        // 古い画像を削除する処理を追加
         if ($request->hasFile('review_image_url')) {
+            if ($review->review_image_url) {
+                $this->deleteImage($review->review_image_url); // 古い画像を削除
+            }
+
             $path = config('app.env') === 'production'
                 ? $request->file('review_image_url')->store('images/reviews', 's3') // S3
                 : $request->file('review_image_url')->store('images/reviews', 'public'); // ローカル
 
-            $reviewData['review_image_url'] = $path; // 相対パスを保存
+            $reviewData['review_image_url'] = $path; // 新しい画像を保存
+        } elseif ($request->input('delete_image')) {
+            // 明示的に削除チェックボックスがオンの場合も古い画像を削除
+            $this->deleteImage($review->review_image_url);
+            $reviewData['review_image_url'] = null;
         }
-
 
         $review->update($reviewData);
 
@@ -116,6 +119,7 @@ class ReviewController extends Controller
         return redirect()->route('detail', ['shop_id' => $review->shop_id])
             ->with('status', 'レビューを更新しました');
     }
+
 
     private function deleteImage($imageUrl)
     {
