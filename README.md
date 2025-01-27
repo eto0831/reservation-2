@@ -167,6 +167,26 @@ AWS上で予約照合する際、カメラのアクセスを許可するため�
 その後再起動ボタンを押しクロームを再起動してください。  
 再起動後にカメラの許可を求められますので許可してください。  
 
+### csvインポート機能およびcsv記載方法
+管理者ログイン後、ハンバーガーボタンを押すと表示される、「Admin」リンクをクリックしてください。  
+管理者は管理者ページ内の「csvインポート」へお進みください。  
+下記説明要綱を満たしたcsvファイルを選択しアップロードをしてください。  
+
+csvファイルの記載方法は一行目に「shop_name,area_name,genre_name,description,image_url」、  
+二行目以降は「テスト店舗,東京都,寿司,テスト店舗説明文,images/shops/sushi.jpg」  
+の様に記載し、text形式またはcsv形式にてメモ帳等で保存してください。  
+※今回扱えるファイル名はsushi.jpg、yakiniku.jpg、ramen.jpg、italian.jpg、izakaya.jpgのみです。  
+新しく画像を足す場合はあらかじめ、src/storage/app/public/images/shopsフォルダに画像を入れ、  
+csvファイル内でそのファイル名をsushi.jpg（例）のような形で指定してください。  
+- 項目は全て入力必須  
+- 店舗名：50文字以内  
+- 地域：「東京都」「大阪府」「福岡県」のいずれか  
+- ジャンル：「寿司」「焼肉」「イタリアン」「居酒屋」「ラーメン」のいずれか  
+- 店舗概要：400文字以内  
+- 画像URL：jpg、jpeg、pngのみアップロード可  
+
+（[CSVサンプル](csvサンプル.csv)）参考例はこちらからダウンロードをお願いします。  
+
 ## 注意事項
 1. もし店舗画像がない、または表示されない場合は、  
 <https://reservation-aws-bucket-eto0831.s3.ap-northeast-1.amazonaws.com/images/shops/italian.jpg>
