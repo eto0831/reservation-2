@@ -1,0 +1,87 @@
+.shop__rating-inner{
+    display: flex;
+    gap: 20px;
+}
+
+/* レビュー全体のスタイル */
+.review__lists-container {
+    border-top: 2px solid #c7c7c7; /* リスト全体の上端ボーダー */
+    border-bottom: 2px solid #c7c7c7; /* リスト全体の下端ボーダー */
+    padding: 0;
+    margin: 0;
+    list-style: none; /* リストのマーカーを削除 */
+}
+
+.review__lists-item {
+    padding: 10px;
+    border-bottom: 2px solid #c7c7c7; /* 各アイテムの下ボーダー */
+    background: transparent;
+}
+
+/* 最後のアイテムのボーダーを削除 */
+.review__lists-item:last-child {
+    border-bottom: none;
+}
+
+/* 画像のスタイル */
+.review__img-item {
+    width: 65px;
+    height: 40px;
+    border-radius: 3px;
+    object-fit: cover; /* 画像を枠に合わせて切り取る */
+    cursor: pointer; /* クリック可能な見た目 */
+    transition: transform 0.3s ease;
+}
+
+/* 画像拡大用のスタイル */
+.review__img-item.fullscreen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(2);
+    z-index: 1000;
+    width: auto;
+    height: auto;
+    max-width: 90%;
+    max-height: 90%;
+    border: 2px solid #000;
+    background: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+/* === レスポンシブ対応 === */
+
+/* 画面幅が768px以下の場合 */
+@media (max-width: 768px) {
+    .review__lists-item {
+        padding: 8px;
+    }
+
+    .review__img-item {
+        width: 50px;
+        height: 30px;
+    }
+
+    .review__img-item.fullscreen {
+        max-width: 95%;
+        max-height: 95%;
+    }
+}
+
+/* 画面幅が480px以下の場合 */
+@media (max-width: 480px) {
+    .review__lists-item {
+        padding: 6px;
+        font-size: 14px; /* テキストを少し小さく */
+    }
+
+    .review__img-item {
+        width: 45px;
+        height: 28px;
+    }
+
+    .review__img-item.fullscreen {
+        max-width: 100%;
+        max-height: 100%;
+    }
+}

@@ -2,6 +2,7 @@
 
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/review/review_index.css') }}">
+
 @endsection
 
 @section('content')
@@ -58,4 +59,25 @@
     <a class="back-button" href="{{ route('detail', ['shop_id' => $shop->id]) }}">店舗詳細に戻る</a>
 
 </div>
+
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+    const imgItems = document.querySelectorAll('.review__img-item'); // すべての画像を取得
+
+    imgItems.forEach(img => {
+        img.addEventListener('click', function () {
+            this.classList.toggle('fullscreen'); // クリック時に拡大/縮小を切り替え
+        });
+    });
+
+    // フルスクリーン時に画像以外をクリックして閉じる
+    document.addEventListener('click', function (e) {
+        const fullscreenImg = document.querySelector('.review__img-item.fullscreen');
+        if (fullscreenImg && !fullscreenImg.contains(e.target)) {
+            fullscreenImg.classList.remove('fullscreen');
+        }
+    });
+});
+
+</script>
 @endsection

@@ -63,14 +63,14 @@
 
 .shop__img-container {
     width: 100%;
-    height: 350px;
+    height: auto;
     overflow: hidden;
     background-color: #f8f8f8;
 }
 
 .shop__img {
     width: 100%;
-    height: 100%;
+    height: auto; /* 高さを自動調整 */
     object-fit: cover;
     display: block;
 }
@@ -346,5 +346,25 @@
 
     .reservation__form {
         margin-top: 0px;
+    }
+
+    .shop__img-container {
+        height: auto; /* 高さを自動にして縦横比を維持 */
+    }
+
+    .shop__img {
+        width: 100%;
+        height: auto; /* 縦横比を保ちながら縮小 */
+    }
+}
+
+@media (max-width: 375px) {
+    .shop__img-container {
+        height: auto; /* 高さをさらに調整 */
+    }
+
+    .shop__img {
+        width: 100%;
+        height: auto;
     }
 }
