@@ -294,6 +294,38 @@
     line-height: 1;
 }
 
+.my-review__img-item {
+    width: 65px;
+    height: 40px;
+    object-fit: cover;
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    border-radius: 3px;
+}
+
+.my-review__img-item:hover {
+    transform: scale(1.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+/* 拡大表示用のスタイル */
+.my-review__img-item.fullscreen {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: auto;
+    height: auto;
+    max-width: 90%;
+    max-height: 90%;
+    z-index: 1000;
+    cursor: zoom-out;
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+    background-color: white;
+    border: 2px solid rgba(0, 0, 0, 0.2);
+}
+
+
 
 
 

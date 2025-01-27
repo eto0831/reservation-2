@@ -190,5 +190,16 @@ document.addEventListener('DOMContentLoaded', function() {
     const rating = stars.getAttribute('data-rating');
     stars.style.setProperty('--rating', rating);
 });
+
+document.addEventListener('DOMContentLoaded', function () {
+    const imgItem = document.querySelector('.my-review__img-item');
+
+    if (imgItem) {
+        imgItem.addEventListener('click', function () {
+            this.classList.toggle('fullscreen');
+        });
+    }
+});
+
 </script>
 @endsection
