@@ -3,46 +3,6 @@
 @section('css')
 <link rel="stylesheet" href="{{ asset('css/review/create.css') }}">
 <link rel="stylesheet" href="{{ asset('css/components/shop-card.css') }}">
-<style>
-    /* ドラッグアンドドロップエリアのスタイル */
-    .drag-drop-area {
-        border: 2px dashed #ccc;
-        padding: 20px;
-        text-align: center;
-        cursor: pointer;
-        color: #aaa;
-        margin-top: 10px;
-    }
-
-    .drag-drop-area.dragover {
-        border-color: #000;
-        color: #000;
-    }
-
-    .drag-drop-area img {
-        max-width: 100%;
-        height: auto;
-        display: none;
-        margin-top: 10px;
-    }
-
-    /* 評価の星のスタイル */
-    .rating-stars {
-        display: flex;
-        gap: 5px;
-        cursor: pointer;
-    }
-
-    .rating-stars .star {
-        font-size: 30px;
-        color: #ccc;
-        transition: color 0.2s;
-    }
-
-    .rating-stars .star.selected {
-        color: #0020ef;
-    }
-</style>
 @endsection
 
 @section('content')
@@ -81,7 +41,7 @@
 
             {{-- 評価（星形式） --}}
             <div class="review__form-items">
-                <label class="review__form-label for="rating">体験を評価してください:</label>
+                <label class="review__form-label" for="rating">体験を評価してください:</label>
                 <div class="rating-stars" id="rating-stars">
                     @for ($i = 1; $i <= 5; $i++) <span
                         class="star {{ old('rating', $review->rating ?? 0) >= $i ? 'selected' : '' }}"
@@ -94,15 +54,15 @@
 
             {{-- コメント --}}
             <div class="review__form-items">
-                <label for="comment">口コミを投稿:</label>
+                <label class="review__form-label" for="comment">口コミを投稿:</label>
                 <textarea name="comment" id="comment"
                     placeholder="カジュアルな夜のお出かけにお勧めのスポット">{{ old('comment', $review->comment ?? '') }}</textarea>
             </div>
 
             {{-- 現在の画像 --}}
             @if (isset($review) && $review->review_image_url)
-            <div class="form__group">
-                <div class="form__group-title">
+            <div class="review__form-items">
+                <div class="review__form-items-title">
                     <span class="form__label--item">現在の画像</span>
                 </div>
                 <div>
@@ -111,8 +71,8 @@
             </div>
 
             {{-- 画像削除オプション --}}
-            <div class="form__group">
-                <div class="form__group-title">
+            <div class="review__form-items">
+                <div class="review__form-items-title">
                     <span class="form__label--item">画像の削除</span>
                 </div>
                 <div class="form__group-content">
@@ -125,11 +85,11 @@
             @endif
 
             {{-- 画像アップロード（ドラッグアンドドロップ対応） --}}
-            <div class="form__group">
+            <div class="review__form-items">
                 <div class="form__group-title">
                     <span class="form__label--item">画像アップロード</span>
                 </div>
-                <div class="form__group-content">
+                <div class="review__form-items">
                     {{-- ファイル入力は非表示 --}}
                     <input type="file" name="review_image_url" id="image" style="display: none;">
                     {{-- ドラッグアンドドロップエリア --}}
