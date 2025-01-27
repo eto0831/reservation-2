@@ -204,7 +204,7 @@ class AdminController extends Controller
             // 各行のバリデーション
             $rowValidator = Validator::make($data, [
                 'shop_name'   => 'required|string|max:50',
-                'area_name'   => 'required|in:東京,大阪,福岡',
+                'area_name'   => 'required|in:東京都,大阪府,福岡県',
                 'genre_name'  => 'required|in:寿司,焼肉,イタリアン,居酒屋,ラーメン',
                 'image_url'   => 'required|string', // 相対パスを必須にする
 
