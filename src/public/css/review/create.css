@@ -13,125 +13,155 @@
     justify-content: space-between;
 }
 
+/* ドラッグアンドドロップエリアのスタイル */
+.drag-drop-area {
+    border: none;
+    padding: 20px;
+    text-align: center;
+    cursor: pointer;
+    color: #aaa;
+    margin-top: 10px;
+    background: white;
+}
 
-    /* ドラッグアンドドロップエリアのスタイル */
-    .drag-drop-area {
-        border: none;
-        padding: 20px;
-        text-align: center;
-        cursor: pointer;
-        color: #aaa;
-        margin-top: 10px;
-        background: white;
-    }
+.drag-drop-area.dragover {
+    border-color: #000;
+    color: #000;
+}
 
-    .drag-drop-area.dragover {
-        border-color: #000;
-        color: #000;
-    }
+.drag-drop-area img {
+    max-width: 100%;
+    height: auto;
+    display: none;
+    margin-top: 10px;
+}
 
-    .drag-drop-area img {
-        max-width: 100%;
-        height: auto;
-        display: none;
-        margin-top: 10px;
-    }
+/* 評価の星のスタイル */
+.rating-stars {
+    display: flex;
+    gap: 5px;
+    cursor: pointer;
+}
 
-    /* 評価の星のスタイル */
-    .rating-stars {
-        display: flex;
-        gap: 5px;
-        cursor: pointer;
-    }
+.rating-stars .star {
+    font-size: 30px;
+    color: #ccc;
+    transition: color 0.2s;
+}
 
-    .rating-stars .star {
-        font-size: 30px;
-        color: #ccc;
-        transition: color 0.2s;
-    }
+.rating-stars .star.selected {
+    color: #0020ef;
+}
 
-    .rating-stars .star.selected {
-        color: #0020ef;
-    }
-
-
-    /* 全体 */
+/* 全体 */
 .review-form__wrapper {
-    display: flex; /* ショップカードとフォームを横に並べる */
-    gap: 30px; /* ショップカードとフォームの間隔 */
-  }
-  
-  /* ショップカード */
-  .shop-card__box {
-    width: 40%; /* ショップカードの幅 */
+    display: flex;
+
+    gap: 30px;
+}
+
+/* ショップカード */
+.shop-card__box {
+    width: 40%;
+    height: auto;
     border-right: solid 2px #c7c7c7;
-  }
-  
-  .shop-card__box-heading {
-    margin-bottom: 20px; /* 見出しの下のマージン */
-  }
-  
-  /* フォーム */
-  .review-form__content {
-    width: 60%; /* フォームの幅 */
-  }
-  
-  .review__form {
-    padding: 20px; /* フォームのパディング */
-    border-radius: 5px; /* フォームの角丸 */
-  }
-  
-  .review__form-items {
-    margin-bottom: 20px; /* 各項目の下のマージン */
-  }
-  
-  .review__form-label {
-    display: block; /* ラベルをブロック要素にする */
-    margin-bottom: 5px; /* ラベルの下のマージン */
-  }
-  
-  .review__form-items-comment{
+}
+
+.shop-card__box-heading {
+    margin-bottom: 20px;
+}
+
+/* フォーム */
+.review-form__content {
+    width: 60%;
+}
+
+.review__form {
+    padding: 20px;
+    border-radius: 5px;
+}
+
+.review__form-items {
+    margin-bottom: 20px;
+}
+
+.review__form-label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.review__form-items-comment {
     background: transparent;
     width: 100%;
     padding: 10px;
     border: 2px solid #ccc;
     box-sizing: border-box;
-    resize: vertical; /* テキストエリアの垂直方向のリサイズのみ許可 */
     height: 150px;
-    resize: none; 
-  }
-  
-  .review__form-items-title {
-    margin-bottom: 10px; /* タイトルの下のマージン */
-  }
-  .review__form-label-item {
+    resize: none;
+}
+
+.review__form-items-title {
+    margin-bottom: 10px;
+}
+.review__form-label-item {
     font-size: 24px;
-  }
-  
-  .form__label--item {
-    font-weight: bold; /* タイトルのフォントを太字にする */
-  }
-  
-  .current__image {
-    display: flex; /* 画像を flexbox で配置 */
-    justify-content: center; /* 画像を中央揃え */
-    align-items: center; /* 画像を垂直方向に中央揃え */
-    border: 1px solid #ccc; /* 枠線を追加 */
-    padding: 10px; /* パディングを追加 */
-    border-radius: 5px; /* 角丸を追加 */
-  }
-  
-  .form__group-content {
+}
+
+.form__label--item {
+    font-weight: bold;
+}
+
+.current__image {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid #ccc;
+    padding: 10px;
+    border-radius: 5px;
+}
+
+.form__group-content {
     margin-top: 10px; /* コンテンツの上のマージン */
-  }
-  
-  .review-form__button-submit {
-    background-color: white; /* ボタンの背景色 */
-    color: #000; /* ボタンの文字色 */
-    padding: 10px 20px; /* ボタンのパディング */
-    border: none; /* ボタンのボーダーを削除 */
-    border-radius: 23px; /* ボタンの角丸 */
-    cursor: pointer; /* ボタンにカーソルをポインターにする */
+}
+
+.review-form__button-submit {
+    background-color: white;
+    color: #000;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 23px;
+    cursor: pointer;
     font-weight: bold;
     font-size: 18px;
-  }
+}
+
+/* 768px以下の場合 */
+@media (max-width: 768px) {
+    .review-form__wrapper {
+        flex-direction: column;
+        gap: 20px;
+    }
+
+    .shop-card__box {
+        width: 100%;
+        border-right: none;
+        border-bottom: solid 2px #c7c7c7;
+        margin-bottom: 20px;
+    }
+
+    .review-form__content {
+        width: 100%;
+    }
+}
+
+/* 480px以下の場合 */
+@media (max-width: 480px) {
+    .review__form-label-item {
+        font-size: 18px;
+    }
+
+    .review-form__button-submit {
+        font-size: 16px;
+    }
+    
+}
