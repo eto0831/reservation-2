@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', function () {
     });
 
     // ドキュメント全体のクリックイベント
-    document.addEventListener('click', (e) => {
+    document.addEventListener('click', e => {
         let isClickInsideAnySelect = false;
 
         // クリックがどれかのセレクタ内かチェック
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', function () {
 
     // 各セレクタの操作時に外部のリセットを無効化
     allSelects.forEach(select => {
-        select.addEventListener('change', (e) => {
+        select.addEventListener('change', e => {
             e.stopPropagation();
         });
     });

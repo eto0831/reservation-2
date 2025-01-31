@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
     // 画像アップロード関連
     const inputImage = document.getElementById('image');
     const dragDropArea = document.getElementById('drag-drop-area');
@@ -8,17 +8,17 @@ document.addEventListener('DOMContentLoaded', function() {
         handleFiles(inputImage.files);
     });
 
-    dragDropArea.addEventListener('dragover', function(e) {
+    dragDropArea.addEventListener('dragover', function (e) {
         e.preventDefault();
         dragDropArea.classList.add('dragover');
     });
 
-    dragDropArea.addEventListener('dragleave', function(e) {
+    dragDropArea.addEventListener('dragleave', function (e) {
         e.preventDefault();
         dragDropArea.classList.remove('dragover');
     });
 
-    dragDropArea.addEventListener('drop', function(e) {
+    dragDropArea.addEventListener('drop', function (e) {
         e.preventDefault();
         dragDropArea.classList.remove('dragover');
         const files = e.dataTransfer.files;
@@ -26,7 +26,7 @@ document.addEventListener('DOMContentLoaded', function() {
         inputImage.files = files;
     });
 
-    dragDropArea.addEventListener('click', function() {
+    dragDropArea.addEventListener('click', function () {
         inputImage.click();
     });
 
@@ -37,7 +37,7 @@ document.addEventListener('DOMContentLoaded', function() {
             if (file.type.startsWith('image/')) {
                 const reader = new FileReader();
 
-                reader.onload = (e) => {
+                reader.onload = e => {
                     preview.src = e.target.result;
                     preview.style.display = 'block';
                 };
@@ -57,7 +57,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const ratingInput = document.getElementById('rating');
 
     stars.forEach(star => {
-        star.addEventListener('click', function() {
+        star.addEventListener('click', function () {
             const value = this.getAttribute('data-value');
 
             // すべての星をリセット
@@ -81,7 +81,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // 初期状態の文字数表示
     charCount.innerHTML = `${length}/${maxChars} <span class="max-text">(最高文字数)</span>`;
 
-    commentInput.addEventListener('input', function() {
+    commentInput.addEventListener('input', function () {
         let length = this.value.length;
 
         // 最大文字数を超えたら制限
