@@ -1,0 +1,14 @@
+{
+    "plugins": ["prettier-plugin-blade"],
+    "printWidth": 120,
+    "tabWidth": 4,
+    "useTabs": false,
+    "singleQuote": true,
+    "semi": false,
+    "trailingComma": "es5",
+    "arrowParens": "always",
+    "bladeSortHtmlAttributes": "none",
+    "bladeKeepPhpSingleLine": true,
+    "bladeWrapAttributes": "preserve",
+    "bladePhpSyntaxHighlighting": true
+}

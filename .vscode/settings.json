@@ -1,5 +1,7 @@
 {
-    "cSpell.words": [
-        "endfor"
-    ]
+    "editor.formatOnSave": true,
+
+    "[blade]": {
+        "editor.defaultFormatter": "shufo.vscode-blade-formatter"
+    }
 }
