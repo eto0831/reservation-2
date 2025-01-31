@@ -33,20 +33,15 @@
                 @endif
             </div>
 
-            <div class="shop__categories">
-                <p class="shop__categories-content">
+            <div class="shop__details">
+                <p class="shop__details-content">
                     <span>#{{ $shop->area->area_name }}</span>
                     <span>#{{ $shop->genre->genre_name }}</span>
                 </p>
+                <p class="shop__details-rating" title="☆は平均評価、()内は評価数です。">{{ number_format($shop->avg_rating, 2) }} ( {{ $shop->reviews_count }} ) </p>
             </div>
             <div class="shop__description">
                 <p>{{ $shop->description }}</p>
-            </div>
-            <div class="shop__rating">
-                <p class="shop__rating-inner">
-                    <span class="shop__rating-item">平均評価: {{ number_format($shop->avg_rating, 2) }} / 5</span>
-                    <span class="shop__rating-item">評価数: {{ $shop->reviews_count }} 件</span>
-                </p>
             </div>
         </div>
         <div class="review__wrap">

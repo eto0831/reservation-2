@@ -75,10 +75,22 @@
     display: block;
 }
 
-.shop__rating-inner {
+.shop__details {
     display: flex;
     justify-content: space-between;
 }
+
+.shop__details-rating::before {
+    margin-right: 5px;
+    content: "";
+    display: inline-block;
+    background: url('img/star.svg') no-repeat center;
+    background-size: contain;
+    width: 16px;
+    height: 16px;
+    transform: translateY(1px);
+}
+
 
 .reservation__form-container {
     display: flex;
