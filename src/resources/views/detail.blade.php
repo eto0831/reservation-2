@@ -44,7 +44,7 @@
             </div>
             <div class="shop__rating">
                 <p class="shop__rating-inner">
-                    <span class="shop__rating-item">平均評価: {{ number_format($shop->avg_rating, 1) }} / 5</span>
+                    <span class="shop__rating-item">平均評価: {{ number_format($shop->avg_rating, 2) }} / 5</span>
                     <span class="shop__rating-item">評価数: {{ $shop->reviews_count }} 件</span>
                 </p>
             </div>
@@ -171,35 +171,6 @@
         </div>
     </div>
 </div>
+<script src="{{ asset('js/detail.js') }}"></script>
 
-<script>
-    document.getElementById('reserve_date').addEventListener('input', function() {
-    document.getElementById('display_date').innerText = this.value;
-});
-
-document.getElementById('reserve_time').addEventListener('input', function() {
-    document.getElementById('display_time').innerText = this.value;
-});
-
-document.getElementById('guest_count').addEventListener('input', function() {
-    document.getElementById('display_guests').innerText = this.value + " 人";
-});
-
-document.addEventListener('DOMContentLoaded', function() {
-    const stars = document.querySelector('.my-review__stars');
-    const rating = stars.getAttribute('data-rating');
-    stars.style.setProperty('--rating', rating);
-});
-
-document.addEventListener('DOMContentLoaded', function () {
-    const imgItem = document.querySelector('.my-review__img-item');
-
-    if (imgItem) {
-        imgItem.addEventListener('click', function () {
-            this.classList.toggle('fullscreen');
-        });
-    }
-});
-
-</script>
 @endsection

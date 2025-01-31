@@ -16,7 +16,7 @@
                     <span>#{{ $shop->genre->genre_name }}</span>
                 </p>
                 <div class="shop-rating__container">
-                    <p class="rating">{{ number_format($shop->avg_rating, 1) }} ( {{ $shop->reviews_count }} ) </p>
+                    <p class="rating">{{ number_format($shop->avg_rating, 2) }} ( {{ $shop->reviews_count }} ) </p>
                 </div>
             </div>
 

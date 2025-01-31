@@ -59,8 +59,13 @@
             <div class="review__form-items">
                 <label class="review__form-label-item" for="comment">口コミを投稿</label>
                 <textarea class="review__form-items-comment" name="comment" id="comment"
-                    placeholder="カジュアルな夜のお出かけにお勧めのスポット">{{ old('comment', $review->comment ?? '') }}</textarea>
+                    placeholder="カジュアルな夜のお出かけにお勧めのスポット"
+                    maxlength="400">{{ old('comment', $review->comment ?? '') }}</textarea>
+                <div class="char-count-container">
+                    <div id="char-count">0/400 <span class="max-text">(最高文字数)</span></div>
+                </div>
             </div>
+
 
             {{-- 現在の画像 --}}
             @if (isset($review) && $review->review_image_url)
@@ -121,81 +126,5 @@
 </div>
 
 {{-- プレビュー用のJavaScript --}}
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-            const inputImage = document.getElementById('image');
-            const dragDropArea = document.getElementById('drag-drop-area');
-            const preview = document.getElementById('preview');
-
-            // ファイルが選択されたとき
-            inputImage.addEventListener('change', () => {
-                handleFiles(inputImage.files);
-            });
-
-            // ドラッグオーバー
-            dragDropArea.addEventListener('dragover', function(e) {
-                e.preventDefault();
-                dragDropArea.classList.add('dragover');
-            });
-
-            // ドラッグアウト
-            dragDropArea.addEventListener('dragleave', function(e) {
-                e.preventDefault();
-                dragDropArea.classList.remove('dragover');
-            });
-
-            // ドロップ
-            dragDropArea.addEventListener('drop', function(e) {
-                e.preventDefault();
-                dragDropArea.classList.remove('dragover');
-                const files = e.dataTransfer.files;
-                handleFiles(files);
-                inputImage.files = files; // ファイルをinputにセット
-            });
-
-            // クリックでファイル選択
-            dragDropArea.addEventListener('click', function() {
-                inputImage.click();
-            });
-
-            function handleFiles(files) {
-                if (files.length > 0) {
-                    const file = files[0];
-
-                    if (file.type.startsWith('image/')) {
-                        const reader = new FileReader();
-
-                        reader.onload = (e) => {
-                            preview.src = e.target.result;
-                            preview.style.display = 'block';
-                        };
-
-                        reader.readAsDataURL(file);
-                    } else {
-                        alert('画像ファイルを選択してください。');
-                        inputImage.value = ''; // 入力をリセット
-                        preview.src = '#';
-                        preview.style.display = 'none';
-                    }
-                }
-            }
-
-            // 星の選択
-            const stars = document.querySelectorAll('.rating-stars .star');
-            const ratingInput = document.getElementById('rating');
-
-            stars.forEach(star => {
-                star.addEventListener('click', function() {
-                    const value = this.getAttribute('data-value');
-
-                    stars.forEach(s => s.classList.remove('selected'));
-                    for (let i = 0; i < value; i++) {
-                        stars[i].classList.add('selected');
-                    }
-
-                    ratingInput.value = value;
-                });
-            });
-        });
-</script>
+<script src="{{ asset('js/create_review.js') }}"></script>
 @endsection
