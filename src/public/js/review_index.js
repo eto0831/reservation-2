@@ -1,4 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
+    // 画像の拡大縮小機能
     const imgItems = document.querySelectorAll('.review__img-item'); // すべての画像を取得
 
     imgItems.forEach(img => {
@@ -14,9 +15,8 @@ document.addEventListener('DOMContentLoaded', function () {
             fullscreenImg.classList.remove('fullscreen');
         }
     });
-});
 
-document.addEventListener('DOMContentLoaded', function () {
+    // 星評価の設定
     const stars = document.querySelectorAll('.stars');
     stars.forEach(function (star) {
         const rating = star.getAttribute('data-rating');
