@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
-use Illuminate\Support\Facades\Config;
 
 class ShopsTableSeeder extends Seeder
 {
@@ -213,7 +212,5 @@ class ShopsTableSeeder extends Seeder
             'image_url' => "images/shops/yakiniku.jpg", // 画像パス
         ];
         DB::table('shops')->insert($param);
-
     }
-
 }

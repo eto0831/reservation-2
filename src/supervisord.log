@@ -724,3 +724,9 @@
 2025-01-31 14:14:31,901 INFO spawned: 'scheduler' with pid 10
 2025-01-31 14:14:32,904 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2025-01-31 14:14:32,904 INFO success: scheduler entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-02-01 13:30:39,048 CRIT Supervisor is running as root.  Privileges were not dropped because no user is specified in the config file.  If you intend to run as root, you can set user=root in the config file to avoid this message.
+2025-02-01 13:30:39,051 INFO supervisord started with pid 1
+2025-02-01 13:30:40,054 INFO spawned: 'queue' with pid 9
+2025-02-01 13:30:40,055 INFO spawned: 'scheduler' with pid 10
+2025-02-01 13:30:41,056 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-02-01 13:30:41,057 INFO success: scheduler entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)

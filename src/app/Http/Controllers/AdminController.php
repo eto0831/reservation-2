@@ -4,18 +4,13 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\User;
-use Spatie\Permission\Models\Role;
 use App\Models\Shop;
 use App\Models\Area;
 use App\Models\Genre;
-use Illuminate\Support\Facades\Auth;
 use App\Http\Requests\CreateOwnerRequest;
 use App\Http\Requests\UpdateOwnerRequest;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
-
-
 
 class AdminController extends Controller
 {
