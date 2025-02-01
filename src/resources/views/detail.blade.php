@@ -144,23 +144,23 @@
                                 <option value="{{ $i }}">{{ $i }} 人</option>
                             @endfor
                         </select>
-                        <div class="confirmation__table">
-                            <table>
-                                <tr>
-                                    <th>Shop</th>
-                                    <td>{{ $shop->shop_name }}</td>
+                        <div class="confirmation-table__wrapper">
+                            <table class="confirmation-table">
+                                <tr class="confirmation-table__row">
+                                    <th class="confirmation-table__label">Shop</th>
+                                    <td class="confirmation-table__data">{{ $shop->shop_name }}</td>
                                 </tr>
-                                <tr>
-                                    <th>Date</th>
-                                    <td id="display_date"></td>
+                                <tr class="confirmation-table__row">
+                                    <th class="confirmation-table__label">Date</th>
+                                    <td class="confirmation-table__data" id="display_date"></td>
                                 </tr>
-                                <tr>
-                                    <th>Time</th>
-                                    <td id="display_time"></td>
-                                </tr>
-                                <tr>
-                                    <th>人数</th>
-                                    <td id="display_guests"></td>
+                                <tr class="confirmation-table__row">
+                                    <th class="confirmation-table__label">Time</th>
+                                    <td class="confirmation-table__data" id="display_time"></td>
+                                </tr class="confirmation-table__row">
+                                <tr class="confirmation-table__row">
+                                    <th class="confirmation-table__label">人数</th>
+                                    <td class="confirmation-table__data" id="display_guests"></td>
                                 </tr>
                             </table>
                         </div>

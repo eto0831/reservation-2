@@ -82,7 +82,7 @@
 
 .shop__details-rating::before {
     margin-right: 5px;
-    content: "";
+    content: '';
     display: inline-block;
     background: url('img/star.svg') no-repeat center;
     background-size: contain;
@@ -90,7 +90,6 @@
     height: 16px;
     transform: translateY(1px);
 }
-
 
 .reservation__form-container {
     display: flex;
@@ -116,7 +115,7 @@
     margin-bottom: 100px;
 }
 .reservation__form-container select,
-.reservation__form-container input[type="date"] {
+.reservation__form-container input[type='date'] {
     height: 30px;
     margin-bottom: 15px;
     padding: 6px;
@@ -143,37 +142,37 @@
 }
 
 .reservation__form-container select {
-    background-image: url("img/v.svg");
+    background-image: url('img/v.svg');
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 10px 10px;
 }
 
-.reservation__form-container input[type="date"] {
+.reservation__form-container input[type='date'] {
     width: 35%;
     min-width: 130px;
 }
 
-.confirmation__table {
+.confirmation-table__wrapper {
     margin-top: 20px;
     padding: 10px;
     background: #4d97ff;
     border-radius: 5px;
 }
 
-.confirmation__table table {
+.confirmation-table {
     width: 100%;
 }
 
-.confirmation__table th,
-.confirmation__table td {
+.confirmation-table__label,
+.confirmation-table__data {
     padding: 10px 10px;
     text-align: left;
     vertical-align: middle;
     color: #ffffff;
 }
 
-.confirmation__table th {
+.confirmation-table-label {
     width: 100px;
 }
 
@@ -202,7 +201,6 @@
 .review-list__link {
     margin-top: 20px;
     margin-bottom: 10px;
-
 }
 
 .review-list__link-item {
@@ -241,7 +239,7 @@
 }
 
 .my-review__container::after {
-    content: "";
+    content: '';
     position: absolute;
     bottom: -2px; /* 下部ボーダーと揃える */
     right: -40px; /* 右に60px伸ばす */
@@ -311,7 +309,9 @@
     height: 40px;
     object-fit: cover;
     cursor: pointer;
-    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+    transition:
+        transform 0.3s ease-in-out,
+        box-shadow 0.3s ease-in-out;
     border-radius: 3px;
 }
 
@@ -336,10 +336,6 @@
     background-color: white;
     border: 2px solid rgba(0, 0, 0, 0.2);
 }
-
-
-
-
 
 @media (max-width: 768px) {
     .detail__content {
