@@ -1,5 +1,5 @@
 /* 全体のコンテナ */
-.csv-import-container {
+.csv-import__container {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -23,23 +23,39 @@
     border-radius: 5px;
 }
 
-.csv-alert-list {
+.csv-alert__list {
     margin: 0;
     padding: 0;
     list-style: none;
 }
 
-.csv-alert-item {
-    color: #f44336;
+.csv-success {
+    width: 100%;
+    margin-bottom: 20px;
+    padding: 10px;
+    background: #e3f2fd;
+    border: 1px solid #2196f3;
+    border-radius: 5px;
+}
+
+/* サクセスメッセージ */
+.csv-success__item {
+    color: #2196f3;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+.csv-success__item {
+    color: #007bff;
     font-size: 14px;
 }
 
 /* フォーム全体のスタイル */
-.csv-form-wrapper {
+.csv-form__wrapper {
     width: 100%;
 }
 
-.title-heading {
+.csv-form__title-heading {
     font-size: 24px;
     font-weight: bold;
     text-align: center;
@@ -54,13 +70,13 @@
 }
 
 /* 各フォームグループ */
-.csv-form-group {
+.csv-form__group {
     display: flex;
     flex-direction: column;
     gap: 5px;
 }
 
-.csv-form-label {
+.csv-form__label {
     font-size: 16px;
     font-weight: 600;
     color: #333;
@@ -71,7 +87,7 @@
     margin-left: 5px;
 }
 
-.csv-form-input {
+.csv-form__input {
     width: 100%;
     padding: 10px;
     font-size: 14px;
@@ -80,7 +96,7 @@
     box-sizing: border-box;
 }
 
-.csv-form-input:focus {
+.csv-form__input:focus {
     outline: none;
     border-color: #3f51b5;
     box-shadow: 0 0 5px rgba(63, 81, 181, 0.3);
@@ -94,12 +110,12 @@
 }
 
 /* フォームのアクション（ボタン） */
-.csv-form-actions {
+.csv-form__button {
     display: flex;
     justify-content: flex-end;
 }
 
-.csv-form-submit {
+.csv-form__button-submit {
     padding: 10px 20px;
     font-size: 16px;
     color: #ffffff;
@@ -110,7 +126,7 @@
     transition: background-color 0.3s;
 }
 
-.csv-form-submit:hover {
+.csv-form__button-submit:hover {
     background-color: #303f9f;
 }
 
@@ -122,7 +138,7 @@
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
-.back__button a {
+.back__button-submit {
     background-color: #ff00a2;
     color: #fff;
     padding: 8px 15px;
@@ -132,6 +148,6 @@
     transition: background-color 0.3s;
 }
 
-.back__button a:hover {
+.back__button-submit:hover {
     background-color: #5a6268;
 }
