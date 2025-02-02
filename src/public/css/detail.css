@@ -103,19 +103,19 @@
     padding: 15px 40px 15px 25px;
 }
 
-.reservation-form-content {
+.reservation-form {
     display: flex;
     flex-direction: column;
 }
 
-.reservation__input-group {
+.reservation-form__form-group {
     padding: 0 40px 0 25px;
     display: flex;
     flex-direction: column;
     margin-bottom: 100px;
 }
-.reservation-form-container select,
-.reservation-form-container input[type='date'] {
+.reservation-form__select,
+.reservation-form__input[type='date'] {
     height: 30px;
     margin-bottom: 15px;
     padding: 6px;
@@ -125,7 +125,7 @@
     box-sizing: border-box;
 }
 
-.reservation-form-container select {
+.reservation-form__select {
     width: 80%;
     appearance: none;
     -webkit-appearance: none;
@@ -141,14 +141,14 @@
     position: relative;
 }
 
-.reservation-form-container select {
+.reservation-form__select {
     background-image: url('img/v.svg');
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 10px 10px;
 }
 
-.reservation-form-container input[type='date'] {
+.reservation-form__input[type='date'] {
     width: 35%;
     min-width: 130px;
 }

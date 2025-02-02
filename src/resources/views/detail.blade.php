@@ -123,12 +123,12 @@
                 </div>
             @endif
             <div class="reservation-form-container">
-                <form class="reservation-form-content" action="{{ route('reservation.process') }}" method="post">
+                <form class="reservation-form" action="{{ route('reservation.process') }}" method="post">
                     @csrf
-                    <div class="reservation__input-group">
+                    <div class="reservation-form__form-group">
                         <input type="hidden" name="shop_id" value="{{ $shop->id }}">
-                        <input type="date" name="reserve_date" id="reserve_date">
-                        <select name="reserve_time" id="reserve_time">
+                        <input class="reservation-form__input" type="date" name="reserve_date" id="reserve_date">
+                        <select class="reservation-form__select time" name="reserve_time" id="reserve_time">
                             <option value="" disabled selected>時間を選択してください</option>
                             @for ($hour = 9; $hour <= 22; $hour++)
                                 @foreach (['00', '15', '30', '45'] as $minute)
@@ -138,7 +138,7 @@
                                 @endforeach
                             @endfor
                         </select>
-                        <select name="guest_count" id="guest_count">
+                        <select class="reservation-form__select number" name="guest_count" id="guest_count">
                             <option value="" disabled selected>人数を選択してください</option>
                             @for ($i = 1; $i <= 10; $i++)
                                 <option value="{{ $i }}">{{ $i }} 人</option>
