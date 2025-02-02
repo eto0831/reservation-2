@@ -63,9 +63,9 @@ class ReviewController extends Controller
             }
 
             return redirect()->route('detail', ['shop_id' => $request->input('shop_id')])
-                ->with('status', 'レビューを投稿しました');
+                ->with('status', '口コミを投稿しました');
         } else {
-            return redirect()->back()->with('status', '既にレビュー済みです');
+            return redirect()->back()->with('status', '既に口コミ済みです');
         }
     }
 
@@ -117,7 +117,7 @@ class ReviewController extends Controller
         }
 
         return redirect()->route('detail', ['shop_id' => $review->shop_id])
-            ->with('status', 'レビューを更新しました');
+            ->with('status', '口コミを更新しました');
     }
 
 
@@ -146,7 +146,7 @@ class ReviewController extends Controller
             'review_id' => 'required|exists:reviews,id',
         ]);
 
-        // レビューを取得
+        // 口コミを取得
         $reviewQuery = Review::where('id', $request->review_id)->where('shop_id', $request->shop_id);
 
         if (!auth()->user()->hasRole('admin')) {
@@ -156,7 +156,7 @@ class ReviewController extends Controller
         $review = $reviewQuery->first();
 
         if (!$review) {
-            return back()->with('error', '削除するレビューが見つかりません');
+            return back()->with('error', '削除する口コミが見つかりません');
         }
 
         // 画像を削除
@@ -164,7 +164,7 @@ class ReviewController extends Controller
             $this->deleteImage($review->review_image_url);
         }
 
-        // レビューを削除
+        // 口コミを削除
         $review->delete();
 
         // ショップの平均評価を更新

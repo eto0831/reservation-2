@@ -79,6 +79,7 @@ document.addEventListener('DOMContentLoaded', function () {
     const maxChars = 400;
 
     // 初期状態の文字数表示
+    let length = commentInput.value.length;
     charCount.innerHTML = `${length}/${maxChars} <span class="max-text">(最高文字数)</span>`;
 
     commentInput.addEventListener('input', function () {

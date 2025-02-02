@@ -157,7 +157,7 @@
                                 <tr class="confirmation-table__row">
                                     <th class="confirmation-table__label">Time</th>
                                     <td class="confirmation-table__data" id="display_time"></td>
-                                </tr class="confirmation-table__row">
+                                </tr>
                                 <tr class="confirmation-table__row">
                                     <th class="confirmation-table__label">人数</th>
                                     <td class="confirmation-table__data" id="display_guests"></td>
