@@ -344,7 +344,7 @@
     }
 
     .detail__wrap,
-    .reservation-form {
+    .reservation-form__wrapper {
         width: 100%;
     }
 

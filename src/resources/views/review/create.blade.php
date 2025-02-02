@@ -68,7 +68,7 @@
                 @if (isset($review) && $review->review_image_url)
                     <div class="review__form-items">
                         <div class="review__form-items-title">
-                            <span class="form__label--item">現在の画像</span>
+                            <span class="form__label-item">現在の画像</span>
                         </div>
                         <div class="current__image">
                             <img class="current__image-img" src="{{ Storage::url($review->review_image_url) }}"
@@ -102,7 +102,7 @@
                         {{-- ドラッグアンドドロップエリア --}}
                         <div class="drag-drop-area" id="drag-drop-area">
                             ここにファイルをドラッグ＆ドロップ<br>またはクリックして選択
-                            <img id="preview" src="#" alt="プレビュー">
+                            <img class="drag-drop-area__img" id="preview" src="#" alt="プレビュー">
                         </div>
                         <div class="form__error">
                             @error('image')
