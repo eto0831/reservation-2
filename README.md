@@ -88,8 +88,6 @@ cp .env.example .env
 ```text
 APP_NAME=Rese
 
-BASE_URL=http://localhost/storage
-
 DB_CONNECTION=mysql
 DB_HOST=mysql
 DB_PORT=3306
