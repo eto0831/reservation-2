@@ -1,21 +1,3 @@
-.reservation__alert--success {
-    padding: 10px 30px;
-    border-color: #badbcc;
-    background-color: #d1e7dd;
-    color: #0f5132;
-}
-
-.reservation__alert--danger {
-    padding: 10px 0;
-    border-color: #f5c2c7;
-    background-color: #f8d7da;
-    color: #842029;
-}
-
-.reservation__alert--danger ul {
-    margin: 0;
-}
-
 .reservation__panel {
     margin: 0 auto;
     width: 70%;
@@ -114,7 +96,7 @@
 
 .search-form__item-input {
     padding-left: 30px;
-    background: url("img/loupe.svg") no-repeat 5px center;
+    background: url('img/loupe.svg') no-repeat 5px center;
     background-size: 20px 20px;
     height: 40px;
     border: none;
@@ -126,7 +108,7 @@
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
-    background: url("img/v.svg") no-repeat right 10px center;
+    background: url('img/v.svg') no-repeat right 10px center;
     background-size: 8px 8px;
     padding: 0 30px 0 6px;
     border: none;
@@ -156,7 +138,6 @@
 
     .sort-select {
         height: 20px;
-
     }
 
     .shop__wrap {
@@ -178,7 +159,6 @@
 
     .sort-select {
         height: 20px;
-
     }
 
     .shop__wrap {
