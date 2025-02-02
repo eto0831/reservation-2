@@ -1,29 +1,28 @@
-.shop__rating-inner{
+.shop__rating-inner {
     display: flex;
     gap: 20px;
 }
 
 /* レビュー全体のスタイル */
 .review__lists-container {
-    border-top: 2px solid #c7c7c7; /* リスト全体の上端ボーダー */
-    border-bottom: 2px solid #c7c7c7; /* リスト全体の下端ボーダー */
+    border-top: 2px solid #c7c7c7;
+    border-bottom: 2px solid #c7c7c7;
     padding: 0;
     margin: 0;
-    list-style: none; /* リストのマーカーを削除 */
+    list-style: none;
 }
 
 .review__lists-item {
     padding: 10px;
-    border-bottom: 2px solid #c7c7c7; /* 各アイテムの下ボーダー */
+    border-bottom: 2px solid #c7c7c7;
     background: transparent;
 }
 
-/* 最後のアイテムのボーダーを削除 */
 .review__lists-item:last-child {
     border-bottom: none;
 }
 
-.delete-button{
+.delete-button {
     color: #000;
     text-decoration: underline;
     background: none;
@@ -40,8 +39,8 @@
     width: 65px;
     height: 40px;
     border-radius: 3px;
-    object-fit: cover; /* 画像を枠に合わせて切り取る */
-    cursor: pointer; /* クリック可能な見た目 */
+    object-fit: cover;
+    cursor: pointer;
     transition: transform 0.3s ease;
     margin-bottom: 10px;
 }
@@ -62,9 +61,13 @@
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
 }
 
-/* === レスポンシブ対応 === */
+.back-button {
+    display: block;
+    margin-top: 20px;
+    color: #000;
+    font-weight: normal;
+}
 
-/* 画面幅が768px以下の場合 */
 @media (max-width: 768px) {
     .review__lists-item {
         padding: 8px;
@@ -85,7 +88,7 @@
 @media (max-width: 480px) {
     .review__lists-item {
         padding: 6px;
-        font-size: 14px; /* テキストを少し小さく */
+        font-size: 14px;
     }
 
     .review__img-item {

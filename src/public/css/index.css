@@ -146,6 +146,9 @@
 }
 
 @media (max-width: 380px) {
+    .header__inner {
+        padding: 8px !important;
+    }
     .shop__content {
         width: 100%;
     }
