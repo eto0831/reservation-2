@@ -108,8 +108,8 @@
                 @endif
             </div>
         </div>
-        <div class="reservation__form">
-            <div class="reservation__form-heading">
+        <div class="reservation-form__wrapper">
+            <div class="reservation-form-heading">
                 <h2>予約</h2>
             </div>
             {{-- 予約フォームのエラー表示 --}}
@@ -122,8 +122,8 @@
                     </ul>
                 </div>
             @endif
-            <div class="reservation__form-container">
-                <form class="reservation__form-content" action="{{ route('reservation.process') }}" method="post">
+            <div class="reservation-form-container">
+                <form class="reservation-form-content" action="{{ route('reservation.process') }}" method="post">
                     @csrf
                     <div class="reservation__input-group">
                         <input type="hidden" name="shop_id" value="{{ $shop->id }}">

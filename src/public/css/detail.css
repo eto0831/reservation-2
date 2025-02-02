@@ -14,7 +14,7 @@
     width: 45%;
 }
 
-.reservation__form {
+.reservation-form__wrapper {
     margin-top: -75px;
     width: 48%;
     background: #0764ff;
@@ -91,7 +91,7 @@
     transform: translateY(1px);
 }
 
-.reservation__form-container {
+.reservation-form-container {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -99,11 +99,11 @@
     height: 100%;
 }
 
-.reservation__form-heading {
+.reservation-form-heading {
     padding: 15px 40px 15px 25px;
 }
 
-.reservation__form-content {
+.reservation-form-content {
     display: flex;
     flex-direction: column;
 }
@@ -114,8 +114,8 @@
     flex-direction: column;
     margin-bottom: 100px;
 }
-.reservation__form-container select,
-.reservation__form-container input[type='date'] {
+.reservation-form-container select,
+.reservation-form-container input[type='date'] {
     height: 30px;
     margin-bottom: 15px;
     padding: 6px;
@@ -125,7 +125,7 @@
     box-sizing: border-box;
 }
 
-.reservation__form-container select {
+.reservation-form-container select {
     width: 80%;
     appearance: none;
     -webkit-appearance: none;
@@ -141,14 +141,14 @@
     position: relative;
 }
 
-.reservation__form-container select {
+.reservation-form-container select {
     background-image: url('img/v.svg');
     background-repeat: no-repeat;
     background-position: right 10px center;
     background-size: 10px 10px;
 }
 
-.reservation__form-container input[type='date'] {
+.reservation-form-container input[type='date'] {
     width: 35%;
     min-width: 130px;
 }
@@ -344,7 +344,7 @@
     }
 
     .detail__wrap,
-    .reservation__form {
+    .reservation-form {
         width: 100%;
     }
 
@@ -352,7 +352,7 @@
         width: 100%;
     }
 
-    .reservation__form {
+    .reservation-form__wrapper {
         margin-top: 0px;
     }
 
