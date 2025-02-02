@@ -8,6 +8,7 @@
 
 .register__wrapper {
     width: 40%;
+    min-width: 265px;
     background-color: #fff;
     padding: 0 0 30px 0;
     border-radius: 5px;
@@ -65,7 +66,7 @@
 }
 
 .mail::before {
-    content: "";
+    content: '';
     background: url(../img/mail.svg) no-repeat;
     background-size: contain;
     width: 32px;
@@ -76,7 +77,7 @@
 }
 
 .password::before {
-    content: "";
+    content: '';
     background: url(../img/key.svg) no-repeat;
     background-size: contain;
     width: 32px;
@@ -87,7 +88,7 @@
 }
 
 .name::before {
-    content: "";
+    content: '';
     background: url(../img/user.svg) no-repeat;
     background-size: contain;
     width: 32px;

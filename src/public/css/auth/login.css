@@ -1,4 +1,4 @@
-.login__content{
+.login__content {
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -6,15 +6,14 @@
     padding: 50px 0;
 }
 
-.login__wrapper{
+.login__wrapper {
     width: 40%;
+    min-width: 265px;
     background-color: #fff;
     padding: 0 0 30px 0;
     border-radius: 5px;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
-
 }
-
 
 .login-form__content {
     margin: 0 auto;
@@ -30,7 +29,7 @@
     background: #0764ff;
     color: white;
     border: solid 1px transparent;
-    border-top-left-radius:5px ;
+    border-top-left-radius: 5px;
     border-top-right-radius: 5px;
 }
 
@@ -58,28 +57,26 @@
     outline: none;
     border-bottom: 2px solid #7e7e7e;
     appearance: none;
-
 }
 
 .form__input--text {
     display: flex;
     justify-content: start;
     align-items: flex-end;
-
 }
 .mail::before {
-    content: "";
+    content: '';
     background: url(../img/mail.svg) no-repeat;
     background-size: contain;
     width: 32px;
     height: 32px;
     vertical-align: bottom;
     margin-right: 8px;
-    transform: translateY(25%)
-  }
+    transform: translateY(25%);
+}
 
-  .password::before {
-    content: "";
+.password::before {
+    content: '';
     background: url(../img/key.svg) no-repeat;
     background-size: contain;
     width: 32px;
@@ -87,7 +84,7 @@
     vertical-align: bottom;
     margin-right: 8px;
     transform: translateY(12%);
-  }
+}
 
 .form__button {
     margin-top: 20px;
