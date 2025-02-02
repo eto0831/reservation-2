@@ -22,7 +22,8 @@
     color: #aaa;
     margin-top: 10px;
     background: white;
-    height: 120px;
+    min-height: 120px;
+
     display: flex;
     justify-content: center;
     align-items: center;
@@ -33,7 +34,7 @@
     color: #000;
 }
 
-.drag-drop-area__img img {
+.drag-drop-area__img {
     max-width: 100%;
     height: auto;
     display: none;
