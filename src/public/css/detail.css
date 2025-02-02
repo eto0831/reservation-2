@@ -91,7 +91,7 @@
     transform: translateY(1px);
 }
 
-.reservation-form-container {
+.reservation-form__content {
     display: flex;
     flex-direction: column;
     gap: 15px;
@@ -99,7 +99,7 @@
     height: 100%;
 }
 
-.reservation-form-heading {
+.reservation-form__heading {
     padding: 15px 40px 15px 25px;
 }
 

@@ -109,8 +109,8 @@
             </div>
         </div>
         <div class="reservation-form__wrapper">
-            <div class="reservation-form-heading">
-                <h2>予約</h2>
+            <div class="reservation-form__heading">
+                <h2 class="reservation-form__heading-title">予約</h2>
             </div>
             {{-- 予約フォームのエラー表示 --}}
             @if ($errors->hasBag('reservation'))
@@ -122,7 +122,7 @@
                     </ul>
                 </div>
             @endif
-            <div class="reservation-form-container">
+            <div class="reservation-form__content">
                 <form class="reservation-form" action="{{ route('reservation.process') }}" method="post">
                     @csrf
                     <div class="reservation-form__form-group">
