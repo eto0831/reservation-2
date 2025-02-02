@@ -756,3 +756,7 @@
 2025-02-02 14:48:06,158 INFO spawned: 'scheduler' with pid 10
 2025-02-02 14:48:07,160 INFO success: queue entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
 2025-02-02 14:48:07,160 INFO success: scheduler entered RUNNING state, process has stayed up for > than 1 seconds (startsecs)
+2025-02-02 17:27:41,683 WARN received SIGQUIT indicating exit request
+2025-02-02 17:27:41,698 INFO waiting for queue, scheduler to die
+2025-02-02 17:27:42,704 WARN stopped: scheduler (terminated by SIGTERM)
+2025-02-02 17:27:42,711 WARN stopped: queue (terminated by SIGTERM)
