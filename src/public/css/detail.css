@@ -251,16 +251,6 @@
     position: relative; /* 擬似要素のために必要 */
 }
 
-.my-review__container::after {
-    content: '';
-    position: absolute;
-    bottom: -2px; /* 下部ボーダーと揃える */
-    right: -40px; /* 右に60px伸ばす */
-    height: 2px; /* ボーダーの高さ */
-    width: 40px; /* ボーダーの幅 */
-    background-color: #c7c7c7; /* ボーダーの色 */
-}
-
 .my-review__header {
     display: flex;
     justify-content: flex-end;
@@ -317,15 +307,19 @@
     line-height: 1;
 }
 
-.my-review__img-item {
-    width: 65px;
-    height: 40px;
+.my-review__img-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.my-review__img-full {
+    width: 100%;
+    max-width: 100%;
+    height: auto;
     object-fit: cover;
-    cursor: pointer;
-    transition:
-        transform 0.3s ease-in-out,
-        box-shadow 0.3s ease-in-out;
-    border-radius: 3px;
 }
 
 .my-review__img-item:hover {
@@ -370,18 +364,24 @@
     }
 
     .shop__img-container {
-        height: auto; /* 高さを自動にして縦横比を維持 */
+        height: auto;
     }
 
     .shop__img {
         width: 100%;
-        height: auto; /* 縦横比を保ちながら縮小 */
+        height: auto;
+    }
+
+    .my-review__img-full {
+        width: 100%;
+        max-width: 100%;
+        height: auto;
     }
 }
 
 @media (max-width: 375px) {
     .shop__img-container {
-        height: auto; /* 高さをさらに調整 */
+        height: auto;
     }
 
     .shop__img {

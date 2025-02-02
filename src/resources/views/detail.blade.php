@@ -92,7 +92,7 @@
                                     </div>
                                     <div class="my-review__img-container">
                                         @if ($userReview && $userReview->review_image_url)
-                                            <img class="my-review__img-item" id="currentImage"
+                                            <img class="my-review__img-full" id="currentImage"
                                                 src="{{ Storage::url($userReview->review_image_url) }}" alt="現在の画像">
                                         @endif
                                     </div>
